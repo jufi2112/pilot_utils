@@ -8,6 +8,12 @@ try:
 except ImportError:
     raise ImportError("Could not import pypdf, please install it using the command 'pip install pypdf', then run the script again")
 
+try:
+    from tqdm import tqdm
+    tqdm_imported = True
+except ImportError:
+    tqdm_imported = False
+
 
 def merge(input_dir: str,
           output_dir: str,
@@ -29,6 +35,8 @@ def merge(input_dir: str,
         key=lambda v: v.upper()
         )
     n_pdfs = len(pdfs)
+    if n_pdfs == 0:
+        return False
     merger = PdfWriter()
     for pdf in pdfs:
         merger.append(osp.join(input_dir, pdf))
@@ -36,6 +44,7 @@ def merge(input_dir: str,
     merger.close()
     print(f"Done merging {n_pdfs} pdf files: {pdfs}")
     print(f"Merged pdf location: {osp.join(output_dir, output_name)}")
+    return True
 
 
 def arrange(input_file: str,
@@ -120,23 +129,51 @@ if __name__ == '__main__':
                         help="Do not arrange the merged pdfs")
     parser.add_argument('--remove-temp-files', action='store_true',
                         help="Remove temporary files (i.e. the merged file)")
+    parser.add_argument('-r', '--recursive', action='store_true',
+                        help="If specified, interprets the given input-dir as "
+                        "parent directory where the merging and arranging "
+                        "operations should be applied to each sub-directory. "
+                        "In this case, ignores output-dir and outputs all "
+                        "results to the respective sub-directories. "
+                        "Naming will also be inferred from the sub-directory"
+                        " name.")
     args = parser.parse_args()
-    if args.output_dir is None:
-        args.output_dir = args.input_dir
-    if args.merged_name is None:
-        args.merged_name = 'merged'
-    if osp.splitext(args.merged_name)[1] != '.pdf':
-        args.merged_name += '.pdf'
-    if args.arranged_name is None:
-        args.arranged_name = 'arranged'
-    if osp.splitext(args.arranged_name)[1] != '.pdf':
-        args.arranged_name += '.pdf'
-    merge(args.input_dir, args.output_dir, args.merged_name, args.arranged_name, args.allow_overwriting)
-    if not args.no_arrange:
-        arrange(osp.join(args.output_dir, args.merged_name), args.output_dir,
-                args.arranged_name, args.allow_overwriting)
-    if args.remove_temp_files:
-        merged_file = osp.join(args.output_dir, args.merged_name)
-        if osp.isfile(merged_file):
-            os.remove(merged_file)
-            print(f"Removed merged file at {merged_file}")
+    dirs_to_process = []
+    if not args.recursive:
+        dirs_to_process = [args.input_dir]
+        if args.merged_name is None:
+            args.merged_name = 'merged'
+        if args.arranged_name is None:
+            args.arranged_name = 'arranged'
+    else:
+        dirs_to_process = [osp.join(args.input_dir, element) for element in os.listdir(args.input_dir) if osp.isdir(osp.join(args.input_dir, element))]
+        args.output_dir = None
+        args.merged_name = None
+        args.arranged_name = None
+
+    for directory in tqdm(dirs_to_process) if tqdm_imported else dirs_to_process:
+        output_dir = args.output_dir
+        merged_name = args.merged_name
+        arranged_name = args.arranged_name
+        if output_dir is None:
+            output_dir = directory
+        if args.merged_name is None:
+            args.merged_name = osp.basename(osp.normpath(directory)) + '_merged'
+        if osp.splitext(args.merged_name)[1] != '.pdf':
+            args.merged_name += '.pdf'
+        if args.arranged_name is None:
+            args.arranged_name = osp.basename(osp.normpath(directory)) + '_arranged'
+        if osp.splitext(args.arranged_name)[1] != '.pdf':
+            args.arranged_name += '.pdf'
+        success = merge(directory, output_dir, args.merged_name, args.arranged_name, args.allow_overwriting)
+        if not success:
+            print(f"No PDFs found in directory {directory}, skipping...")
+            continue
+        if not args.no_arrange:
+            arrange(osp.join(output_dir, args.merged_name), output_dir,
+                    args.arranged_name, args.allow_overwriting)
+        if args.remove_temp_files:
+            merged_file = osp.join(output_dir, args.merged_name)
+            if osp.isfile(merged_file):
+                os.remove(merged_file)
+                print(f"Removed merged file at {merged_file}")

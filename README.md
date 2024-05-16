@@ -27,9 +27,16 @@ To install all requirements into the currently active Python, you can run `pip i
 | --allow-overwriting | - | If provided, allows the program to overwriting existing files in the output directory that have the same name as --merged-name and --arranged-name |
 | --remove-temp-files | - | If provided, removes the merged file after the program has finished. |
 | --no-arrange | - | If provided, the program will just merge the PDFs without arranging them |
+| -r / --recursive | - | If provided, assumes the --input-dir option to point to a root directory where the merging and arranging operations should be applied to all sub-directories. This disables the --output-dir as well as the --merged-name and --arranged-name options and instead writes the outputs into the corresponding sub-directories and sets the names according to the sub-directory name |
 
 For example
 ```bash
 python pdf_merger.py -i /path/to/aip/EDAU
 ```
 which will merge all PDFs in `/path/to/aip/EDAU` to a file `/path/to/aip/EDAU/merged.pdf` and arranges them for kneeboard use in a file `/path/to/aip/EDAU/arranged.pdf` that you can then print.
+
+The command
+```bash
+python pdf_merger.py -i /path/to/aip -r
+```
+will recursively apply merging and arranging operations to all directories inside `/path/to/aip/` and create files e.g. `/path/to/aip/EDAU/EDAU_merged.pdf` and `path/to/aip/EDAU/EDAU_arranged.pdf`
