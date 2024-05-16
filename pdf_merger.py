@@ -157,23 +157,23 @@ if __name__ == '__main__':
         arranged_name = args.arranged_name
         if output_dir is None:
             output_dir = directory
-        if args.merged_name is None:
-            args.merged_name = osp.basename(osp.normpath(directory)) + '_merged'
-        if osp.splitext(args.merged_name)[1] != '.pdf':
-            args.merged_name += '.pdf'
-        if args.arranged_name is None:
-            args.arranged_name = osp.basename(osp.normpath(directory)) + '_arranged'
-        if osp.splitext(args.arranged_name)[1] != '.pdf':
-            args.arranged_name += '.pdf'
-        success = merge(directory, output_dir, args.merged_name, args.arranged_name, args.allow_overwriting)
+        if merged_name is None:
+            merged_name = osp.basename(osp.normpath(directory)) + '_merged'
+        if osp.splitext(merged_name)[1] != '.pdf':
+            merged_name += '.pdf'
+        if arranged_name is None:
+            arranged_name = osp.basename(osp.normpath(directory)) + '_arranged'
+        if osp.splitext(arranged_name)[1] != '.pdf':
+            arranged_name += '.pdf'
+        success = merge(directory, output_dir, merged_name, arranged_name, args.allow_overwriting)
         if not success:
             print(f"No PDFs found in directory {directory}, skipping...")
             continue
         if not args.no_arrange:
-            arrange(osp.join(output_dir, args.merged_name), output_dir,
-                    args.arranged_name, args.allow_overwriting)
+            arrange(osp.join(output_dir, merged_name), output_dir,
+                    arranged_name, args.allow_overwriting)
         if args.remove_temp_files:
-            merged_file = osp.join(output_dir, args.merged_name)
+            merged_file = osp.join(output_dir, merged_name)
             if osp.isfile(merged_file):
                 os.remove(merged_file)
                 print(f"Removed merged file at {merged_file}")
