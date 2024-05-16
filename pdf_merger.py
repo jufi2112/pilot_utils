@@ -3,7 +3,7 @@ import argparse
 
 from os import path as osp
 try:
-    from pypdf import PdfWriter, PdfReader
+    from pypdf import PdfWriter, PdfReader, Transformation
     from pypdf.generic import RectangleObject
 except ImportError:
     raise ImportError("Could not import pypdf, please install it using the command 'pip install pypdf', then run the script again")
@@ -21,7 +21,13 @@ def merge(input_dir: str,
                          "Provide --allow-overwriting to allow overwriting of "
                          "existing merged files.")
     os.makedirs(output_dir, exist_ok=True)
-    pdfs = sorted([file for file in os.listdir(input_dir) if osp.splitext(file)[1] == '.pdf' and file != output_name and file != arranged_output_name])
+    pdfs = sorted(
+        [
+            file for file in os.listdir(input_dir) \
+                if osp.splitext(file)[1] == '.pdf' and file != output_name and file != arranged_output_name
+        ],
+        key=lambda v: v.upper()
+        )
     n_pdfs = len(pdfs)
     merger = PdfWriter()
     for pdf in pdfs:
@@ -57,14 +63,31 @@ def arrange(input_file: str,
             new_page = writer.add_blank_page(width=a4_height, height=a4_width)
 
             for n, page in enumerate([first_page, second_page]):
+                transformation = Transformation()
                 mediabox = page.mediabox
-                # determine scaling necessary to print original in portrait orientation
-                # to new page in landscape orientation
-                scale = a4_width / mediabox.height
-                if n == 0:
-                    new_page.merge_transformed_page(page, (scale, 0, 0, scale, 0, 0))
+                # check if the provided page is in landscape format.
+                is_landscape = mediabox.width > mediabox.height
+
+                # if landscape, we also have to rotate during merging
+                if is_landscape:
+                    transformation = transformation.rotate(90)
+                    # determine scaling necessary to print original in portrait
+                    # orientation to new page in landscape orientation
+                    scale = a4_width / mediabox.width
                 else:
-                    new_page.merge_transformed_page(page, (scale, 0, 0, scale, a4_height / 2, 0))
+                    # determine scaling necessary to print original in portrait
+                    # orientation to new page in landscape orientation
+                    scale = a4_width / mediabox.height
+                transformation = transformation.scale(sx=scale, sy=scale)
+
+                # Second page needs to be moved to 2nd halve of the landscape-oriented A4 page
+                if n == 1:
+                    transformation = transformation.translate(tx=a4_height/2,
+                                                              ty=0)
+                if is_landscape:
+                    transformation = transformation.translate(tx=mediabox.height*scale,
+                                                              ty=0)
+                new_page.merge_transformed_page(page, transformation)
 
             i += 2
         else:
