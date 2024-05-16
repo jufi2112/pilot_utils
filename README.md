@@ -4,7 +4,7 @@ Merging and Arranging of PDFs.
 Merges all PDFs in a specified directory and aranges them such that two portrait-oriented original pages will be on a new landscape-oriented page. If there is an uneven number of pages, ignores the last page.
 
 ## Use Case
-Arrange downloaded portrait-oriented pages from the German [AIP][https://aip.dfs.de/BasicVFR] to a format that better suits a kneeboard.
+Arrange downloaded portrait-oriented pages from the German [AIP](https://aip.dfs.de/BasicVFR) to a format that better suits a kneeboard.
 
 ## Requirements
 A somewhat recent version of Python3 and PyPDF. We tested with Python 3.7.9 and PyPDF 4.2.0
