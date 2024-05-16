@@ -133,9 +133,8 @@ if __name__ == '__main__':
                         help="If specified, interprets the given input-dir as "
                         "parent directory where the merging and arranging "
                         "operations should be applied to each sub-directory. "
-                        "In this case, ignores output-dir and outputs all "
-                        "results to the respective sub-directories. "
-                        "Naming will also be inferred from the sub-directory"
+                        "In this case, naming options will be ignored "
+                         "and inferred from the sub-directory"
                         " name.")
     args = parser.parse_args()
     dirs_to_process = []
@@ -147,7 +146,6 @@ if __name__ == '__main__':
             args.arranged_name = 'arranged'
     else:
         dirs_to_process = [osp.join(args.input_dir, element) for element in os.listdir(args.input_dir) if osp.isdir(osp.join(args.input_dir, element))]
-        args.output_dir = None
         args.merged_name = None
         args.arranged_name = None
 
