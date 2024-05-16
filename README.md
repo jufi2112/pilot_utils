@@ -1,10 +1,10 @@
 # PDF Merger
 Merging and Arranging of PDFs.
 
-Merges all PDFs in a specified directory and aranges them such that two portrait-oriented original pages will be on a new landscape-oriented page. If there is an uneven number of pages, ignores the last page.
+Merges all PDFs in a specified directory and aranges them such that two original pages will be on a new landscape-oriented page. If there is an uneven number of pages, ignores the last page.
 
 ## Use Case
-Arrange downloaded portrait-oriented pages from the German [AIP](https://aip.dfs.de/BasicVFR) to a format that better suits a kneeboard.
+Arrange downloaded pages from the German [AIP](https://aip.dfs.de/BasicVFR) to a format that better suits a kneeboard. We support both landscape and portrait oriented PDFs.
 
 ## Requirements
 A somewhat recent version of Python3 and PyPDF. We tested with Python 3.7.9 and PyPDF 4.2.0
@@ -14,8 +14,8 @@ You can install the newest PyPDF version using `pip install pypdf` in the shell 
 To install all requirements into the currently active Python, you can run `pip install -r requirements.txt` from this directory.
 
 ## Usage
-1. Download your required PDFs (e.g. from the German AIP website) in portrait orientation to a common directory.
-2. Open your favorite shell that can run Python and navigate to the directory in which `pdf-merger.py` is located
+1. Download your required PDFs (e.g. from the German AIP website) to a common directory.
+2. Open your favorite shell that can run Python and navigate to the directory in which `pdf_merger.py` is located
 3. Run `python pdf_merger.py` with the following options:
 
 | Option | Argument | Description |
