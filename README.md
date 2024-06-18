@@ -1,4 +1,4 @@
-# PDF Merger
+# A Collection of Utility programs for Aviation
 Merging and Arranging of PDFs.
 
 Merges all PDFs in a specified directory and aranges them such that two original pages will be on a new landscape-oriented page. If there is an uneven number of pages, ignores the last page.
