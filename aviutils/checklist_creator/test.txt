@@ -1,0 +1,12 @@
+# Cockpit Inspection
+- Instruments .. No Damage
+- Control Lock .. Removed
+	+ Location .. Stowed
+# Preflight Inspection
+- Cockpit Inspection .. Performed
+- Pitot Cover .. Removed
+	+ Location .. Stowed
+	+ Sure .. Yes!
+- Controls .. Free
+	+ Control Lock .. Installed
+# Test

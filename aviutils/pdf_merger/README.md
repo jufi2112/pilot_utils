@@ -1,21 +1,19 @@
-# A Collection of Utility programs for Aviation
-
-## PDF Merger
+# PDF Merger
 Merging and Arranging of PDFs.
 
 Merges all PDFs in a specified directory and aranges them such that two original pages will be on a new landscape-oriented page. If there is an uneven number of pages, ignores the last page.
 
-### Use Case
+## Use Case
 Arrange downloaded pages from the German [AIP](https://aip.dfs.de/BasicVFR) to a format that better suits a kneeboard. We support both landscape and portrait oriented PDFs.
 
-### Requirements
+## Requirements
 A somewhat recent version of Python3 and PyPDF. We tested with Python 3.7.9 and PyPDF 4.2.0
 
 You can install the newest PyPDF version using `pip install pypdf` in the shell that you also use to run python scripts.
 
 To install all requirements into the currently active Python, you can run `pip install -r requirements.txt` from this directory.
 
-### Usage
+## Usage
 1. Download your required PDFs (e.g. from the German AIP website) to a common directory.
 2. Open your favorite shell that can run Python and navigate to the directory in which `pdf_merger.py` is located
 3. Run `python pdf_merger.py` with the following options:
@@ -29,36 +27,9 @@ To install all requirements into the currently active Python, you can run `pip i
 | --allow-overwriting | - | If provided, allows the program to overwriting existing files in the output directory that have the same name as --merged-name and --arranged-name |
 | --remove-temp-files | - | If provided, removes the merged file after the program has finished. |
 | --no-arrange | - | If provided, the program will just merge the PDFs without arranging them |
-| -r / --recursive | - | If provided, assumes the --input-dir option to point to a root directory where the merging and arranging operations should be applied to all sub-directories. This disables the --merged-name and --arranged-name options and instead inferres them from to the sub-directory name |
 
-### Example Usage
+For example
 ```bash
 python pdf_merger.py -i /path/to/aip/EDAU
 ```
-will merge all PDFs in `/path/to/aip/EDAU` to a file `/path/to/aip/EDAU/merged.pdf` and arranges them for kneeboard use in a file `/path/to/aip/EDAU/arranged.pdf` that you can then print.
-
-The command
-```bash
-python pdf_merger.py -i /path/to/aip -r
-```
-will recursively apply merging and arranging operations to all directories inside `/path/to/aip/` and create files e.g. `/path/to/aip/EDAU/EDAU_merged.pdf` and `path/to/aip/EDAU/EDAU_arranged.pdf`
-
-The command
-```bash
-python pdf_merger.py -i /path/to/aip -o /output/path -r --remove-temp-files
-```
-will process all subdirectories in `/path/to/aip`, write the output PDFs to `/output/path` and remove the merged PDFs, such that only the arranged PDFs remain. You can then print all files in this directory.
-
-## Checklist Creator
-Create a printable checklist from a simple text document
-
-### Use Case
-Ever wanted to create a checklist without having to do all the formatting by yourself?
-
-### Usage
-Create a new text document (`.txt` file) and use the following formatting:
-1. To indicate a new section, prefix the section name with a `#`, e.g. `# Cockpit Inspection`
-2. To create items and their associated action, start the line with a minus `-` and use three dots `...` to separate them, e.g. `- LANDING GEAR Handle ... DOWN`
-    - The items will be automatically numbered
-3. If you want to add subitems, start the line with a plus `+` and proceed as usual
-    - The subitems will be automatically itemized using letters a-z
+which will merge all PDFs in `/path/to/aip/EDAU` to a file `/path/to/aip/EDAU/merged.pdf` and arranges them for kneeboard use in a file `/path/to/aip/EDAU/arranged.pdf` that you can then print.
