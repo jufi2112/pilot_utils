@@ -24,7 +24,7 @@ class ChecklistParser:
             Parses the checklist file
         """
         with open(self.fpath, 'r') as file:
-            content = file.readlines
+            content = file.readlines()
         cl = {}
         current_section_name = None
         current_item_name = None
@@ -55,6 +55,7 @@ class ChecklistParser:
                 item = self._sanitize(item)
                 value = self._sanitize(value)
                 cl[current_section_name][current_item_name][1][item] = (value, {})
+        return cl
 
 
     def _sanitize(self, s: str) -> str:
