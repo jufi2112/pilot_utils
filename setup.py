@@ -1,10 +1,10 @@
 from setuptools import setup, find_packages
 
 setup(
-    name='aviutils',
+    name='pilot_utils',
     version='0.0.1',
     packages=find_packages(),
-    description="Utility functions for aviation",
+    description="Utility functions for pilots",
     long_description=open('README.md').read(),
     long_description_content_type='text/markdown',
     author='Julien Fischer',
