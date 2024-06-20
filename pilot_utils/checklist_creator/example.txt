@@ -26,7 +26,6 @@
 - V Speeds .. Verify/Set
 - Pressurization LDG ELEV .. Verify/Set
 - Fuel Quantity and Balance .. Check
-- Test
 - Autopilot (First Flight of Day) .. Engage/Disengage
 
 # Before Start
