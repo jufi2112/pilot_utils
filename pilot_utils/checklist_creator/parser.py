@@ -3,11 +3,12 @@ import os
 from typing import Dict
 from os import path as osp
 
+from pilot_utils.checklist_creator.checklist import Checklist, ChecklistSection, SectionItem, CenteredText
+
 class ChecklistParser:
     def __init__(self, fpath: str):
         """
-            Parses the given checklist to a dictionary that can be used
-            further down the pipeline
+            Parses the given checklist to a Checklist object
 
         Params
         ------
@@ -17,72 +18,159 @@ class ChecklistParser:
         if not osp.isfile(fpath):
             raise ValueError(f"The provided path is not a valid file: {fpath}")
         self.fpath = fpath
+        self.checklist = None
 
 
-    def parse(self) -> Dict:
+    def parse(self) -> Checklist:
         """
             Parses the checklist file
+
+        Returns
+        -------
+            Checklist:
+                The parsed checklist object.
         """
         with open(self.fpath, 'r') as file:
             content = file.readlines()
-        cl = {}
-        current_section_idx = -1
-        current_item_idx = -1
-        current_subitem_idx = -1
-        for ln, line in enumerate(content):
-            line = self._sanitize(line)
-            if line.startswith('#'):
-                # New section
-                current_section_idx += 1
-                current_item_idx = -1
-                section_name = line[1:].strip()
-                cl[current_section_idx] = {
-                    'name': section_name,
-                    'content': {}
-                }
-            elif line.startswith('-'):
-                # New item in the current section
-                current_item_idx += 1
-                current_subitem_idx = -1
-                if '..' not in line[1:]:
-                    item = self._sanitize(line[1:])
-                    value = None
+
+        self.checklist = Checklist()
+        checklist_config = {}
+
+        current_section = None
+        current_item = None
+        current_subitem = None
+
+        for line_nbr, line in enumerate(content):
+            # Check for checklist configuration item
+            if line.startswith("//"):
+                line = line[2:].strip()
+                try:
+                    config_key, config_value = line.split('=', 1)
+                except ValueError:
+                    print(f"Encountered an invalid checklist configuration instruction in line {line_nbr+1}, ignoring it")
+                    continue
+                config_key = config_key.strip()
+                config_value = config_value.strip()
+                checklist_config[config_key] = config_value
+
+            # Check for new section
+            elif line.startswith("#"):
+                line = line[1:].strip()
+                # Check whether we have to "close" a previous subitem
+                if current_subitem is not None:
+                    current_item.append_subitem(current_subitem)
+                # Check whether we have to "close" a previous item
+                if current_item is not None:
+                    current_section.append_item(current_item)
+                # Check whether we have to "close" a previous section
+                if current_section is not None:
+                    self.checklist.append_section(current_section)
+                # Create new section
+                sectrion_description = None # we do not support section descriptions at the moment
+                current_section = ChecklistSection(line, sectrion_description)
+                current_item = None
+                current_subitem = None
+
+            # Check for new item
+            elif line.startswith("-"):
+                line = line[1:].strip()
+
+                if current_section is None:
+                    raise ValueError(f"Line {line_nbr+1}: Found item definition before section definition!")
+
+                # Check whether we have to "close" a previous subitem
+                if current_subitem is not None:
+                    current_item.append_subitem(current_subitem)
+                # Check whether we have to "close" a previous item
+                if current_item is not None:
+                    current_section.append_item(current_item)
+                # Parse the item
+                if '..' not in line:
+                    text_left = line
+                    text_right = None
                 else:
-                    item, value = line[1:].split("..", 1)
-                    item = self._sanitize(item)
-                    value = self._sanitize(value)
-                cl[current_section_idx]['content'][current_item_idx] = {
-                    'left': item,
-                    'right': value,
-                    'content': {}
-                }
+                    text_left, text_right = line.split('..', 1)
+                    text_left = text_left.strip()
+                    text_right = text_right.strip()
+                # Create new item with parsed information
+                current_item = SectionItem(text_left, text_right, False, True, False)
+                current_subitem = None
+
+            # Check for new sub-item
             elif line.startswith('+'):
-                # New subitem of the current item in the current section
-                current_subitem_idx += 1
-                if current_item_idx == -1:
-                    raise ValueError(f"Line {ln+1}: Encountered a new subitem definition (+) before the first item of section {cl[current_section_idx]['name']} was defined!")
-                if '..' not in line[1:]:
-                    item = self._sanitize(line[1:])
-                    value = None
+                line = line[1:].strip()
+
+                if current_item is None:
+                    raise ValueError(f"Line {line_nbr+1}: Found sub-item definition before item definition!")
+
+                # Check whether we have to "close" a previous sub-item
+                if current_subitem is not None:
+                    current_item.append_subitem(current_subitem)
+                # Parse the subitem
+                if '..' not in line:
+                    text_left = line
+                    text_right = None
                 else:
-                    item, value = line[1:].split("..", 1)
-                    item = self._sanitize(item)
-                    value = self._sanitize(value)
-                cl[current_section_idx]['content'][current_item_idx]['content'][current_subitem_idx] = {
-                    'left': item,
-                    'right': value,
-                    'content': {}
-                }
-        return cl
+                    text_left, text_right = line.split('..', 1)
+                    text_left = text_left.strip()
+                    text_right = text_right.strip()
+                # Create new subitem with parsed information
+                current_subitem = SectionItem(text_left, text_right, False, True, False)
 
+            # Check for new sub-item with left only in bold, not enumerated
+            elif line.startswith('**'):
+                line = line[2:].strip()
 
-    def _sanitize(self, s: str) -> str:
-        """
-            Removes leading and trailing whitespaces from the given string
+                if current_item is None:
+                    raise ValueError(f"Line {line_nbr+1}: Found sub-item definition before item definition!")
 
-        Params
-        ------
-            s (str):
-                String which should be sanitized
-        """
-        return s.strip()
+                # Check whether we have to "close" a previous sub-item
+                if current_subitem is not None:
+                    current_item.append_subitem(current_subitem)
+                # Create new subitem
+                current_subitem = SectionItem(line, None, True, False, True)
+
+            # Check for new sub-item with left only in bold, enumerated
+            elif line.startswith('*'):
+                line = line[1:].strip()
+
+                if current_item is None:
+                    raise ValueError(f"Line {line_nbr+1}: Found sub-item definition before item definition!")
+
+                # Check whether we have to "close" a previous sub-item
+                if current_subitem is not None:
+                    current_item.append_subitem(current_subitem)
+                # Create new subitem
+                current_subitem = SectionItem(line, None, True, False, False)
+
+            # Check for centered line
+            elif line.startswith('='):
+                line = line[1:].strip()
+
+                # Check whether we have to "close" a previous sub-item
+                if current_subitem is not None:
+                    current_item.append_subitem(current_subitem)
+                # Create new centered text and treat it as subitem
+                current_subitem = CenteredText(line, True)
+
+        # We've iterated all lines, "close" all remaining elements
+        if current_subitem is not None:
+            current_item.append_subitem(current_subitem)
+            current_subitem = None
+        if current_item is not None:
+            current_section.append_item(current_item)
+            current_item = None
+        if current_section is not None:
+            self.checklist.append_section(current_section)
+            current_section = None
+
+        # Read out aircraft and checklist type from config
+        if "Aircraft Type" in checklist_config.keys():
+            self.checklist.aircraft_type = checklist_config["Aircraft Type"]
+            del checklist_config["Aircraft Type"]
+        if "Checklist Type" in checklist_config.keys():
+            self.checklist.checklist_type = checklist_config["Checklist Type"]
+            del checklist_config["Checklist Type"]
+        # Update checklist configuration with remaining settings
+        self.checklist.checklist_config.update_configuration(checklist_config, True)
+        return self.checklist

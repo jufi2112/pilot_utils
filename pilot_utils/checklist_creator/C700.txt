@@ -1,0 +1,65 @@
+// Aircraft Type = C700
+// Checklist Type = Normal Procedures
+
+# Aircraft and Simulator Setup
+- A/C Position .. As Selected
+- Time .. As Selected
+- Weather .. As Selected
+- A/C Refueling/Boarding/Loading .. COMPLETED
+= -----IF FLYING ON IVAO-----
+- A/C Position .. FREE OF OTHER TRAFFIC
+
+
+# Cockpit Inspection
+- STBY PWR Switch .. TEST and Hold (Green light for min 10 sec)/ON
+- EMER LTS Switch .. ARM
+- LANDING GEAR Handle .. DOWN
+- BATT Buttons (Both) .. ON, Check Volts
+- EIS/CAS .. Check
+- XPDR .. STBY
+- External Power Source .. As Desired
++ EXT PWR Button (if AVAIL illuminated) .. ON
++ BATT Amps (both) .. 0 or Charging
+** ---AND/OR---
++ APU Knob .. ON/START
++ External Power .. Disconnected
++ BATT Amps (both) .. 0 or Charging
+- Exterior/Interior Lights .. ON/CHECK/OFF, or as Required
+
+# Cockpit Preparation
+- Cockpit Inspection .. Completed
+- EIS/CAS .. Check
+- APU Knob (if not already started) .. ON/START
+- External Power (if used) .. Disconnected
+- Engine Dry Motor .. Consider
+- ATIS/Clearance .. As Required
+- Trims .. Check/Set for Takeoff
+- Weight and Fuel (MFD GTC: Perf) .. Completed
+- Takeoff Data (MFD GTC: Perf) .. Completed
+- V Speeds .. Verify/Set
+- Pressurization LDG ELEV .. Verify/Set
+- Fuel Quantity and Balance .. Check
+- Autopilot (First Flight of Day) .. Engage/Disengage
+
+# Before Start
+- EMER/PARK BRAKE Handle .. Set (PARK BRAKE ON Displayed)
+- EIS/CAS .. Check
+- TO/GA .. Press
+
+# Starting Engines (Using APU)
+- Throttles .. IDLE
+- ENGINE RUN/STOP Button (either engine) .. RUN
+- START Pressure .. Verify >= 32 PSI
+- ENGINE STARTER Button .. Push
+- Engine Instruments .. Monitor
+- Opposite Engine .. Repeat Steps 1 to 4
+- EIS/CAS .. Check
+
+# Before Taxi
+- Flight Controls .. Free and Correct/Check
+- Speedbrakes .. Check/Retracted
+- Flaps .. Set for Takeoff
+- Flight Instruments/Avionics .. Check
++ Attitude & Heading, Air Data Displays .. Aligned/No Flags
++ Altimeters .. Confirm and Compare (75 feet of field elevation, 50 feet of each other)
+- ENGINE ICE PROTECTION Buttons .. As Required
