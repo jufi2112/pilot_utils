@@ -65,7 +65,12 @@ class ChecklistConfiguration:
                     else:
                         self.real_world_clearance = True
                 else:
-                    setattr(self, key, value)
+                    try:
+                        value = int(value)
+                    except ValueError:
+                        pass
+                    finally:
+                        setattr(self, key, value)
             else:
                 missing_elements.append(key)
         if print_missing_elements and len(missing_elements) > 0:
