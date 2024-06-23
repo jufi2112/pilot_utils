@@ -9,7 +9,7 @@
 - A/C Position .. As Chosen
 ** --- IF FLYING ON IVAO ---
 + A/C Position .. Free of other traffic
-+ IVAO Pilot Client .. Connected
++ IVAO Pilot Client .. Connect
 - A/C Refueling/Boarding/Loading .. Completed
 
 
@@ -79,7 +79,7 @@
 - Flight Instruments/Avionics .. Check
 + Attitude & Heading, Air Data Displays .. Aligned/No Flags
 + Altimeters .. Confirm and Compare (75 feet of field elevation, 50 feet of each other)
-+ HSI Data Source .. As Required/FMS
++ PFD NAV Source .. As Required/FMS
 - Autopilot Panel .. Check
 + FD .. As Required/ON
 + Heading .. As Required/Runway Heading
@@ -112,6 +112,9 @@
 - Radar .. As Required
 - PITOT/STATIC Button (on icing conditions, within 1 min before takeoff) .. ON 15 Seconds then Norm
 - XPDR .. AUTO
+** --- IF FLYING ON IVAO ---
++ IVAO Pilot Client TCAS .. On
+- MFD Map Zoom .. Adjust
 - Takeoff Clearance .. As Required/Obtained
 = ----------------CLEARED FOR TAKEOFF----------------
 - Flight Controls .. Free
@@ -145,7 +148,7 @@
 + NAV or HDG .. As Required/ON
 + AP .. As Required/ON
 ** ---If using NAV mode---
-+ HDG Sync .. Push
++ HDG SYNC .. Push
 - Autothrottle .. Check/Set, As Required
 - Throttles .. CLB
 - ICE PROTECTIONS Buttons .. As Required
@@ -193,8 +196,8 @@
 - If approach requires flying of sharp/acute angles .. Consider Speed Reduction
 = ----------------CLEARED FOR APPROACH----------------
 - If ILS Approach:
-+ HSI NAV Source .. Set LOC
-+ APPCH Mode .. ON
++ PFD NAV Source .. Set LOC1/LOC2
++ APPR Mode .. ON
 + Flight Mode Annunciator .. Verify LOC and GS Mode Armed
 - Flaps .. 1 or 2, when Desired
 
@@ -248,6 +251,7 @@
 - EMER/PARK BRAKE Handle .. Set
 - ENGINE ICE PROTECTION Buttons (both) .. OFF
 - ENGINE RUN/STOP Buttons (both) .. OFF
+- On-Block Time .. Noted
 - EMER LTS Switch .. OFF
 - STBY PWR Switch .. OFF
 - APU Knob .. OFF
