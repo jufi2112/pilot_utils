@@ -2,241 +2,248 @@ import os
 import argparse
 
 from os import path as osp
-from typing import Dict, Tuple
 from reportlab.pdfgen import canvas
+from typing import Dict, Tuple, Union
 from reportlab.lib.pagesizes import A5
 
 from pilot_utils.checklist_creator import ChecklistParser
+from pilot_utils.checklist_creator.checklist import Checklist, ChecklistSection, SectionItem, CenteredText, ChecklistConfiguration
 
 
 class PDFChecklistCreator:
-    def __init__(self,
-                 aircraft_type: str,
-                 checklist_type: str,
-                 border_left: int = 80,
-                 border_right: int = 50,
-                 border_height: int = 80,
-                 font: str = "Helvetica",
-                 font_bold: str = 'Helvetica-Bold',
-                 font_size_item: int = 6,
-                 font_size_section: int = 9,
-                 line_spacing_item: int = 12,
-                 page_size: str = 'A5',
-                 space_between_sections: int = 32,
-                 space_after_header: int = 30,
-                 space_section_item: int = 20
-                 ):
-        self.border_left = border_left
-        self.border_right = border_right
-        self.border_height = border_height
-        self.font = font
-        self.font_bold = font_bold
-        self.font_size_item = font_size_item
-        self.font_size_section = font_size_section
-        self.line_spacing_item = line_spacing_item
-        self.page_size = page_size
-        self.aircraft_type = aircraft_type
-        self.checklist_type = checklist_type
-        self.space_between_sections = space_between_sections
-        self.space_after_header = space_after_header
-        self.space_section_item = space_section_item
-
-
-    def create_checklist(self,
-                         cl: Dict,
+    """
+        Class that creates a formatted PDF checklist from a text file.
+    """
+    def format_checklist(self,
+                         checklist: Checklist,
                          output_dir: str,
                          output_name: str
                          ):
+        """
+            Formats the given checklist into a PDF at the desired location.
+
+        Params
+        ------
+            checklist (Checklist):
+                The checklist object as created by the CheckListParser class
+            output_dir (str):
+                Desired output directory
+            output_name (str):
+                Desired output filename
+        """
         if not osp.isdir(output_dir):
             os.makedirs(output_dir)
         if osp.splitext(output_name)[1] != '.pdf':
             output_name = output_name + ".pdf"
+
+        config = checklist.checklist_config
+
         c = canvas.Canvas(osp.join(output_dir, output_name),
-                          pagesize=A5)
-        width, height = A5
-        left_border = self.border_left
-        right_border = width - self.border_right
-        top_border = height - self.border_height
-        bottom_border = self.border_height
-        current_page = 0
+                          pagesize=config.page_size)
 
-        c = self._write_header_footer(c, current_page+1,
-                                      left_border, right_border,
-                                      top_border, bottom_border)
-        current_y_position = top_border - self.space_after_header
+        page_width, page_height = config.page_size
+        page_number = 1
 
+        self._apply_header_and_footer_to_page(c, config, checklist.aircraft_type,
+                                              checklist.checklist_type, page_number)
+        current_y_position = page_height - config.border_top - config.space_after_header
 
-
-        for section_idx in cl.keys():
-            # Check if section longer than space on page
-            if not self._section_fits_onto_current_page(current_y_position, cl[section_idx]):
-                current_page += 1
+        for section in checklist.sections:
+            # Check whether section fits onto current page
+            if not self._does_section_fit_onto_page(section, config, current_y_position):
+                # Create new page
                 c.showPage()
-                c = self._write_header_footer(c, current_page+1,
-                                              left_border, right_border,
-                                              top_border, bottom_border)
-                current_y_position = top_border - self.space_after_header
-            c, current_y_position = self._print_section(cl[section_idx],
-                                                        c,
-                                                        right_border,
-                                                        left_border,
-                                                        current_y_position)
-        c.setFont(self.font_bold, self.font_size_item)
-        c.drawRightString(right_border, bottom_border, f"Page {current_page+1}")
+                page_number += 1
+                self._apply_header_and_footer_to_page(c, config, checklist.aircraft_type,
+                                                      checklist.checklist_type, page_number)
+                current_y_position = page_height - config.border_top - config.space_after_header
+            # Write section onto page starting at current_y_position
+            current_y_position = self._print_section_to_canvas(c,
+                                                               section,
+                                                               config,
+                                                               current_y_position)
+            # After last element of header, current_y_position is at position for next item,
+            # but we want it to be at position for next section
+            current_y_position += config.space_between_items
+            current_y_position -= config.space_between_sections
+        # Save PDF
         c.save()
 
 
-    def _print_section(self,
-                       section: Dict,
-                       canvas: canvas.Canvas,
-                       right_border: int,
-                       left_border: int,
-                       current_y_position
-                       ) -> Tuple[canvas.Canvas, int]:
-        canvas.setFont(self.font_bold, self.font_size_section)
-        canvas.drawString(left_border, current_y_position, section['name'])
-        current_y_position -= self.space_section_item
-        index_offset = 0
-        for item_idx, item_content in section['content'].items():
-            subitems = item_content['content']
-            left = item_content['left']
-            right = item_content['right']
-            number = item_idx + 1 + index_offset
-            if number < 10:
-                spaces = "     "
-            elif number < 100:
-                spaces = "   "
-            else:
-                spaces = " "
-
-            if right is None:
-                # Print left in bold and without numbering
-                index_offset -= 1
-                text_offset = canvas.stringWidth(f"{number}.{spaces}", self.font, self.font_size_item)
-                text_left = f"{left}"
-                canvas.setFont(self.font_bold, self.font_size_item)
-                canvas.drawString(left_border + text_offset, current_y_position, text_left)
-                current_y_position -= self.line_spacing_item
-            else:
-                text_left = f"{number}.{spaces}{left} "
-                text_right = f" {right}"
-                text_right_width = canvas.stringWidth(text_left, self.font, self.font_size_item)
-                text_left_width = canvas.stringWidth(text_right, self.font_bold, self.font_size_item)
-                # How much width do we have remaining for the dots?
-                text_dots_width = right_border - left_border - text_right_width - text_left_width
-                text_dots = '.' * int(text_dots_width / canvas.stringWidth('.', self.font, self.font_size_item))
-
-                canvas.setFont(self.font, self.font_size_item)
-                canvas.drawString(left_border, current_y_position, text_left)
-                canvas.setFont(self.font_bold, self.font_size_item)
-                canvas.drawRightString(right_border, current_y_position, text_right)
-                canvas.setFont(self.font, self.font_size_item)
-                canvas.drawString(left_border + text_right_width, current_y_position, text_dots)
-                current_y_position -= self.line_spacing_item
-            # Draw possible subitems
-            canvas, current_y_position = self._print_subitems(subitems,
-                                                            canvas,
-                                                            right_border,
-                                                            left_border,
-                                                            current_y_position,
-                                                            "        ")
-        current_y_position -= self.space_between_sections
-        current_y_position += self.line_spacing_item
-        return canvas, current_y_position
-
-
-    def _section_fits_onto_current_page(self,
-                                        current_y_position: int,
-                                        section: Dict
-                                        ) -> bool:
+    def _print_section_to_canvas(self,
+                                 canvas: canvas.Canvas,
+                                 section: ChecklistSection,
+                                 config: ChecklistConfiguration,
+                                 current_y_position: int,
+                                 ) -> int:
         """
-            Returns True if the given section still fits onto the page, otherwise False
-
-        Params
-        ------
-            current_y_position (int):
-                Current y position
-            section_content (Dict):
-                Section that should be checked
+            Prints the given section to the canvas using the provided
+            configuration and starting at the provided y position.
 
         Returns
         -------
-            bool:
-                Whether the given section fits onto the remaining page
+            int:
+                The next y position after the section at which text can be drawn
         """
-        # Section name
-        new_y_position = current_y_position - self.space_section_item
-        # Spacing due to items
-        for _, item_content in section['content'].items():
-            new_y_position -= self.line_spacing_item
-            # Spacing due to subitems
-            for _, _ in item_content['content'].items():
-                new_y_position -= self.line_spacing_item
-        new_y_position -= self.line_spacing_item
-        if new_y_position < self.border_height:
-            return False
-        return True
+        # Draw section name
+        canvas.setFont(config.font_name_section_name, config.font_size_section_name)
+        canvas.drawString(config.border_left, current_y_position, section.name)
+        current_y_position -= config.space_section_to_item
+        # Draw items
+        for item in section.items:
+            current_y_position = self._print_item_to_canvas(canvas,
+                                                            item,
+                                                            config,
+                                                            current_y_position,
+                                                            0)
+        return current_y_position
 
 
-    def _print_subitems(self,
-                        item_content: Dict,
-                        canvas: canvas.Canvas,
-                        right_border: int,
-                        left_border: int,
-                        current_y_position: int,
-                        leading_spaces: str
-                        ) -> Tuple[canvas.Canvas, int]:
-        index_offset = 0
-        for idx, content in item_content.items():
-            number = idx + 1 + index_offset
-            left = content['left']
-            right = content['right']
-            if right is None:
-                # Print left in bold and without numbering 
-                index_offset -= 1
-                text_offset = canvas.stringWidth(f"{leading_spaces}{chr(ord('`')+number)}.   ", self.font, self.font_size_item)
-                text_left = f"{left}"
-                canvas.setFont(self.font_bold, self.font_size_item)
-                canvas.drawString(left_border + text_offset, current_y_position, text_left)
+    def _print_item_to_canvas(self,
+                              canvas: canvas.Canvas,
+                              item: Union[SectionItem, CenteredText],
+                              config: ChecklistConfiguration,
+                              current_y_position: int,
+                              x_offset_left_border: int,
+                              ) -> int:
+        """
+            Prints the given item onto the canvas starting at the
+            given y position, respecting the provided x offset, and
+            using the provided configuration.
+
+        Params
+        ------
+            canvas (canvas.Canvas):
+                The canvas onto which the item should be printed
+            item (SectionItem or CenteredText):
+                The item that should be printed
+            config (ChecklistConfiguration):
+                The configuration
+            current_y_position (int):
+                Y position onto which the item should be written
+            x_offset_left_border (int):
+                Horizontal offset from the left border which should
+                be kept clear. Can be used for indentations.
+
+        Returns
+        -------
+            int:
+                The next y position onto which can be written
+        """
+        page_width, page_height = config.page_size
+        # Handle case of CenteredText
+        if isinstance(item, CenteredText):
+            text_width = canvas.stringWidth(item.text,
+                                            config.font_name_bold_item if item.is_bold else config.font_name_item,
+                                            config.font_size_item)
+            x_middle = (page_width - config.border_right - config.border_left) // 2 + config.border_left
+            canvas.setFont(config.font_name_bold_item if item.is_bold else config.font_name_item,
+                           config.font_size_item)
+            canvas.drawString(x_middle - (text_width // 2), current_y_position, item.text)
+            return current_y_position - config.space_between_items
+        # We have a SectionItem
+        current_x_position = config.border_left + x_offset_left_border
+        if item.ignore_in_sequence or item.number_in_sequence is None:
+            enum = ""
+        else:
+            # First-level item, numerical enumeration
+            if x_offset_left_border == 0:
+                enum = f"{item.number_in_sequence}."
+            # Second-level item, alphabetical enumeration
             else:
-                symbol = chr(ord('`') + number)
-                text_left = f"{leading_spaces}{symbol}.   {left} "
-                text_right = f" {right}"
-                text_left_width = canvas.stringWidth(text_left, self.font, self.font_size_item)
-                text_right_width = canvas.stringWidth(text_right, self.font_bold, self.font_size_item)
-                text_dots_width = right_border - left_border - text_left_width - text_right_width
-                text_dots = '.' * int(text_dots_width / canvas.stringWidth('.', self.font, self.font_size_item))
-                canvas.setFont(self.font, self.font_size_item)
-                canvas.drawString(left_border, current_y_position, text_left)
-                canvas.setFont(self.font_bold, self.font_size_item)
-                canvas.drawRightString(right_border, current_y_position, text_right)
-                canvas.setFont(self.font, self.font_size_item)
-                canvas.drawString(left_border + text_left_width, current_y_position, text_dots)
-            current_y_position -= self.line_spacing_item
-        return canvas, current_y_position
+                enum = f"{chr(ord('`') + item.number_in_sequence)}."
+        canvas.setFont(config.font_name_item, config.font_size_item)
+        canvas.drawString(current_x_position, current_y_position, enum)
+        current_x_position += config.space_for_enumerations
+        # Calculate sizes of text
+        text_left_width = canvas.stringWidth(item.text_left,
+                                             config.font_name_bold_item if item.is_left_bold else config.font_name_item,
+                                             config.font_size_item) if item.text_left is not None else 0
+        text_right_width = canvas.stringWidth(item.text_right,
+                                              config.font_name_bold_item if item.is_right_bold else config.font_name_item,
+                                              config.font_size_item) if item.text_right is not None else 0
+        # Draw left text
+        if item.text_left is not None:
+            canvas.setFont(config.font_name_bold_item if item.is_left_bold else config.font_name_item,
+                           config.font_size_item)
+            canvas.drawString(current_x_position, current_y_position, item.text_left)
+            current_x_position += text_left_width
+        # Draw right text
+        if item.text_right is not None:
+            canvas.setFont(config.font_name_bold_item if item.is_right_bold else config.font_name_item,
+                           config.font_size_item)
+            canvas.drawRightString(page_width - config.border_right, current_y_position, item.text_right)
+        # Draw connecting dots
+        if item.text_left is not None and item.text_right is not None:
+            text_dots_width = page_width - config.border_right - text_right_width - current_x_position
+            text_dots = '.' * int(text_dots_width / canvas.stringWidth('.', config.font_name_item, config.font_size_item))
+            # Replace first and last dot with space if we have non-empty text so that we have a small separation
+            if item.text_left != "":
+                text_dots = " " + text_dots[1:]
+            if item.text_right != "":
+                text_dots = text_dots[:-1] + " "
+            canvas.setFont(config.font_name_item, config.font_size_item)
+            canvas.drawString(current_x_position, current_y_position, text_dots)
+        current_y_position -= config.space_between_items
+        # Draw subitems
+        for subitem in item.subitems:
+            current_y_position = self._print_item_to_canvas(canvas,
+                                                            subitem,
+                                                            config,
+                                                            current_y_position,
+                                                            x_offset_left_border + config.space_for_enumerations)
+        return current_y_position
 
 
-    def _write_header_footer(self,
-                             canvas: canvas.Canvas,
-                             page_number: int,
-                             left_border: int,
-                             right_border: int,
-                             top_border: int,
-                             bottom_border: int
-                             ) -> canvas.Canvas:
-        canvas.setFont(self.font_bold, self.font_size_item)
-        canvas.drawString(left_border, top_border, self.aircraft_type)
-        canvas.drawRightString(right_border, top_border, self.checklist_type)
-        canvas.drawRightString(right_border, bottom_border, f"Page {page_number}")
-        return canvas
+    def _apply_header_and_footer_to_page(self,
+                                         canvas: canvas.Canvas,
+                                         config: ChecklistConfiguration,
+                                         aircraft_type: str,
+                                         checklist_type: str,
+                                         page_number: int,
+                                         ):
+        """
+            Applies header and footer to the current page of the PDF.
+        """
+        page_width, page_height = config.page_size
+        canvas.setFont(config.font_name_header_footer, config.font_size_header_footer)
+        canvas.drawString(config.border_left, page_height - config.border_top, aircraft_type)
+        canvas.drawRightString(page_width - config.border_right, page_height - config.border_top, checklist_type)
+        canvas.drawRightString(page_width - config.border_right, config.border_bottom, f"Page {page_number}")
+        if not config.real_world_clearance:
+            text = "----- For Simulator Use Only -----"
+            text_width = canvas.stringWidth(text, config.font_name_header_footer, config.font_size_header_footer)
+            x_middle = (page_width - config.border_right - config.border_left) // 2 + config.border_left
+            canvas.drawString(x_middle - (text_width // 2), config.border_bottom, text)
+
+
+    def _does_section_fit_onto_page(self,
+                                    section: ChecklistSection,
+                                    config: ChecklistConfiguration,
+                                    current_y_position: int
+                                    ) -> bool:
+        """
+            Determines whether the given section fits onto a page starting
+            at a given y position with the given configuration
+        """
+        # Space between section name and first item
+        final_y_position = current_y_position - config.space_section_to_item
+        if section.description is not None:
+            raise NotImplementedError("Section descriptions are currently not supported!")
+        for item in section.items:
+            final_y_position -= config.space_between_items
+            if isinstance(item, SectionItem):
+                final_y_position -= (len(item.subitems) * config.space_between_items)
+        # The last element does not need spacing between items, so remove it
+        final_y_position += config.space_between_items
+        return final_y_position > (config.border_bottom + config.font_size_header_footer + config.space_before_footer)
+
 
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="Create a PDF checklist from a .txt file")
     parser.add_argument('-i', '--input', type=str, required=True, help="Path to the input txt file that should be converted to a pdf checklist")
     parser.add_argument('-o', '--output', type=str, required=True, help="Output path. If no filename is provided, uses the same filename as the input file.")
-    parser.add_argument('--aircraft-type', type=str, default="", help="Aircraft type that should be stated in the upper left corner of each page")
-    parser.add_argument('--checklist-type', type=str, default="", help="Type of the checklist, is specified in the upper right of each page")
     args = parser.parse_args()
     if not osp.isfile(args.input):
         raise ValueError(f"-i/--input option is not a valid file!")
@@ -249,5 +256,5 @@ if __name__ == '__main__':
     p = ChecklistParser(args.input)
     cl = p.parse()
 
-    checklist_creator = PDFChecklistCreator(args.aircraft_type, args.checklist_type)
-    checklist_creator.create_checklist(cl, output_path, output_file)
+    checklist_creator = PDFChecklistCreator()
+    checklist_creator.format_checklist(cl, output_path, output_file)

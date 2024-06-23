@@ -1,13 +1,15 @@
 // Aircraft Type = C700
 // Checklist Type = Normal Procedures
+// real_world_clearance = False
 
 # Aircraft and Simulator Setup
-- A/C Position .. As Selected
-- Time .. As Selected
-- Weather .. As Selected
-- A/C Refueling/Boarding/Loading .. COMPLETED
-= -----IF FLYING ON IVAO-----
-- A/C Position .. FREE OF OTHER TRAFFIC
+- Time .. As Chosen
+- Weather .. As Chosen
+- A/C Position .. As Chosen
+** --- IF FLYING ON IVAO ---
++ A/C Position .. Free of other traffic
++ IVAO Pilot Client .. Connected
+- A/C Refueling/Boarding/Loading .. Completed
 
 
 # Cockpit Inspection
@@ -26,25 +28,32 @@
 + BATT Amps (both) .. 0 or Charging
 - Exterior/Interior Lights .. ON/CHECK/OFF, or as Required
 
+
 # Cockpit Preparation
 - Cockpit Inspection .. Completed
 - EIS/CAS .. Check
-- APU Knob (if not already started) .. ON/START
-- External Power (if used) .. Disconnected
-- Engine Dry Motor .. Consider
-- ATIS/Clearance .. As Required
-- Trims .. Check/Set for Takeoff
+- Radio Frequencies .. Set
+- ATIS .. As Required
+- Enroute Clearance .. As Required
+- Flight Plan .. Entered
 - Weight and Fuel (MFD GTC: Perf) .. Completed
 - Takeoff Data (MFD GTC: Perf) .. Completed
 - V Speeds .. Verify/Set
 - Pressurization LDG ELEV .. Verify/Set
 - Fuel Quantity and Balance .. Check
+- Trims .. Check/Set for Takeoff
 - Autopilot (First Flight of Day) .. Engage/Disengage
+- APU Knob (if not already started) .. ON/START
+- External Power (if used) .. Disconnected
+- Engine Dry Motor .. Consider
+
 
 # Before Start
 - EMER/PARK BRAKE Handle .. Set (PARK BRAKE ON Displayed)
 - EIS/CAS .. Check
 - TO/GA .. Press
+- Start-up Clearance .. As Required
+
 
 # Starting Engines (Using APU)
 - Throttles .. IDLE
@@ -52,8 +61,9 @@
 - START Pressure .. Verify >= 32 PSI
 - ENGINE STARTER Button .. Push
 - Engine Instruments .. Monitor
-- Opposite Engine .. Repeat Steps 1 to 4
+- Opposite Engine .. Repeat Steps 1 to 5
 - EIS/CAS .. Check
+
 
 # Before Taxi
 - Flight Controls .. Free and Correct/Check
@@ -62,4 +72,43 @@
 - Flight Instruments/Avionics .. Check
 + Attitude & Heading, Air Data Displays .. Aligned/No Flags
 + Altimeters .. Confirm and Compare (75 feet of field elevation, 50 feet of each other)
++ HSI Data Source .. As Required/FMS
+- Autopilot Panel .. Check
++ FD .. As Required/ON
++ Heading .. As Required/Runway Heading
++ Altitude .. As Required/Initial Climb Clearance 
 - ENGINE ICE PROTECTION Buttons .. As Required
+- Taxi Clearance .. As Required
+- Off-Block Time .. Noted
+
+
+# Taxi
+- Exterior Lights .. As Required
+- EMER/PARK BRAKE Handle .. Stowed
+- Brakes .. Check
+- Nosewheel Steering .. Check
+- Thrust Reversers .. Check, as Required/Stowed
++ Deploy (Reverse Idle) .. Verify Green T/R DEPLOY Indications
++ Stow .. Verify Indications Clear
+
+
+# Before Takeoff
+- Flaps .. Set for Takeoff
+- Speedbrakes .. Retracted
+- Trims .. Set for Takeoff
+- Ice Protection Systems .. Check, As Required
+- Radio Frequencies .. Set
+- V Speeds .. Displayed
+- SPD Knob .. FMS
+- Crew Briefing .. Complete
++ If rolling takeoff planned, add 500 feet to Computed Takeoff Distance
+- Radar .. As Required
+- PITOT/STATIC Button (on icing conditions, within 1 min before takeoff) .. ON 15 Seconds then Norm
+- XPDR .. AUTO
+- Takeoff Clearance .. As Required
+= ----------------CLEARED FOR TAKEOFF----------------
+- Flight Controls .. Free
+- Start Time .. Noted
+- ICE PROTECTION BUTTONS .. As Required
+- Exterior Lights .. As Required
+- EIS/CAS .. Check
