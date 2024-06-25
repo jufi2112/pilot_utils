@@ -252,6 +252,7 @@
 - ENGINE ICE PROTECTION Buttons (both) .. OFF
 - ENGINE RUN/STOP Buttons (both) .. OFF
 - On-Block Time .. Noted
+- PAX Lights .. Off
 - EMER LTS Switch .. OFF
 - STBY PWR Switch .. OFF
 - APU Knob .. OFF
