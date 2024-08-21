@@ -1,0 +1,161 @@
+// Aircraft Type = Airbus A319 / A320 / A321
+// Checklist Type = Normal Procedures
+// real_world_clearance = False
+
+# AIRCRAFT AND SIMULATOR SETUP
+- Time .. As Chosen
+- Weather .. As Chosen
+- A/C Position .. As Chosen
+** --- IF FLYING ON IVAO ---
++ A/C Position .. Free of other traffic
++ IVAO Pilot Client .. Connect
+- EFB > MY FLIGHTS .. Import Flight Plan
+- A/C Refueling / Boarding / Loading .. Initiate / Completed
+
+# COCKPIT INSPECTION
+- ADIRS .. OFF
+- Gear Lever .. DOWN
+- Thrust Levers .. IDLE
+- ENG Master Switches .. OFF
+- ENG Mode Selector .. NORM
+- Spoilers .. RETRACTED
+- Flaps .. UP
+- PARKING BRK .. ON
+- Weather Radar & PWS .. Both OFF
+- XPDR .. STBY
+- TCAS .. ABV & STBY
+- EXT PWR .. Check green AVAIL
+** --- IF EXT PWR NOT AVAILABLE ---
++ EFB > GROUND SERVICES .. Enable GPU
+
+# COCKPIT PREPARATION
+- BAT 1 & 2 .. ON
+- EXT PWR .. ON
+- PFD / ND / ECAM 1 & 2 .. Observe SELF TEST
+- Internal Lights .. As Desired
+= --- OVERHEAD PANEL ---
+- ADIRS 1 / 2 / 3 .. NAV
+- OXYGEN CREW SUPPLY .. ON
+- FUEL PUMPS L / CTR / R .. ON
+- STROBE Light .. AUTO
+- EMER EXIT LT .. ARM
+- NO SMOKING Light .. ON
+- SEAT BELTS Light .. ON
+= --- PEDESTRAL ---
+- Frequencies .. Set
+- PA .. As Desired
+- ATIS .. As Required / Obtained
++ QNH .. Set
+- Weather Radar & PWS .. Verify Both OFF
+= --- MCDU ---
+- ENG Model & NAV DATA BASE .. Check
+- INIT Page 1 .. Set
+** --- IF FLYING ON IVAO ---
++ IFR Clearance .. Obtained
++ Initial Climb .. Set
++ XPDR .. Set Squawk
+- F-PLN Page .. Enter
++ Check and Remove Discontinuities
++ SID and STAR .. Verify Constraints
+- RAD NAV Page .. Verify Frequencies
+** --- Once A/C Loading Completed ---
+- INIT Page 2 .. Set
++ Fuel Quantity .. Verify Sufficient
+- PROG Page .. Set
++ Altitudes .. Verify
++ Emergency Runway .. Enter
+- PERF Page .. Set
++ Performance Values .. Calculate in EFB > Departure Perf
+- SEC F-PLN Page .. COPY ACTIVE
+
+# BEFORE START
+- PARKING BRK .. Verify ON
+- BEACON Light .. ON
+- NAV & LOGO Lights .. ON
+- APU Fire TEST .. Verify
+- ENG 1 Fire TEST .. Verify
+- ENG 2 Fire TEST .. Verify
+- APU Start
++ APU MASTER SW .. ON
+** --- ONCE ECAM 2 SHOWS APU Parameters ---
++ APU START .. ON
+** --- ONCE APU START GREEN AVAIL ILLUMINATED ---
++ APU BLEED .. ON
+- EXT PWR .. OFF
+
+# PUSHBACK & ENGINE START
+- A/C Refueling / Boarding / Loading .. Verify Completed
+- APU BLEED .. Verify ON
+= --- ONCE IRS ALIGNED ---
+- Pushback and Start-up Clearance .. As Required / Obtained
+- Off-Block Time .. Noted
+- Pushback .. Perform / Follow Instructions
+- Thrust Levers .. Verify IDLE
+- Engine Start Procedure
++ ENG MODE Selector .. IGN / START
++ ENG 2 Master Switch .. ON
++ ENG 2 Parameters .. MONITOR
++ ENG 2 N1 .. Wait for AVAIL
++ ENG 1 .. Repeat Steps 7.b to 7.d
+- ENG MODE Selector .. NORM
+
+# BEFORE TAXI
+- Pushback .. Completed
+- PARKING BRK .. ON
+- COCKPIT DOOR .. LOCK
+- FLAPS .. As Required
+- Spoilers .. ARMED
+- Weather Radar .. 1 or 2
+- PWS .. AUTO
+- ECAM .. F/CTL Page
++ PITCH TRIM .. As Required
++ Flight Controls .. Free and Correct
++ ECAM F/CTL Page .. Deactivate
+- AUTO BRK .. MAX
+- Flight Director (FD) .. Activate
+- NOSE Light .. TAXI
+- RWY TURN OFF Light .. ON
+- APU BLEED .. OFF
+- APU MASTER SW .. OFF
+- Taxi Clearance .. As Required / Obtained
+
+# TAXI
+- Brakes .. Check
+- TO Config .. Push / Check No Warnings
+
+# BEFORE TAKEOFF
+- Squawk .. Verify
+- Radio Frequencies .. Set / Verify
+- Initial Climb Altitude .. Verify
+- QNH .. Verify
+- ND .. Set Desired Resolution
+- Crew Briefing .. Completed
+- XPDR .. ON
+- TCAS .. ABV & TA or TA/RA
+** --- IF FLYING ON IVAO ---
++ IVAO Pilot Client TCAS .. ON
++ IVAO Pilot Client XPDR .. Verify ALT and Correct Squawk
+- NOSE Light .. TO
+- LAND Lights .. ON
+- RWY TURN OFF Lights .. OFF
+- PACK 1 & 2 .. OFF
+- Takeoff Clearance .. As Required / Obtained
+= ---------- CLEARED FOR TAKEOFF ----------
+- Start Time .. Noted
+- Clock .. Start
+
+# TAKEOFF
+- Thrust Levers .. FLEX or TOGA
+- Elevator Control .. Rotate at Vr (less than 9.5 Degrees Pitch)
+
+# AFTER TAKEOFF / CLIMB
+- Landing Gear (at positive rate of climb) .. UP
+- Thrust Levers (when prompted) .. CLIMB
+- Flaps .. UP According to Speed
+- A/THR .. Verify ON
+- AP1 .. As Required / ON
+- PACK 1 & 2 .. ON
+- QNH (at Transition Altitude / when prompted) .. STD
+
+
+
