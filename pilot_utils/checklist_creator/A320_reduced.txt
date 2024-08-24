@@ -1,5 +1,5 @@
 // Aircraft Type = Airbus A319 / A320 / A321
-// Checklist Type = Quick Procedures
+// Checklist Type = Reduced Procedures
 // real_world_clearance = False
 
 # AIRCRAFT AND SIMULATOR SETUP
@@ -22,7 +22,7 @@
 - EXT PWR .. ON
 - Overhead Panel .. Set
 + STROBE Light .. Auto
-- PA .. As Desired
+- PA & CAB Comms .. As Desired
 - Frequencies .. Set
 - MCDU .. DIFRIPPS
 + SID / STAR .. Check Constraints
@@ -32,7 +32,7 @@
 
 # BEFORE START
 - Boarding .. Completed
-- APU .. Started and AVAIL
+- APU .. ON and AVAIL
 - APU BLEED .. ON
 - EXT PWR .. OFF
 = --- ONCE IRS ALIGNED ---
@@ -52,7 +52,7 @@
 - Flight Controls .. Free and Correct
 - NOSE Light .. TAXI
 - RWY TURN OFF Light .. ON
-- APU .. OFF
+- APU & APU BLEED .. OFF
 - AUTO BRK .. MAX
 - Taxi Clearance .. As Required / Obtained
 
@@ -138,6 +138,7 @@
 - ECAM Memo .. No Blue
 - A/P .. As Required
 - QNH .. Local
+- PAX Signs .. ON
 - Landing Clearance .. As Required / Obtained
 
 # AFTER LANDING (CLEAR OF RUNWAY)
@@ -178,3 +179,5 @@
 - PARKING BRK .. OFF
 - EXT PWR .. OFF
 - BAT 1 & 2 .. OFF
+** --- IF FLYING ON IVAO ---
++ IVAO Pilot Client .. Disconnect

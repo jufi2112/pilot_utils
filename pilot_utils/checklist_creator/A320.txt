@@ -259,3 +259,5 @@
 - EMER EXIT LT .. OFF
 - APU & EXT PWR .. OFF
 - BAT 1 & 2 .. OFF
+** --- IF FLYING ON IVAO ---
++ IVAO Pilot Client .. Disconnect
