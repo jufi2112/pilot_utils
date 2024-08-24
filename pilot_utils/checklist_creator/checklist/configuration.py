@@ -12,22 +12,22 @@ class ChecklistConfiguration:
         # Border margins
         self.border_left = 80
         self.border_right = 50
-        self.border_top = 80
-        self.border_bottom = 80
+        self.border_top = 40
+        self.border_bottom = 40
         # Fonts and font sizes
         self.font_name_item = "Helvetica"
         self.font_name_bold_item = "Helvetica-Bold"
-        self.font_size_item = 6
+        self.font_size_item = 8
         self.font_name_section_name = "Helvetica-Bold"
-        self.font_size_section_name = 9
+        self.font_size_section_name = 11
         self.font_name_header_footer = "Helvetica-Bold"
-        self.font_size_header_footer = 6
+        self.font_size_header_footer = 8
         # Space between different elements
-        self.space_after_header = 30
-        self.space_between_sections = 32
-        self.space_section_to_item = 20
-        self.space_between_items = 10
-        self.space_for_enumerations = 10
+        self.space_after_header = 40
+        self.space_between_sections = 38
+        self.space_section_to_item = 24
+        self.space_between_items = 13
+        self.space_for_enumerations = 12
         self.space_before_footer = 0
         # Page size
         self.page_size = PAGE_SIZES_DICT["A5"]

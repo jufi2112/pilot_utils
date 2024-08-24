@@ -3,7 +3,6 @@
 // real_world_clearance = False
 
 # AIRCRAFT AND SIMULATOR SETUP
-- If Using A321 .. Disable Toolbar Pushback Addon Pior To Simulator Start
 - Time / Weather / A/C Position .. As Chosen
 ** --- IF FLYING ON IVAO ---
 + A/C Position .. Free of other traffic
@@ -28,7 +27,7 @@
 + SID / STAR .. Check Constraints
 + Fuel .. Check Quantity
 - QNH, Squawk, Initial Climb .. Set
-- ENG & APU Fire Warnings .. Check
+- APU & ENG 1 & 2 Fire Warnings .. Check
 
 # BEFORE START
 - Boarding .. Completed
@@ -39,6 +38,7 @@
 - Push and Start Clearance .. As Required / Obtained
 - NAV & LOGO Lights .. ON
 - BEACON Lights .. ON
+- Off-Block Time .. Noted
 
 # PUSHBACK & ENGINE START
 - Pushback .. Follow Instructions
@@ -98,13 +98,14 @@
 
 # CRUISE
 - TOD .. Monitor
-= --- 30 NM PRIOR TO TD ---
+= --- 30 NM PRIOR TO TOD ---
+- MCDU > F-PLN > Arrival Routing .. Verify / Set
+- MCDU > PERF > Destination Info .. Set
+- MCDU > NAV RAD > ILS Frequency .. Verify / Set
 - FCU ALT SELECTOR .. Set Target Altitude
 - Arrival Performance .. Calculate
 + Landing Weight = GW - (Current FOB - EFOB)
 - AUTO BRK .. As Required
-- MCDU Destination Info .. Set
-+ ILS Frequency .. Verify / Set
 = --- AT TOD ---
 - FCU ALT SELECTOR KNOB .. Initiate Descend
 + PUSH for Managed Descend (VNAV Profile According to Flight Plan)
@@ -159,6 +160,7 @@
 
 # PARKING
 - PARKING BRK .. ON
+- On-Block Time .. Noted
 - THR LVR .. IDLE
 - NOSE Light .. OFF
 - RWY TURNOFF Light .. OFF
