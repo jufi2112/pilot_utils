@@ -28,7 +28,7 @@ class ChecklistConfiguration:
         self.space_section_to_item = 24
         self.space_between_items = 13
         self.space_for_enumerations = 12
-        self.space_before_footer = 0
+        self.space_before_footer = 20
         # Page size
         self.page_size = PAGE_SIZES_DICT["A5"]
         # For real world usage?
@@ -44,13 +44,13 @@ class ChecklistConfiguration:
             Attributes that are not present in the configuration are ignored and
             printed at the end if print_missing_elements is True.
 
-        Params
-        ------
-            new_config (Dict[str, Union[int, str]]):
-                Dictionary that contains the new configuration values
-            print_missing_elements (bool):
-                Whether configuration elements from new-config that were ignored
-                should be printed at the end. Defaults to True
+            Params
+            ------
+                new_config (Dict[str, Union[int, str]]):
+                    Dictionary that contains the new configuration values
+                print_missing_elements (bool):
+                    Whether configuration elements from new-config that were ignored
+                    should be printed at the end. Defaults to True
         """
         missing_elements = []
         for key, value in new_config.items():

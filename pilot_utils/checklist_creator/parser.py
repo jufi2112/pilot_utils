@@ -171,6 +171,9 @@ class ChecklistParser:
         if "Checklist Type" in checklist_config.keys():
             self.checklist.checklist_type = checklist_config["Checklist Type"]
             del checklist_config["Checklist Type"]
+        if "Checklist Version" in checklist_config.keys():
+            self.checklist.checklist_version = checklist_config["Checklist Version"]
+            del checklist_config["Checklist Version"]
         # Update checklist configuration with remaining settings
         self.checklist.checklist_config.update_configuration(checklist_config, True)
         return self.checklist

@@ -1,5 +1,6 @@
 // Aircraft Type = Airbus A319 / A320 / A321
 // Checklist Type = Reduced Procedures
+// Checklist Version = 1.0.3
 // real_world_clearance = False
 
 # AIRCRAFT AND SIMULATOR SETUP
@@ -149,6 +150,9 @@
 - Weather Radar & PWS .. OFF
 - XPDR .. STBY
 - TCAS .. ABV & STBY
+** --- IF FLYING ON IVAO ---
++ IVAO Pilot Client XPDR .. Confirm OFF
++ IVAO Pilot Client TCAS .. STBY
 - LS .. OFF
 - Clock .. Stop
 - Landing Time .. Noted
@@ -179,7 +183,7 @@
 - OVERHEAD Panel .. All switches except BAT 1 & 2 and EXT PWR OFF
 - CHOCKS & CONES .. ON
 - PARKING BRK .. OFF
-- EXT PWR .. OFF
+- EXT PWR or APU (whichever is on) .. OFF
 - BAT 1 & 2 .. OFF
 ** --- IF FLYING ON IVAO ---
 + IVAO Pilot Client .. Disconnect

@@ -22,10 +22,10 @@ class ChecklistSection:
         """
             Appends the given element to this section's list of items.
 
-        Params
-        ------
-            item (SectionItem or CenteredText):
-                The element that should be appended to this section
+            Params
+            ------
+                item (SectionItem or CenteredText):
+                    The element that should be appended to this section
         """
         if isinstance(item, CenteredText):
             self.items.append(item)

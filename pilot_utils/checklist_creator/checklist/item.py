@@ -13,21 +13,21 @@ class SectionItem:
             Class that represents one item in a section of a
             checklist.
 
-        Params
-        ------
-            text_left (str):
-                Text on the left side of the checklist
-            text_right (str):
-                Text on the right side of the checklist
-            left_bold (bool):
-                Whether the text on the left side should be
-                printed bold
-            right_bold (bool):
-                Whether the text on the right side should be
-                printed bold
-            ignore_in_sequence (bool):
-                Whether this item should be ignored when enumerating
-                items
+            Params
+            ------
+                text_left (str):
+                    Text on the left side of the checklist
+                text_right (str):
+                    Text on the right side of the checklist
+                left_bold (bool):
+                    Whether the text on the left side should be
+                    printed bold
+                right_bold (bool):
+                    Whether the text on the right side should be
+                    printed bold
+                ignore_in_sequence (bool):
+                    Whether this item should be ignored when enumerating
+                    items
         """
         self.text_left = text_left
         self.is_left_bold = left_bold

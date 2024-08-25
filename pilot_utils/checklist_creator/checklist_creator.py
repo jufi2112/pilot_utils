@@ -45,7 +45,8 @@ class PDFChecklistCreator:
         page_number = 1
 
         self._apply_header_and_footer_to_page(c, config, checklist.aircraft_type,
-                                              checklist.checklist_type, page_number)
+                                              checklist.checklist_type, checklist.checklist_version,
+                                              page_number)
         current_y_position = page_height - config.border_top - config.space_after_header
 
         for section in checklist.sections:
@@ -55,7 +56,8 @@ class PDFChecklistCreator:
                 c.showPage()
                 page_number += 1
                 self._apply_header_and_footer_to_page(c, config, checklist.aircraft_type,
-                                                      checklist.checklist_type, page_number)
+                                                      checklist.checklist_type, checklist.checklist_version,
+                                                      page_number)
                 current_y_position = page_height - config.border_top - config.space_after_header
             # Write section onto page starting at current_y_position
             current_y_position = self._print_section_to_canvas(c,
@@ -111,19 +113,19 @@ class PDFChecklistCreator:
             given y position, respecting the provided x offset, and
             using the provided configuration.
 
-        Params
-        ------
-            canvas (canvas.Canvas):
-                The canvas onto which the item should be printed
-            item (SectionItem or CenteredText):
-                The item that should be printed
-            config (ChecklistConfiguration):
-                The configuration
-            current_y_position (int):
-                Y position onto which the item should be written
-            x_offset_left_border (int):
-                Horizontal offset from the left border which should
-                be kept clear. Can be used for indentations.
+            Params
+            ------
+                canvas (canvas.Canvas):
+                    The canvas onto which the item should be printed
+                item (SectionItem or CenteredText):
+                    The item that should be printed
+                config (ChecklistConfiguration):
+                    The configuration
+                current_y_position (int):
+                    Y position onto which the item should be written
+                x_offset_left_border (int):
+                    Horizontal offset from the left border which should
+                    be kept clear. Can be used for indentations.
 
         Returns
         -------
@@ -200,6 +202,7 @@ class PDFChecklistCreator:
                                          config: ChecklistConfiguration,
                                          aircraft_type: str,
                                          checklist_type: str,
+                                         checklist_version: str,
                                          page_number: int,
                                          ):
         """
@@ -210,6 +213,7 @@ class PDFChecklistCreator:
         canvas.drawString(config.border_left, page_height - config.border_top, aircraft_type)
         canvas.drawRightString(page_width - config.border_right, page_height - config.border_top, checklist_type)
         canvas.drawRightString(page_width - config.border_right, config.border_bottom, f"Page {page_number}")
+        canvas.drawString(config.border_left, config.border_bottom, f"Version {checklist_version}")
         if not config.real_world_clearance:
             text = "----- For Simulator Use Only -----"
             text_width = canvas.stringWidth(text, config.font_name_header_footer, config.font_size_header_footer)
