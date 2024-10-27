@@ -35,3 +35,18 @@ class Checklist:
         section.number_in_sequence = self.sections_sequence_head
         self.sections_sequence_head += 1
         self.sections.append(section)
+
+
+    def add_section_at_index(self,
+                             index: int,
+                             section: ChecklistSection
+                             ):
+        """
+            Adds the given section at the provided index and recalculates
+            the indices for all following sections
+        """
+        section.number_in_sequence = index + 1
+        self.sections.insert(index, section)
+        for idx in range(index + 1, len(self.sections)):
+            self.sections[idx].number_in_sequence = idx + 1
+        self.sections_sequence_head = len(self.sections)

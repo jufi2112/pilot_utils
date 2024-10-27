@@ -4,7 +4,8 @@ from pilot_utils.checklist_creator.checklist import CenteredText, SectionItem
 class ChecklistSection:
     def __init__(self,
                  section_name: str,
-                 section_description: str
+                 section_description: str,
+                 item_numbering_offset: int = 0
                  ):
         """
             Class that represents a section of a checklist
@@ -13,6 +14,7 @@ class ChecklistSection:
         self.description = section_description
         self.items = []
         self.items_sequence_head = 1
+        self.item_numbering_offset = item_numbering_offset
         self.number_in_sequence = None
 
 
@@ -31,6 +33,6 @@ class ChecklistSection:
             self.items.append(item)
             return
         if not item.ignore_in_sequence:
-            item.number_in_sequence = self.items_sequence_head
+            item.number_in_sequence = self.item_numbering_offset + self.items_sequence_head
             self.items_sequence_head += 1
         self.items.append(item)
