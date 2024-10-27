@@ -1,0 +1,280 @@
+// Aircraft Type = Boeing 777-300ER
+// Checklist Type = Normal Procedures
+// Checklist Version = 0.0.1
+// real_world_clearance = False
+
+# AIRCRAFT AND SIMULATOR SETUP
+- Time / Weather / A/C Position .. As Chosen
+** --- IF FLYING ON IVAO ---
++ A/C Position .. Free of other traffic
++ IVAO Pilot Client .. Connect
+- EFB > Home > Flight Details .. Import Simbrief Flight Plan
+- Sidestick, Throttle, Rudders, External Monitor .. Connected
+- MSFS Pop-Out Panel Manager .. Start Pop-Out
+
+# ELECTRICAL POWER UP
+- Battery .. On
+- C1 & C2 ELEC Hydraulic Pumps .. OFF
+- Hydraulic Demand Pumps .. OFF
+- Wipers .. OFF
+- LDG Gear .. DOWN
+- ALTN Flaps .. OFF
+= --- Establish Electrical Power ---
+- L & R BUS TIE .. AUTO
+** --- IF EXT PWR AVAIL ---
++ PRIMARY & SECONDARY EXT PWR .. ON
++ APU .. ON
+** --- IF NO EXT PWR AVAIL ---
++ APU .. ON, then START
+- PARKING BRAKE .. SET
+
+# OUTSIDE INSPECTION
+- Tires .. Check Condition
+- Brake Pins .. Check not flush with boundary
+** --- IF MAINTANANCE REQUIRED ---
++ EFB > Ground Operations > Ground Maintenance .. Perform
+
+# PRELIMINARY PREFLIGHT PROCEDURE
+- Electrical Power Up .. Completed
+- ADIRU .. ON
+- EMER LIGHTS .. Guard Closed
+- LWR CTR Display .. STAT page
++ Hydraulic Quantities .. Verify Sufficient (no RF)
++ APU Oil QTY .. Verify Sufficient (no RF)
++ Messages .. Only Expected
+- LWR CTR Display .. ENG page
++ Oil QTY .. Verify Sufficient
++ Flight < 6h: >= 17
++ Flight > 6h: >= 20
+- EICAS Messages .. Only expected
+- Oxygen .. Test
+- CHKL .. PREFLIGHT
+
+# FMC Setup
+- Menu > FMC > IDENT .. Check Information Correct
++ A/C Type
++ Engine Type
++ NAV DATA Cycle
+- POS INIT .. Copy GPS Pos into Inertial Pos
+- ROUTE > Route Request .. Select desired route
++ SET PAYLOAD
++ SET FUEL
+- SELECT RTE .. Wait for Uplink
++ ROUTE UPLINK .. Load (Takes some time)
++ ACTIVATE > EXEC
+- FS Actions .. Set Desired PAX and CARGO
+- DEP ARR .. Enter Departure and Arrival
++ To find transition .. LEGS > PREV PAGE until DISCONTINUITY > Last WP that is part of route
+- RTE ..  RTE COPY
+- LEGS .. Verify DEP, Route, and ARR correct
++ Be aware that SPEED restrictions without ALT restrictions will be missing from procedures
++ WP180/25 .. Waypoint WP at Radial 180 for 25 NM
+- LEGS > RTE DATA (ND no PLAN mode) .. WIND DATA LOAD, then EXEC
+- FMC COMM > UPLINK DES FORECAST .. LOAD
+- PROG .. Compare shown ground distance to planned distance
+- RTE page > NEXT PAGE .. Compare Uplinked route to flight plan
+- NAV RAD .. Frequencies as desired
+- FIX .. Draw visual helpers
++ MSA around aerodrome
++ Others according to procedures
+- VNAV .. Check TA
+- INIT REF > PERF INIT > PERF INIT DATA .. ACCEPT
++ Uplinks Reserves, Cruise Level, and Cost Index
++ Min Fuel Temp .. Verify (JetA1 -44°C, JetA -37°C)
++ CRZ CG can be left at 7.5% or set to 30%
+
+# COCKPIT PREPARATION
+- BROADBAND SYSTEM SWITCH .. Guarded
+- ADIRU Switch .. ON
+- THRUST ASYM COMP .. AUTO
+- PRIMARY FLIGHT COMPUTERS .. Guarded & OFF light extinguished
+- BATTERY .. ON
+- IFE/PASS Switches .. ON
+- APU GEN .. ON
+- APU Switch .. ON & OFF light extinguished
+- L & R BUS TIE .. AUTO
+- EXT PWR .. As Needed
+- GEN .. ALL ON
++ DRIVE DISC Switches .. Guarded & up
+- VOICE RECORDER .. ON
+- EMER LIGHTS .. Armed & Guarded
+- SERV ITPH .. OFF
+- WINDOW HEAT .. ON
+- RAM AUR Turbine SW .. Guarded
+- HYD ENG PUMPS L & R .. ON
++ Remaining Pumps .. OFF
+- NO SMOKING / NO ELECTRONICS .. AUTO
+** -- AFTER REFUELING COMPLETED ---
+- SEAT BELTS .. ON
+- Flight Deck lights .. As Needed
+- LANDING Lights .. OFF
+- CARGO FIRE SW .. Not Armed
++ DISC SW .. Guarded
+- ENGINE EEC MODE .. Norm & Guarded
+- START PANEL .. Norm for both engines
++ AUTOSTART SW .. ON
+- FUEL JETTISON NOZZLES .. OFF & Guarded
++ FUEL TO REMAIN .. Pushed In
++ ARM SW .. Disarm
+- Fuel Pumps .. OFF
++ CROSSFEED .. OFF
++ L FWD pump feeds APU
+- ANTI-ICE .. AUTO
+- OUTSIDE Lights
+** --- DAYLIGHT ---
++ NAV .. ON
++ IND LTS .. BRT
+** --- NIGHT ---
++ NAV & LOGO .. ON
++ IND LTS .. DIM
+- Other EXT lights .. OFF
+- EQUIP COOLING .. AUTO
+- GASPER .. ON
+- RECIRC FANS .. ON
+- FLT deck temp .. As Desired
+- CABIN TEMP .. 12 o'clock position
+- L & R PACK SW .. AUTO
+- TRIM AIR .. ON
+- BLEED AIR ISOL VALVES .. AUTO
+- L & R ENG BLEED .. ON
+- APU BLEED .. AUTO
+- PRESS OUTFLOW VALVES .. AUTO
+- LANDING ALT SELECTOR .. Pushed In
+- QNH .. Set Local
+- ND .. 10 NM
+- TFC .. Press
+- VOR / ADF .. Displayed as needed
+- ARPT .. Press
+- F/D .. Both ON
+- A/T ARM .. Both UP
+= --- DO NOT YET SET SPD, HDG, ALT ---
+- BANK ANGLE SEL .. AUTO
+- A/P DISENGAGE Bar .. Up
+- ALT SELECTOR .. AUTO
+- Display .. CAPT DOORS, F/O CAMS (inop)
+- FWD PANEL BRIGHTNESS .. all AUTO
+- SOURCE SELECT PANELS .. all OFF
+- INBOARD DSPL .. MFD
+- HDG REF .. NORM
+- STBY Instrument .. Set QNH
+- GND PROX .. OFF & Guarded
+- ALT GEAR EXT .. Guarded
+- GEAR LVR .. DN
+- AUTOBRAKE .. RTO
+- FMC Selector .. AUTO
+- F/O INBOARD DSPL .. MFD
+- DSPL CTRL SW .. OFF
+- PARKING BREAK .. Set
+- SPEED BRAKE .. DOWN Detent
+- ALTN PITCH TRIM SW .. Middle Position
+- STAB CUTOUT SW .. Guarded
+- L & R FUEL CONTROL .. CUTOFF
+- FLAP Selector .. Matches FLAP Position
+- ALTN FLAPS .. OFF & Guarded
+- Frequencies .. As Required
++ L & R VHF .. Turn On
++ L VHF .. MIC
+WX + T .. Both
++ GAIN SW .. 12 o'clock position
+- Center Radio .. Verify DATA active
+- ENG FIRE DISC SW .. Both Pushed In
+- Center CDU .. MENU > CAB INT or MENU > FS ACTIONS
+- AILERON & RUDDER Trim .. Neutral
+- Transponder .. ABV on both sides
++ Source Selector .. NORM
++ XPNDR Selector .. L
++ Squawk .. Set
++ XPNDR Mode .. STBY
+- EVAC COMMAND .. Guarded
++ HORN SHUTOFF .. Pushed In
+
+# TAKEOFF PERFORMANCE CALCULATION
+- LWR ECAM > COMM > Flight Information > TWIP Request .. Get Current Weather
+- ZFW & TO CG .. MENU > FS ACTIONS > PAYLOAD
+- EFB > Performance Tool > Take Off .. Calculate TO Performance
++ Verify RWY Length Correct
+- FMC > THRUST LIM
++ Selet RTG (Take Off Rating)
++ Enter Sel Temp
++ Check D-TO N1 close to %N1 from Performance Calculation
++ CLB Rating will match N1 (keep default selection) (CLB 1 = 10% reduction -> for 90% or more)
+- PERF .. Enter GR WT and ZFW
+- TAKEOFF .. Enter Flaps & TO CG
++ V Speeds .. Verify and Enter (EFB has precendence)
++ GR WT .. Crosscheck
++ NEXT PAGE .. Verify ACCEL HT
+- CAPT TAKEOFF page, F/O LEGS page
+
+# BEFORE START
+- APU .. Verify Running
+- EXT PWR .. Disconnect & Remove
+- PARKING BRAKE .. Verify Set
+- Chocks .. Removed
+- GND Equipment & Vehicles .. Released
+- Doors .. Closed & Armed
+- MCP .. Enter V2, RWY HDG, INIT CLIMB
+** --- IF ROUTING CAN BE FLOWN COMPLETELY VIA FMC ---
++ LNAV & VNAV .. Activate
+- GND Crew clear of aircraft .. Pressurize Aircraft
++ R ELEC Demand Pump .. AUTO
+** --- ONCE FAULT LIGHT EXTINGUISHED ---
++ Remaining Demand Pumps & C1 & C2 ELEC Pumps .. On
+- FUEL PUMPS .. ON
++ CENTER PUMPS only if EICAS message "FUEL in CTR"
+- TRIM .. Set
+- Transponder .. XPNDR
+- CHKL .. Before Start
+- Push and Start Clearance .. As Required / Obtained
+- Beacon .. ON
+- Off-Block Time .. Noted
+
+# PUSHBACK AND ENGINE START
+- Pushback .. Follow Instructions
+- Engine L & R .. Start
++ ENG START Selector .. START
++ FUEL CUTOFF SW .. RUN
++ Start Completed Once Red EGT Line Disappears
+
+# BEFORE TAXI
+- APU .. OFF
+- ENG ANTI-ICE .. As Required / ON
+- Flaps .. TO
+- Flight Controls .. Checked
+- CHKL .. Before Taxi
+- TAXI Lights .. ON
+- RUNWAY TURNOFF Lights .. ON
+- Taxi Clearance .. As Required / Obtained
+- Brakes .. Checked
+= --- AT HOLDING POINT ---
+- STROBE Light .. ON
+- WXR & TERR .. CAP & F/O
+- Transponder .. TCAS TA/RA
+- CHKL .. Before Takeoff
+- TAXI & TURNOFF Lights .. OFF
+- Landing Lights .. ON
+= -- CLEARED FOR TAKEOFF ---
+- Start Time .. Noted
+- Chronometer .. ON
+
+# TAKEOFF
+- N1 .. 55% (extension of EGT gauge)
+** --- ONCE ENGINES STABILIZED ---
+- TOGA .. Push
+- Forward column pressure until 80 kts
+- Rotate at around 2° - 2.5° (one stripe) per second until 15° pitch
+- Autopilot at 200ft AGL
++ 80 kts .. HOLD
++ 50 ft .. LNAV
++ 400 ft .. VNAV
+
+# AFTER TAKEOFF
+- ENG & WING Anti-Ice .. AUTO
+- CHKL .. AFTER TAKEOFF
+- VNAV page .. Open
+- HDG Bug .. Synchronize
+- Once TO Thrust Over .. CHRONO Off
+
+# CLIMB
+- at 10000 ft
++ 
+

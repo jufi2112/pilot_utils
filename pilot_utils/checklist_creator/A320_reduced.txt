@@ -63,7 +63,7 @@
 # BEFORE TAKEOFF
 - PARKING BRK .. ON
 - TO CONFIG .. Pushed
-+ ECAM Memo .. No Blue
++ ECAM Memo .. T.O, No Blue
 - FD .. ON
 - QNH, FCU ALT SELECTOR, Frequencies, Squawk .. Verify
 - Crew Briefing .. Completed
@@ -137,7 +137,7 @@
 - AUTO BRK .. As Required
 - Flaps .. Landing Configuration
 - Spoilers .. ARMED
-- ECAM Memo .. No Blue
+- ECAM Memo .. LDG, No Blue
 - A/P .. As Required
 - QNH .. Local
 - PAX Signs .. ON
