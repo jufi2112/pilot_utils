@@ -39,7 +39,8 @@ class PDFChecklistCreator:
                          checklist.aircraft_type,
                          checklist.checklist_type,
                          checklist.checklist_version,
-                         checklist.real_world_clearance)
+                         checklist.real_world_clearance,
+                         perform_background_coloring=checklist.background_coloring)
 
         section_id: int = 0
         while (section_id < len(checklist.sections)):
@@ -151,8 +152,6 @@ class PDFChecklistCreator:
             if current_y < y_end:
                 return item_idx
         return len(section.items)
-
-
 
 
 

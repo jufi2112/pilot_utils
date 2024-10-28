@@ -1,5 +1,6 @@
 from reportlab.lib.pagesizes import A5
 from reportlab.pdfgen import canvas
+from reportlab.lib import colors
 from pilot_utils.checklist_creator.checklist import ChecklistSection, ChecklistConfiguration, SectionItem, CenteredText
 import os
 from os import path as osp
@@ -14,7 +15,8 @@ class PDFManager:
                  checklist_type: str,
                  checklist_version: str,
                  real_world_clearance: bool,
-                 show_page_numbers: bool = True
+                 show_page_numbers: bool = True,
+                 perform_background_coloring: bool = False
                  ):
         """
             Class that manages the pdf document.
@@ -37,6 +39,9 @@ class PDFManager:
                     Whether the checklist is meant for real-world usage
                 show_page_numbers (bool):
                     Whether page numbering should be shown. Defaults to True.
+                perform_background_coloring (bool):
+                    Whether consecutive items should have different background colors.
+                    Defaults to False
         """
         self.page_width, self.page_height = config.page_size
         self.current_page = 0
@@ -46,12 +51,16 @@ class PDFManager:
         self.y_limit_top = self.page_height - config.border_top - config.space_after_header
         self.x_limit_left = config.border_left
         self.x_limit_right = self.page_width - config.border_right
+        self.usable_width = self.page_width - config.border_left - config.border_right
         self.current_y_position = self.y_limit_top
         self.aircraft_type = aircraft_type
         self.checklist_type = checklist_type
         self.checklist_version = checklist_version
         self.real_world_clearance = real_world_clearance
         self.show_page_numbers = show_page_numbers
+        self.perform_background_coloring = perform_background_coloring
+        self.background_color_applied = False
+        self.background_color = colors.Color(red=(211.0/255), green=(211.0/255), blue=(211.0/255))
         self.config = config
 
         if not osp.isdir(output_dir):
@@ -105,6 +114,7 @@ class PDFManager:
         # Draw items
         for item in section.items:
             self._print_item_to_page(item, 0)
+        self.background_color_applied = False
 
 
     def _print_item_to_page(self,
@@ -143,6 +153,13 @@ class PDFManager:
             # Second-level item, alphabetical enumeration
             else:
                 enum = f"{chr(ord('`') + item.number_in_sequence)}."
+        # Draw background rectangle
+        if self.perform_background_coloring and not self.background_color_applied:
+            self.canvas.setFillColor(self.background_color)
+            background_height = self.config.font_size_item + self.config.space_between_items//3
+            self.canvas.rect(self.x_limit_left, self.current_y_position-self.config.space_between_items//4, self.usable_width, background_height, fill=True, stroke=False)
+            self.canvas.setFillColor(colors.black)
+        self.background_color_applied = not self.background_color_applied
         self.canvas.setFont(self.config.font_name_item, self.config.font_size_item)
         self.canvas.drawString(current_x_position, self.current_y_position, enum)
         current_x_position += self.config.space_for_enumerations

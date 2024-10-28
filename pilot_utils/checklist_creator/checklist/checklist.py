@@ -5,7 +5,8 @@ class Checklist:
                  aircraft_type: str = None,
                  checklist_type: str = None,
                  checklist_version: str = '1.0.0',
-                 real_world_clearance: bool = False
+                 real_world_clearance: bool = False,
+                 background_coloring: bool = False
                  ):
         """
             A class that represents a checklist.
@@ -19,12 +20,17 @@ class Checklist:
                 checklist_version (str):
                     Version of the checklist. Defaults to '1.0.0'
                 real_world_clearance (bool):
-                    Whether the checklist should be used in the real-world
+                    Whether the checklist should be used in the real-world.
+                    Defaults to False
+                background_coloring (bool):
+                    Whether the checklist's background should colored
+                    alternatingly. Defaults to False
         """
         self.aircraft_type = aircraft_type
         self.checklist_type = checklist_type
         self.checklist_version = checklist_version
         self.real_world_clearance = real_world_clearance
+        self.background_coloring = background_coloring
         self.sections = []
         self.sections_sequence_head = 1
         self.checklist_config = ChecklistConfiguration()

@@ -2,6 +2,7 @@
 // Checklist Type = Normal Procedures
 // Checklist Version = 0.1.0
 // Real World Clearance = False
+// Background Coloring = True
 
 # AIRCRAFT AND SIMULATOR SETUP
 - Time / Weather / A/C Position .. As Chosen

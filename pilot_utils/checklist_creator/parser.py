@@ -175,8 +175,11 @@ class ChecklistParser:
             self.checklist.checklist_version = checklist_config["Checklist Version"]
             del checklist_config["Checklist Version"]
         if "Real World Clearance" in checklist_config.keys():
-            self.checklist.real_world_clearance = True if checklist_config["Real World Clearance"].lower() == "True" else False
+            self.checklist.real_world_clearance = True if checklist_config["Real World Clearance"].lower() == "true" else False
             del checklist_config["Real World Clearance"]
+        if "Background Coloring" in checklist_config.keys():
+            self.checklist.background_coloring = True if checklist_config["Background Coloring"].lower() == "true" else False
+            del checklist_config["Background Coloring"]
         # Update checklist configuration with remaining settings
         self.checklist.checklist_config.update_configuration(checklist_config, True)
         return self.checklist
