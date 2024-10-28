@@ -31,8 +31,6 @@ class ChecklistConfiguration:
         self.space_before_footer = 20
         # Page size
         self.page_size = PAGE_SIZES_DICT["A5"]
-        # For real world usage?
-        self.real_world_clearance = False
 
 
     def update_configuration(self,

@@ -1,7 +1,7 @@
 // Aircraft Type = Boeing 777-300ER
 // Checklist Type = Normal Procedures
 // Checklist Version = 0.1.0
-// real_world_clearance = False
+// Real World Clearance = False
 
 # AIRCRAFT AND SIMULATOR SETUP
 - Time / Weather / A/C Position .. As Chosen
@@ -9,6 +9,7 @@
 + A/C Position .. Free of other traffic
 + IVAO Pilot Client .. Connect
 - EFB > Home > Flight Details .. Import Simbrief Flight Plan
+- EFB > Ground Operations .. Initiate Boarding
 - Sidestick, Throttle, Rudders, External Monitor .. Connected
 - MSFS Pop-Out Panel Manager .. As Desired, Start Pop-Out
 
@@ -17,7 +18,7 @@
 - C1 & C2 ELEC Hydraulic Pumps .. Verify OFF
 - Hydraulic Demand Pumps .. Verify OFF
 - Wipers .. OFF
-- LDG Gear .. DOWN
+- LDG Gear .. DOWN & Synchronized
 - ALTN Flaps .. OFF
 = --- Establish Electrical Power ---
 - L & R BUS TIE .. AUTO
@@ -195,11 +196,11 @@ WX + T .. Both
 + MENU > FS ACTIONS > PAYLOAD
 - TO Performance .. Calculate
 + EFB > Performance Tool > Take Off
-+ Verify RWY Length Correct
++ RWY Length .. Verify Correct
 - FMC > THRUST LIM .. Set
-+ Select RTG (Take Off Rating)
-+ Enter Sel Temp
-+ Check D-TO N1 close to %N1 from Performance Calculation
++ RTG (Take Off Rating) .. Select
++ Sel Temp .. Enter
++ D-TO N1 .. Check close to %N1 from Perf. Calc.
 + CLB Rating will match N1 (keep default selection)
 + (CLB 1 = 10% reduction -> for 90% or more)
 - PERF .. Enter GR WT and ZFW
@@ -235,6 +236,7 @@ WX + T .. Both
 
 # PUSHBACK AND ENGINE START
 - Pushback .. Follow Instructions
+- LOWER EICAS .. ENG page
 - Engine L & R .. Start
 + ENG START Selector .. START
 + FUEL CUTOFF SW .. RUN
@@ -351,7 +353,7 @@ WX + T .. Both
 # DESCEND
 - VNAV Mode .. Confirm VNAV PATH / as required
 + VNAV page provides required descend rate
-+ OFFPATH descend blue idle power to runway, white with speed brakes
++ VNAV > OFFPATH descend blue idle PWR to RWY, white with S/B
 = --- ON PASSING FL 250 ---
 - SEATBELT Signs .. ON
 = --- ON PASSING FL 100 ---
