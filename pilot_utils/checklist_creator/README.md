@@ -24,3 +24,5 @@ You can also check out the example C700.txt and corresponding C700.pdf files.
 ```shell
 python checklist_creator.py --input .\example.txt --output .\example.pdf
 ```
+
+Optionally, you can provide the -p / --print flag to create a PDF that is optimization for printing.

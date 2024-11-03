@@ -34,6 +34,12 @@ class ChecklistConfiguration:
         # Centered text settings
         self.centered_text_line_thickness = 1
         self.centered_text_rect_x_offset = 5
+        # Background color
+        self.rect_background_color = 211.0
+        # For digital use, do not change page layout
+        self.adaptive_layout = False
+        # Setting specific to print mode
+        self.rect_background_color_printing = 180.0
 
 
     def update_configuration(self,

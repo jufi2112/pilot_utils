@@ -17,7 +17,8 @@ class PDFChecklistCreator:
     def format_checklist(self,
                          checklist: Checklist,
                          output_dir: str,
-                         output_name: str
+                         output_name: str,
+                         print_mode: bool = False
                          ):
         """
             Formats the given checklist into a PDF at the desired location.
@@ -30,6 +31,9 @@ class PDFChecklistCreator:
                 Desired output directory
             output_name (str):
                 Desired output filename
+            print_mode (bool):
+                Whether checklist should be created in print mode.
+                Defaults to False
         """
         config = checklist.checklist_config
 
@@ -40,6 +44,7 @@ class PDFChecklistCreator:
                          checklist.checklist_type,
                          checklist.checklist_version,
                          checklist.real_world_clearance,
+                         print_mode,
                          perform_background_coloring=checklist.background_coloring)
 
         section_id: int = 0
@@ -159,6 +164,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="Create a PDF checklist from a .txt file")
     parser.add_argument('-i', '--input', type=str, required=True, help="Path to the input txt file that should be converted to a pdf checklist")
     parser.add_argument('-o', '--output', type=str, required=True, help="Output path. If no filename is provided, uses the same filename as the input file.")
+    parser.add_argument('-p', '--print', action='store_true', help="Create checklist with print layout and settings.")
     args = parser.parse_args()
     if not osp.isfile(args.input):
         raise ValueError(f"-i/--input option is not a valid file!")
@@ -172,4 +178,4 @@ if __name__ == '__main__':
     cl = p.parse()
 
     checklist_creator = PDFChecklistCreator()
-    checklist_creator.format_checklist(cl, output_path, output_file)
+    checklist_creator.format_checklist(cl, output_path, output_file, args.print)

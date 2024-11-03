@@ -15,6 +15,7 @@ class PDFManager:
                  checklist_type: str,
                  checklist_version: str,
                  real_world_clearance: bool,
+                 print_mode: bool,
                  show_page_numbers: bool = True,
                  perform_background_coloring: bool = False
                  ):
@@ -37,6 +38,8 @@ class PDFManager:
                     Version of the checklist
                 real_world_clearance (bool):
                     Whether the checklist is meant for real-world usage
+                print_mode (bool):
+                    Whether PDF should be created in print mode
                 show_page_numbers (bool):
                     Whether page numbering should be shown. Defaults to True.
                 perform_background_coloring (bool):
@@ -60,7 +63,9 @@ class PDFManager:
         self.show_page_numbers = show_page_numbers
         self.perform_background_coloring = perform_background_coloring
         self.background_color_applied = False
-        self.background_color = colors.Color(red=(211.0/255), green=(211.0/255), blue=(211.0/255))
+        self.print_mode = print_mode
+        bg_color = config.rect_background_color_printing if self.print_mode else config.rect_background_color
+        self.background_color = colors.Color(red=(bg_color/255), green=(bg_color/255), blue=(bg_color/255))
         self.config = config
 
         if not osp.isdir(output_dir):
@@ -360,14 +365,15 @@ class PDFManager:
             Adapts border spacing such that it's optimized for
             printing two A5 pages on a A4 page and then filing it.
         """
-        if self.current_page % 2 == 0:
-            # even
-            self.x_limit_left = self.config.border_right
-            self.x_limit_right = self.page_width - self.config.border_left
-        else:
-            # odd
-            self.x_limit_left = self.config.border_left
-            self.x_limit_right = self.page_width - self.config.border_right
+        if self.print_mode:
+            if self.current_page % 2 == 0:
+                # even
+                self.x_limit_left = self.config.border_right
+                self.x_limit_right = self.page_width - self.config.border_left
+            else:
+                # odd
+                self.x_limit_left = self.config.border_left
+                self.x_limit_right = self.page_width - self.config.border_right
 
 
     def section_fits_page(self,
