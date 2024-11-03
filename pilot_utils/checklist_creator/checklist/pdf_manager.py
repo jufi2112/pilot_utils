@@ -139,8 +139,12 @@ class PDFManager:
             text_width = self.canvas.stringWidth(item.text,
                                                  self.config.font_name_bold_item if item.is_bold else self.config.font_name_item,
                                                  self.config.font_size_item)
-            self.canvas.drawString(self._get_centered_text_x(text_width), self.current_y_position, item.text)
+            centered_text_start_x = self._get_centered_text_x(text_width)
+            self.canvas.drawString(centered_text_start_x, self.current_y_position, item.text)
+            # Draw rectangle around text
+            self._stylize_centered_text(centered_text_start_x, self.current_y_position, text_width)
             self.current_y_position -= self.config.space_between_items
+            self.background_color_applied = False
             return
         # We have a section item
         current_x_position = self.x_limit_left + x_offset_left_border
@@ -155,10 +159,7 @@ class PDFManager:
                 enum = f"{chr(ord('`') + item.number_in_sequence)}."
         # Draw background rectangle
         if self.perform_background_coloring and not self.background_color_applied:
-            self.canvas.setFillColor(self.background_color)
-            background_height = self.config.font_size_item + self.config.space_between_items//3
-            self.canvas.rect(self.x_limit_left, self.current_y_position-self.config.space_between_items//4, self.usable_width, background_height, fill=True, stroke=False)
-            self.canvas.setFillColor(colors.black)
+            self._draw_row_background_rect(self.current_y_position, x_offset_left_border)
         self.background_color_applied = not self.background_color_applied
         self.canvas.setFont(self.config.font_name_item, self.config.font_size_item)
         self.canvas.drawString(current_x_position, self.current_y_position, enum)
@@ -216,6 +217,7 @@ class PDFManager:
         if self.current_page != 0:
             self.canvas.showPage()
         self.current_page += 1
+        self._adapt_border_spacing()
         if draw_header:
             self._draw_header(self.aircraft_type,
                               self.checklist_type)
@@ -291,9 +293,81 @@ class PDFManager:
                     X coordinate at which the text should start in order
                     to appear centered
         """
-        x_middle = (self.page_width - self.config.border_right - self.config.border_left) // 2 + self.config.border_left
-        x_start = x_middle - (text_width // 2)
+        x_middle = self.usable_width / 2 + self.x_limit_left
+        x_start = x_middle - (text_width / 2)
         return x_start
+
+
+    def _draw_row_background_rect(self,
+                                  y_text: int,
+                                  x_offset: int = 0
+                                  ):
+        """
+            Draws a rectangle for the row where the text starts at the
+            provided y coordinate
+
+            Params
+            ------
+                y_text (int):
+                    y position at which text gets written
+                x_offset (int):
+                    Left hand side offset when drawing rectangle.
+                    Defaults to 0
+        """
+        # y position is bottom of text to bottom of next text, white space inbetween is not evenly spaced
+        background_height = self.config.font_size_item + self.config.space_between_items / 3
+        self.canvas.setFillColor(self.background_color)
+        self.canvas.rect(self.x_limit_left+x_offset, y_text - (self.config.space_between_items / 4),
+                         self.usable_width-x_offset, background_height,
+                         fill=True, stroke=False)
+        self.canvas.setFillColor(colors.black)
+
+
+    def _stylize_centered_text(self,
+                               x_text_start: int,
+                               y_text: int,
+                               text_width: float
+                               ):
+        """
+            Stylizes the centered text element
+
+            Params
+            ------
+                x_text_start (int):
+                    X coordinate where text starts
+                y_text (int):
+                    Y coordinate onto which text is written
+                text_width (float):
+                    Width of the text
+        """
+        background_height = self.config.font_size_item + self.config.space_between_items / 3
+        x_start = x_text_start - self.config.centered_text_rect_x_offset
+        y_bottom = y_text - self.config.space_between_items / 4
+        # Draw Rect
+        self.canvas.setLineWidth(self.config.centered_text_line_thickness)
+        self.canvas.rect(x_start, y_bottom, text_width + (2*self.config.centered_text_rect_x_offset),
+                         background_height, stroke=1)
+        # Draw Lines
+        line_draw_height = y_text + self.config.font_size_item / 2 - self.config.centered_text_line_thickness / 2
+        self.canvas.line(self.x_limit_left, line_draw_height,
+                         x_text_start - self.config.centered_text_rect_x_offset, line_draw_height)
+        self.canvas.line(x_text_start+text_width+self.config.centered_text_rect_x_offset, line_draw_height,
+                         self.x_limit_right, line_draw_height)
+
+
+    def _adapt_border_spacing(self):
+        """
+            Adapts border spacing such that it's optimized for
+            printing two A5 pages on a A4 page and then filing it.
+        """
+        if self.current_page % 2 == 0:
+            # even
+            self.x_limit_left = self.config.border_right
+            self.x_limit_right = self.page_width - self.config.border_left
+        else:
+            # odd
+            self.x_limit_left = self.config.border_left
+            self.x_limit_right = self.page_width - self.config.border_right
 
 
     def section_fits_page(self,

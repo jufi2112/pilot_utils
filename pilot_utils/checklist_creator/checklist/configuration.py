@@ -31,6 +31,9 @@ class ChecklistConfiguration:
         self.space_before_footer = 20
         # Page size
         self.page_size = PAGE_SIZES_DICT["A5"]
+        # Centered text settings
+        self.centered_text_line_thickness = 1
+        self.centered_text_rect_x_offset = 5
 
 
     def update_configuration(self,
