@@ -25,8 +25,8 @@ class AZFTrainerModel:
         self.question_mode = question_mode
         self.fpath_done = fpath_done
         self.fpath_watched = fpath_watched
-        self.indices_done: Set[int] = {}
-        self.indices_watched: Set[int] = {}
+        self.indices_done: Set[int] = set()
+        self.indices_watched: Set[int] = set()
         self.answer_history: Dict[int, Dict[str, Union[AZFQuestion, int, None]]] = {}
         if osp.exists(self.fpath_done):
             self.indices_done = json.load(self.fpath_done)
@@ -118,7 +118,7 @@ class AZFTrainerModel:
                 self.answer_history[index]['done'] = False
         fname_tmp = self.fpath_done + ".tmp"
         with open(fname_tmp, 'w') as file:
-            json.dump(self.indices_done, file)
+            json.dump(list(self.indices_done), file)
         os.replace(fname_tmp, self.fpath_done)
 
 
@@ -133,7 +133,7 @@ class AZFTrainerModel:
                 self.answer_history[index]['watched'] = False
         fname_tmp = self.fpath_watched + ".tmp"
         with open(fname_tmp, 'w') as file:
-            json.dump(self.indices_watched, file)
+            json.dump(list(self.indices_watched), file)
         os.replace(fname_tmp, self.fpath_watched)
 
 
