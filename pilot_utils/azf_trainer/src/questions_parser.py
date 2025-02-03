@@ -16,36 +16,53 @@ def parse_azf_questionnaire(pdf_path: str) -> AZFQuestionnaire:
     question_id = None
     question_text = None
     answers = []
+    identifier_separated = False
 
     doc = pymupdf.open(pdf_path)
     for page in doc:
         blocks = page.get_text('blocks')
+        if len(blocks) == 0:
+            continue
         header = blocks[0][4].strip()
         if header != header_text:
-            print(f"Skipping page based on header.")
             continue
         for block in blocks:
             block_text = block[4].strip()
-            text = block_text.split('\n', 1)
-            # Ignore header / footer
-            if not text[0].strip().isdigit() and text[0].strip() not in ['A', 'B', 'C', 'D']:
-                continue
-
-            id = text[0].strip()
-            text = text[1].strip().replace("\n", "")
-
-            if question_id is None:
-                question_id = int(id)
-                question_text = text
-                continue
+            if identifier_separated:
+                text = [block_text]
             else:
-                answer = AZFAnswer(text, id == 'A')
-                answers.append(answer)
+                text = block_text.split('\n', 1)
+                # Ignore header / footer
+                if not text[0].strip().isdigit() and text[0].strip() not in ['A', 'B', 'C', 'D']:
+                    continue
 
-                if len(answers) == 4:
-                    question = AZFQuestion(question_id, question_text, answers)
-                    questionnaire.add_question(question)
-                    question_id = None
-                    question_text = None
-                    answers = []
+            # check if only identifier is provided
+            if len(text) == 1:
+                if not identifier_separated:
+                    identifier_separated = True
+                    question_id = int(text[0].strip())
+                    continue
+                else:
+                    identifier_separated = False
+                    question_text = text
+                    continue
+            else:
+
+                id = text[0].strip()
+                text = text[1].strip().replace("\n", "")
+
+                if question_id is None:
+                    question_id = int(id)
+                    question_text = text
+                    continue
+                else:
+                    answer = AZFAnswer(text, id == 'A')
+                    answers.append(answer)
+
+                    if len(answers) == 4:
+                        question = AZFQuestion(question_id, question_text, answers)
+                        questionnaire.add_question(question)
+                        question_id = None
+                        question_text = None
+                        answers = []
     return questionnaire
