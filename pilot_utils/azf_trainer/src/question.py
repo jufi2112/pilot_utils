@@ -146,6 +146,10 @@ class AZFQuestionnaire:
         return self.questions.get(id, None)
 
 
+    def reset_index(self):
+        self.current_index = 0
+
+
     @staticmethod
     def from_json(json_fpath) -> "AZFQuestionnaire":
         if not osp.exists(json_fpath):
