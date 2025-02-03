@@ -4,32 +4,23 @@ from pilot_utils.azf_trainer.src.model import QuestionMode
 from typing import Callable
 
 class AZFTrainerDialogNewTraining(QDialog, Ui_new_training_dialog):
-    def __init__(self, accept_callback: Callable, parent=None):
+    def __init__(self, parent=None):
         """
             Params
             ------
                 radioButton_callback (Callable):
-                    A function that should be called when the dialog is accepted
+                    A function that should be called when the dialog is accepted. Should accept a QuestionMode and a string that is either 'all' or an int
         """
         super().__init__(parent)
-        self.accept_callback = accept_callback
         self.setupUi(self)
-        self.connect_signals_and_slots()
+        self.lineEdit_number_questions.setText("all")
+        self.lineEdit_number_questions.textChanged.connect(self.lineEdit_changed_callback)
 
-
-    def connect_signals_and_slots(self):
-        self.button_start.clicked.connect(self.button_start_clicked_callback)
-
-
-    def button_start_clicked_callback(self):
-        mode = QuestionMode.NO_DONE
-        if self.radioButton_default.isChecked():
-            mode = QuestionMode.NO_DONE
-        elif self.radioButton_show_all.isChecked():
-            mode = QuestionMode.ALL
-        elif self.radioButton_done_only:
-            mode = QuestionMode.DONE_ONLY
-        elif self.radioButton_watched_only.isChecked():
-            mode = QuestionMode.WATCHED_ONLY
-        self.accept_callback(mode)
-        self.accept()
+    def lineEdit_changed_callback(self, text: str):
+        """Only allow 'all' or an integer"""
+        if "all".startswith(text):
+            return
+        try:
+            _ = int(text)
+        except:
+            self.lineEdit_number_questions.setText("")

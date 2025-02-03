@@ -117,7 +117,84 @@
      <property name="sizeHint" stdset="0">
       <size>
        <width>20</width>
-       <height>59</height>
+       <height>41</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_3">
+     <item>
+      <spacer name="horizontalSpacer_3">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <layout class="QFormLayout" name="formLayout">
+       <property name="sizeConstraint">
+        <enum>QLayout::SetMinAndMaxSize</enum>
+       </property>
+       <item row="0" column="0">
+        <widget class="QLabel" name="label_number_questions">
+         <property name="font">
+          <font>
+           <pointsize>16</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Number of questions:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QLineEdit" name="lineEdit_number_questions">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>16</pointsize>
+          </font>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <spacer name="horizontalSpacer_4">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <spacer name="verticalSpacer_4">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>40</height>
       </size>
      </property>
     </spacer>
@@ -170,7 +247,7 @@
      <property name="sizeHint" stdset="0">
       <size>
        <width>20</width>
-       <height>96</height>
+       <height>40</height>
       </size>
      </property>
     </spacer>
@@ -187,11 +264,27 @@
    <hints>
     <hint type="sourcelabel">
      <x>513</x>
-     <y>339</y>
+     <y>433</y>
     </hint>
     <hint type="destinationlabel">
      <x>395</x>
      <y>96</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>button_start</sender>
+   <signal>clicked()</signal>
+   <receiver>new_training_dialog</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>249</x>
+     <y>433</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>102</x>
+     <y>362</y>
     </hint>
    </hints>
   </connection>
