@@ -44,7 +44,7 @@ def parse_azf_questionnaire(pdf_path: str) -> AZFQuestionnaire:
                     continue
                 else:
                     identifier_separated = False
-                    question_text = text[0].strip()
+                    question_text = text[0].strip().replace("\n", "")
                     continue
             else:
 

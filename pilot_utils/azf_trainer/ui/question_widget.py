@@ -1,6 +1,6 @@
 from pilot_utils.azf_trainer.ui.question_widget_base import Ui_question_widget
 from pilot_utils.azf_trainer.ui.clickable_label import ClickableLabel
-from PyQt6.QtWidgets import QWidget, QRadioButton
+from PyQt6.QtWidgets import QWidget, QRadioButton, QLabel
 from functools import partial
 from typing import Callable, List
 
@@ -38,7 +38,8 @@ class AZFQuestionWidget(QWidget, Ui_question_widget):
         self.previous_question_callback = previous_question_callback
         self.next_question_callback = next_question_callback
         self.current_question_index = -1
-        self.answer_labels: List[QRadioButton] = [self.label_answer_A, self.label_answer_B, self.label_answer_C, self.label_answer_D]
+        self.answer_labels: List[QLabel] = [self.label_answer_A, self.label_answer_B, self.label_answer_C, self.label_answer_D]
+        self.result_labels: List[QLabel] = [self.label_answer_A_result, self.label_answer_B_result, self.label_answer_C_result, self.label_answer_D_result]
         self.answer_radio_buttons: List[ClickableLabel] = [self.radioButton_answer_A, self.radioButton_answer_B, self.radioButton_answer_C, self.radioButton_answer_D]
         self.is_watched: bool = False
         self.is_ignored: bool = False
@@ -49,6 +50,10 @@ class AZFQuestionWidget(QWidget, Ui_question_widget):
     def _clear_label_styles(self):
         for label in self.answer_labels:
             label.setStyleSheet("")
+        for label in self.result_labels:
+            label.setStyleSheet("")
+            label.setText("")
+            label.setVisible(False)
 
 
     def init_ui(self):
@@ -152,9 +157,12 @@ class AZFQuestionWidget(QWidget, Ui_question_widget):
         self._clear_label_styles()
         if selected == correct:
             self.answer_labels[selected].setStyleSheet("color: green")
+            self._set_result_label(selected, True)
         else:
             self.answer_labels[selected].setStyleSheet("color: red")
             self.answer_labels[correct].setStyleSheet("color: green")
+            self._set_result_label(selected, False)
+            self._set_result_label(correct, True)
 
 
     def button_done_clicked_callback(self):
@@ -167,3 +175,14 @@ class AZFQuestionWidget(QWidget, Ui_question_widget):
         self.is_watched = not self.is_watched
         self.button_watch.setChecked(self.is_watched)
         self.watch_callback(self.current_question_index, self.is_watched)
+
+
+    def _set_result_label(self, index: int, is_correct: bool):
+        label: QLabel = self.result_labels[index]
+        if is_correct:
+            #label.setStyleSheet("color: green")
+            label.setText("<html><body><p style='color:green'>&#10004;</p></body></html>")
+        else:
+            #label.setStyleSheet("color: red")
+            label.setText("<html><body><p style='color:red'>&#10008;</p></body></html>")
+        label.setVisible(True)
