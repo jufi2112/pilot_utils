@@ -80,8 +80,7 @@ class AZFQuestion:
 
 class AZFQuestionnaire:
     def __init__(self,
-                 random_order: bool,
-                 questions: List[AZFQuestion] = None
+                 questions: List[AZFQuestion] = None,
                  ):
         if questions is None:
             self.questions = {}
@@ -91,51 +90,14 @@ class AZFQuestionnaire:
             self.questions = {
                 question.id: question for question in questions
             }
-        self.random_order = random_order
-        self.indices = None
-        self._setup_indices()
-        self.current_index = 0
-
-
-    def _setup_indices(self):
-        if self.random_order:
-            self.indices = np.random.permutation(len(self.questions))
-        else:
-            self.indices = np.arange(len(self.questions))
 
 
     def add_question(self, question: AZFQuestion):
         self.questions[question.id] = question
-        self._setup_indices()
-        self.current_index = 0
 
 
     def get_json(self):
         return [question.get_json() for _, question in self.questions.items()]
-
-
-    def get_next_question(self) -> Union[None, AZFQuestion]:
-        """
-            Returns the next question. If no more question are available, returns None
-        """
-        if self.current_index >= len(self.questions):
-            return None
-        ids = list(self.questions.keys())
-        question = self.questions[ids[self.indices[self.current_index]]]
-        self.current_index += 1
-        return question
-
-
-    def get_previous_question(self) -> Union[None, AZFQuestion]:
-        """
-            Returns the previous question. If no more questions are available, returns None
-        """
-        if self.current_index <= -1:
-            return None
-        ids = list(self.questions.keys())
-        question = self.questions[ids[self.indices[self.current_index]]]
-        self.current_index -= 1
-        return question
 
 
     def get_num_questions(self) -> int:
@@ -146,8 +108,16 @@ class AZFQuestionnaire:
         return self.questions.get(id, None)
 
 
-    def reset_index(self):
-        self.current_index = 0
+    def get_all_question_ids(self) -> List[int]:
+        return list(self.questions.keys())
+
+
+    def __iter__(self):
+        return iter(self.questions.items())
+
+
+    def __reversed__(self):
+        return iter(reversed(self.questions.items()))
 
 
     @staticmethod
@@ -156,7 +126,7 @@ class AZFQuestionnaire:
             raise ValueError(f"The provided json path does not exist: {json_fpath}")
         with open(json_fpath, 'r') as file:
             questions = json.load(file)
-        questionnaire: AZFQuestionnaire = AZFQuestionnaire(True)
+        questionnaire: AZFQuestionnaire = AZFQuestionnaire()
         for question in questions:
             questionnaire.add_question(AZFQuestion.from_json(question))
         return questionnaire

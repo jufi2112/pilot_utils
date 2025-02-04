@@ -41,7 +41,7 @@ class AZFQuestionWidget(QWidget, Ui_question_widget):
         self.answer_labels: List[QRadioButton] = [self.label_answer_A, self.label_answer_B, self.label_answer_C, self.label_answer_D]
         self.answer_radio_buttons: List[ClickableLabel] = [self.radioButton_answer_A, self.radioButton_answer_B, self.radioButton_answer_C, self.radioButton_answer_D]
         self.is_watched: bool = False
-        self.is_done: bool = False
+        self.is_ignored: bool = False
         self.connect_signals_and_slots()
         self.init_ui()
 
@@ -121,22 +121,27 @@ class AZFQuestionWidget(QWidget, Ui_question_widget):
 
     def fill_question(self,
                       question_id: int,
+                      current_question_index: int,
+                      total_questions: int,
                       question_text: str,
                       answer_a: str,
                       answer_b: str,
                       answer_c: str,
                       answer_d: str,
-                      is_question_done: bool,
+                      is_question_ignored: bool,
                       is_question_watched: bool,
                       selected_answer: int = None,
                       correct_answer: int = None):
         self.init_ui()
+        self.label_question_number.setText(f"Question {current_question_index} of {total_questions} (ID: {question_id})")
         self.current_question_index = question_id
         self.label_question.setText(question_text)
         for text, label in zip([answer_a, answer_b, answer_c, answer_d], self.answer_labels):
             label.setText(text)
-        self.button_done.setChecked(is_question_done)
+        self.button_done.setChecked(is_question_ignored)
+        self.is_ignored = is_question_ignored
         self.button_watch.setChecked(is_question_watched)
+        self.is_watched = is_question_watched
         if selected_answer is not None and correct_answer is not None:
             self._highlight_correct(selected_answer, correct_answer)
             self.answer_radio_buttons[selected_answer].setChecked(True)
@@ -153,9 +158,9 @@ class AZFQuestionWidget(QWidget, Ui_question_widget):
 
 
     def button_done_clicked_callback(self):
-        self.is_done = not self.is_done
-        self.button_done.setChecked(self.is_done)
-        self.mark_done_callback(self.current_question_index, self.is_done)
+        self.is_ignored = not self.is_ignored
+        self.button_done.setChecked(self.is_ignored)
+        self.mark_done_callback(self.current_question_index, self.is_ignored)
 
 
     def button_watch_clicked_callback(self):

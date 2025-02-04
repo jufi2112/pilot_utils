@@ -1,6 +1,6 @@
 from PyQt6.QtWidgets import QDialog
 from pilot_utils.azf_trainer.ui.dialog_new_training_base import Ui_new_training_dialog
-from pilot_utils.azf_trainer.src.model import QuestionMode
+from pilot_utils.azf_trainer.src.model import QuestionFilter
 from typing import Callable
 
 class AZFTrainerDialogNewTraining(QDialog, Ui_new_training_dialog):

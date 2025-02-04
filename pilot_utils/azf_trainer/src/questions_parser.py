@@ -11,7 +11,7 @@ def parse_azf_questionnaire(pdf_path: str) -> AZFQuestionnaire:
         Parses the provided pdf document and returns the contained questionnaire
     """
     header_text = 'Prüfungsfragen im Prüfungsteil "Kenntnisse" bei Prüfungen zum Erwerb AZF und AZF E'
-    questionnaire = AZFQuestionnaire(True)
+    questionnaire = AZFQuestionnaire()
 
     question_id = None
     question_text = None
@@ -44,7 +44,7 @@ def parse_azf_questionnaire(pdf_path: str) -> AZFQuestionnaire:
                     continue
                 else:
                     identifier_separated = False
-                    question_text = text
+                    question_text = text[0].strip()
                     continue
             else:
 

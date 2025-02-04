@@ -1,5 +1,6 @@
+from PyQt6.QtWidgets import QMessageBox
 from pilot_utils.azf_trainer.ui.main_window import AZFTrainerMainWindow, MainPages
-from pilot_utils.azf_trainer.src.model import AZFTrainerModel, QuestionMode
+from pilot_utils.azf_trainer.src.model import AZFTrainerModel, QuestionFilter
 from pilot_utils.azf_trainer.ui.dialog_new_training import AZFTrainerDialogNewTraining
 from pilot_utils.azf_trainer.ui.question_widget import AZFQuestionWidget
 from pilot_utils.azf_trainer.src import AZFQuestion
@@ -18,7 +19,7 @@ class AZFTrainingController:
         self.fpath_watched = fpath_watched
         self._model = None
         self._training_page: AZFQuestionWidget = None
-        self.question_mode: QuestionMode = None
+        self.question_mode: QuestionFilter = None
         self.n_questions: int = None
         self.connect_signals_and_slots()
 
@@ -51,19 +52,20 @@ class AZFTrainingController:
                                                 previous_question_callback=self.training_previous_question_callback,
                                                 next_question_callback=self.training_next_question_callback)
         self._view.add_stacked_page(self._training_page, MainPages.PAGE_TRAINING)
-        self.training_next_question_callback()
-        self._view.switch_main_page(MainPages.PAGE_TRAINING)
+        success = self.training_next_question_callback()
+        if success:
+            self._view.switch_main_page(MainPages.PAGE_TRAINING)
 
 
     def start_new_training_accepted_callback(self, dialog: AZFTrainerDialogNewTraining):
         if dialog.radioButton_show_all.isChecked():
-            self.question_mode = QuestionMode.ALL
+            self.question_mode = QuestionFilter.ALL
         elif dialog.radioButton_done_only.isChecked():
-            self.question_mode = QuestionMode.DONE_ONLY
+            self.question_mode = QuestionFilter.IGNORED_ONLY
         elif dialog.radioButton_watched_only.isChecked():
-            self.question_mode = QuestionMode.WATCHED_ONLY
+            self.question_mode = QuestionFilter.WATCHED_ONLY
         else:
-            self.question_mode = QuestionMode.NO_DONE
+            self.question_mode = QuestionFilter.NOT_IGNORED
         n_questions = dialog.lineEdit_number_questions.text()
         if n_questions == 'all':
             self.n_questions = -1
@@ -74,53 +76,67 @@ class AZFTrainingController:
                 raise ValueError(f"Expected n_questions to be 'all' or of type int but got {n_questions}")
 
 
-    def training_next_question_callback(self):
+    def training_next_question_callback(self) -> bool:
         if self._model is None or self._training_page is None:
-            return
-        data = self._model.get_next_question()
+            return False
+        data, current_index, total_questions = self._model.get_next_question()
+        if total_questions == 0:
+            QMessageBox.information(self._view, "Training Not Possible", "No questions matched your filter criteria")
+            self.training_quit_callback()
+            return False
         if data is None:
-            # TODO: No more questions, show a corresponding message
-            pass
+            QMessageBox.information(self._view, "Training Not Possible", "Failed to load next question")
+            return False
         else:
-            self._send_question_to_training_page(data)
-
+            self._send_question_to_training_page(data, current_index, total_questions)
+        return True
 
 
     def training_previous_question_callback(self):
         if self._model is None or self._training_page is None:
-            return
-        data = self._model.get_previous_question()
+            return False
+        data, current_index, total_questions = self._model.get_previous_question()
+        if total_questions == 0:
+            QMessageBox.information(self._view, "Training Not Possible", "No questions matched your filter criteria")
+            self.training_quit_callback()
+            return False
         if data is None:
-            # TODO: Show adequate message
-            pass
+            QMessageBox.information(self._view, "Training Not Possible", "Failed to load previous question")
+            return False
         else:
-            self._send_question_to_training_page(data)
+            self._send_question_to_training_page(data, current_index, total_questions)
+        return True
 
 
-    def _send_question_to_training_page(self, data: Dict):
+    def _send_question_to_training_page(self, data: Dict, current_index: int, total_questions: int):
         if self._training_page is None:
             return
+        # TODO: put this logic into question_widget?
+        self._training_page.button_previous.setEnabled(current_index > 1)
+        self._training_page.button_next.setEnabled(current_index < total_questions)
         question: AZFQuestion = data['question']
         correct = [idx for idx, answer in enumerate(question.answers) if answer.correct][0]
         watched = data['watched']
-        done = data['done']
+        ignored = data['ignored']
         self._training_page.fill_question(question_id=question.id,
+                                          current_question_index=current_index,
+                                          total_questions=total_questions,
                                           question_text=question.question,
                                           answer_a=question.answers[0].answer,
                                           answer_b=question.answers[1].answer,
                                           answer_c=question.answers[2].answer,
                                           answer_d=question.answers[3].answer,
-                                          is_question_done=done,
+                                          is_question_ignored=ignored,
                                           is_question_watched=watched,
                                           selected_answer=data['user_selection'],
                                           correct_answer=correct
                                           )
 
 
-    def training_mark_done_callback(self, question_id: int, is_done: bool):
+    def training_mark_done_callback(self, question_id: int, ignore: bool):
         if self._model is None:
             return
-        self._model.set_done(question_id, is_done)
+        self._model.set_ignored(question_id, ignore)
 
 
     def training_mark_watched_callback(self, question_id: int, is_watched: bool):
@@ -142,6 +158,8 @@ class AZFTrainingController:
         self._training_page.disconnect_signals_and_slots()
         self._training_page = None
         self._model = None
+        self.question_mode = None
+        self.n_questions = None
         self._view.switch_main_page(MainPages.PAGE_HOME)
 
 
