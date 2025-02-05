@@ -2,7 +2,17 @@ from pilot_utils.azf_trainer.ui.question_widget_base import Ui_question_widget
 from pilot_utils.azf_trainer.ui.clickable_label import ClickableLabel
 from PyQt6.QtWidgets import QWidget, QRadioButton, QLabel
 from functools import partial
-from typing import Callable, List
+from typing import Callable, List, Dict
+from enum import Enum
+
+class AZFExerciseMode(Enum):
+    UNDEFINED = "UNDEFINED"
+    TRAINING = "TRAINING"
+    EXAM = "EXAM"
+    SHOW_IGNORED = "IGNORED"
+    SHOW_BOOKMARKED = "BOOKMARKED"
+
+
 
 class AZFQuestionWidget(QWidget, Ui_question_widget):
     def __init__(self,
@@ -12,7 +22,8 @@ class AZFQuestionWidget(QWidget, Ui_question_widget):
                  watch_callback: Callable,
                  stop_callback: Callable,
                  previous_question_callback: Callable,
-                 next_question_callback: Callable):
+                 next_question_callback: Callable,
+                 exercise_mode: AZFExerciseMode):
         """
             Params
             ------
@@ -31,6 +42,12 @@ class AZFQuestionWidget(QWidget, Ui_question_widget):
         """
         super().__init__(parent)
         self.setupUi(self)
+        self.exercise_mode: AZFExerciseMode = exercise_mode
+        if self.exercise_mode == AZFExerciseMode.UNDEFINED:
+            raise ValueError("AZFQuestionWidget got undefined exercise mode")
+        self.exercise_finished = False
+        # When in exam mode, store selection for each question
+        self.exam_selection = {}
         self.submission_callback = submission_callback
         self.mark_done_callback = mark_done_callback
         self.watch_callback = watch_callback
@@ -58,7 +75,12 @@ class AZFQuestionWidget(QWidget, Ui_question_widget):
 
     def init_ui(self):
         self.button_submit.setEnabled(False)
-        self.button_home.setText("Stop Exam")
+        if self.exercise_mode == AZFExerciseMode.TRAINING:
+            self.button_home.setText("Stop Training")
+        elif self.exercise_mode == AZFExerciseMode.EXAM:
+            self.button_home.setText("Stop Exam")
+            self._set_submit_button_exam_text()
+        # TODO: Rest
         self._clear_label_styles()
         for rad_but in self.answer_radio_buttons:
             rad_but.setAutoExclusive(False)
@@ -78,8 +100,8 @@ class AZFQuestionWidget(QWidget, Ui_question_widget):
         self.radioButton_answer_C.toggled.connect(self.radio_button_checked_callback)
         self.radioButton_answer_D.toggled.connect(self.radio_button_checked_callback)
         self.button_submit.clicked.connect(self.button_submit_clicked_callback)
-        self.button_done.clicked.connect(self.button_done_clicked_callback)
-        self.button_watch.clicked.connect(self.button_watch_clicked_callback)
+        self.button_done.clicked.connect(self.button_ignore_clicked_callback)
+        self.button_watch.clicked.connect(self.button_bookmark_clicked_callback)
         self.button_home.clicked.connect(self.stop_callback)
         self.button_previous.clicked.connect(self.previous_question_callback)
         self.button_next.clicked.connect(self.next_question_callback)
@@ -108,12 +130,20 @@ class AZFQuestionWidget(QWidget, Ui_question_widget):
 
     def radio_button_checked_callback(self):
         if self.radioButton_answer_A.isChecked() or self.radioButton_answer_B.isChecked() or self.radioButton_answer_C.isChecked() or self.radioButton_answer_D.isChecked():
-            self.button_submit.setEnabled(True)
+            if self.exercise_mode != AZFExerciseMode.EXAM:
+                self.button_submit.setEnabled(True)
+            else:
+                selection = [idx for idx, radioButton in enumerate(self.answer_radio_buttons) if radioButton.isChecked()][0]
+                self.exam_selection[self.current_question_index] = selection
+                self.submission_callback(self.current_question_index, selection)
+                self._set_submit_button_exam_text()
         else:
             self.button_submit.setEnabled(False)
 
 
     def button_submit_clicked_callback(self):
+        if self.exercise_mode == AZFExerciseMode.EXAM:
+            raise ValueError("Button submit clicked despite exam mode being active.")
         selection = None
         for idx, button in enumerate(self.answer_radio_buttons):
             if button.isChecked():
@@ -149,12 +179,16 @@ class AZFQuestionWidget(QWidget, Ui_question_widget):
         self.button_watch.setChecked(is_question_watched)
         self.is_watched = is_question_watched
         if selected_answer is not None and correct_answer is not None:
-            self._highlight_correct(selected_answer, correct_answer)
             self.answer_radio_buttons[selected_answer].setChecked(True)
+            if self.exercise_mode == AZFExerciseMode.EXAM and not self.exercise_finished:
+                return
+            self._highlight_correct(selected_answer, correct_answer)
             self.button_submit.setEnabled(True)
 
 
     def _highlight_correct(self, selected: int, correct: int):
+        if self.exercise_mode == AZFExerciseMode.EXAM and not self.exercise_finished:
+            return
         self._clear_label_styles()
         if selected == correct:
             self.answer_labels[selected].setStyleSheet("color: green")
@@ -166,13 +200,13 @@ class AZFQuestionWidget(QWidget, Ui_question_widget):
             self._set_result_label(correct, True)
 
 
-    def button_done_clicked_callback(self):
+    def button_ignore_clicked_callback(self):
         self.is_ignored = not self.is_ignored
         self.button_done.setChecked(self.is_ignored)
         self.mark_done_callback(self.current_question_index, self.is_ignored)
 
 
-    def button_watch_clicked_callback(self):
+    def button_bookmark_clicked_callback(self):
         self.is_watched = not self.is_watched
         self.button_watch.setChecked(self.is_watched)
         self.watch_callback(self.current_question_index, self.is_watched)
@@ -190,4 +224,12 @@ class AZFQuestionWidget(QWidget, Ui_question_widget):
 
 
     def all_questions_answered_action(self):
-        self.button_home.setText("Finish Exam")
+        if self.exercise_mode == AZFExerciseMode.TRAINING:
+            self.button_home.setText("Finish Training")
+        elif self.exercise_mode == AZFExerciseMode.EXAM:
+            self.button_home.setText("Finish Exam")
+        # TODO: add text for ignored / bookmarked
+
+
+    def _set_submit_button_exam_text(self):
+        self.button_submit.setText(f"Unanswered questions: {40-len(self.exam_selection)}")

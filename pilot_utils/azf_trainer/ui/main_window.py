@@ -3,9 +3,10 @@ from pilot_utils.azf_trainer.ui.question_widget import AZFQuestionWidget
 from PyQt6.QtWidgets import QMainWindow, QWidget
 from enum import Enum
 
-class MainPages(Enum):
-    PAGE_HOME = "PAGE_HOME"
-    PAGE_TRAINING = "PAGE_TRAINING"
+class AZFMainPages(Enum):
+    HOME = "HOME"
+    EXERCISE = "EXERCISE"
+
 
 
 class AZFTrainerMainWindow(QMainWindow, Ui_MainWindow):
@@ -13,17 +14,17 @@ class AZFTrainerMainWindow(QMainWindow, Ui_MainWindow):
         super().__init__(parent)
         self.setupUi(self)
         self.page_indices = {
-            MainPages.PAGE_HOME: 0
+            AZFMainPages.HOME: 0
         }
         self.connect_signals_and_slots()
 
 
-    def add_stacked_page(self, widget: QWidget, page_type: MainPages):
+    def add_stacked_page(self, widget: QWidget, page_type: AZFMainPages):
         index = self.stackedWidget.addWidget(widget)
         self.page_indices[page_type] = index
 
 
-    def switch_main_page(self, page: MainPages):
+    def switch_main_page(self, page: AZFMainPages):
         self.stackedWidget.setCurrentIndex(self.page_indices[page])
 
 

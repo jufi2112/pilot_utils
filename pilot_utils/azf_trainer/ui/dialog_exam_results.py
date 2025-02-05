@@ -1,6 +1,7 @@
 from typing import Callable
 from PyQt6.QtWidgets import QDialog
 from pilot_utils.azf_trainer.ui.dialog_exam_results_base import Ui_dialog_exam_results
+from pilot_utils.azf_trainer.ui.question_widget import AZFExerciseMode
 
 
 class AZFTrainerDialogExamResults(QDialog, Ui_dialog_exam_results):
@@ -10,6 +11,7 @@ class AZFTrainerDialogExamResults(QDialog, Ui_dialog_exam_results):
                  questions_total: int,
                  wrong_answers_to_watchlist_callback: Callable,
                  unanswered_questions_to_watchlist_callback: Callable,
+                 exercise_mode: AZFExerciseMode,
                  pass_percentage: float = 0.75,
                  parent=None):
         """
@@ -22,11 +24,16 @@ class AZFTrainerDialogExamResults(QDialog, Ui_dialog_exam_results):
         """
         super().__init__(parent)
         self.setupUi(self)
-        percentage = round(questions_correct / questions_total, 1)
-        self.label_correct.setText(f"Correct answers: {questions_correct} out of {questions_total} ({percentage*100} %)")
+        percentage = round((questions_correct / questions_total)*100, 1)
+        self.label_correct.setText(f"Correct answers: {questions_correct} out of {questions_total} ({percentage} %)")
         cross = "<html><body><p style='color:red'>&#10008; failed</p></body></html>"
         check = "<html><body><p style='color:green'>&#10004; passed</p></body></html>"
-        text = f"Exam result: {check if percentage >= pass_percentage else cross}"
+        exercise_name = "<undefined>"
+        if exercise_mode == AZFExerciseMode.TRAINING:
+            exercise_name = "Training"
+        elif exercise_mode == AZFExerciseMode.EXAM:
+            exercise_name = "Exam"
+        text = f"{exercise_name} result: {check if percentage >= (pass_percentage*100) else cross}"
         self.label_result.setText(text)
         self._set_button_unanswered_to_watchlist_text(questions_unanswered)
         self._set_button_wrong_to_watchlist_text(questions_total - questions_correct - questions_unanswered)

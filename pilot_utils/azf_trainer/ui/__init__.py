@@ -1,1 +1,1 @@
-from .main_window import AZFTrainerMainWindow, MainPages
+from .main_window import AZFTrainerMainWindow, AZFMainPages
