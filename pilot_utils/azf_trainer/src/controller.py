@@ -1,8 +1,9 @@
-from PyQt6.QtWidgets import QMessageBox
+from PyQt6.QtWidgets import QMessageBox, QDialog
 from pilot_utils.azf_trainer.ui.main_window import AZFTrainerMainWindow, MainPages
 from pilot_utils.azf_trainer.src.model import AZFTrainerModel, QuestionFilter
 from pilot_utils.azf_trainer.ui.dialog_new_training import AZFTrainerDialogNewTraining
 from pilot_utils.azf_trainer.ui.question_widget import AZFQuestionWidget
+from pilot_utils.azf_trainer.ui.dialog_exam_results import AZFTrainerDialogExamResults
 from pilot_utils.azf_trainer.src import AZFQuestion
 from functools import partial
 from typing import Dict
@@ -35,7 +36,9 @@ class AZFTrainingController:
         start_training_dialog = AZFTrainerDialogNewTraining(self._view)
         start_training_dialog.accepted.connect(partial(self.start_new_training_accepted_callback, start_training_dialog))
         result = start_training_dialog.exec()
-        if result == 0:
+        start_training_dialog.accepted.disconnect()
+        start_training_dialog.disconnect_signals_and_slots()
+        if result != QDialog.DialogCode.Accepted:
             return
         assert self.question_mode is not None, f"No question mode set by new training start dialog!"
         assert self.n_questions is not None, f"No n_questions set by new training start dialog!"
@@ -66,14 +69,7 @@ class AZFTrainingController:
             self.question_mode = QuestionFilter.WATCHED_ONLY
         else:
             self.question_mode = QuestionFilter.NOT_IGNORED
-        n_questions = dialog.lineEdit_number_questions.text()
-        if n_questions == 'all':
-            self.n_questions = -1
-        else:
-            try:
-                self.n_questions = int(n_questions)
-            except:
-                raise ValueError(f"Expected n_questions to be 'all' or of type int but got {n_questions}")
+        self.n_questions = -1 if dialog.checkBox_all_questions.isChecked() else dialog.spinBox_number_questions.value()
 
 
     def training_next_question_callback(self) -> bool:
@@ -142,18 +138,43 @@ class AZFTrainingController:
     def training_mark_watched_callback(self, question_id: int, is_watched: bool):
         if self._model is None:
             return
-        self._model.set_watched(question_id, is_watched)
+        self._model.add_to_watchlist(question_id, is_watched)
 
 
     def training_submit_callback(self, question_id: int, selection: int) -> int:
         if self._model is None or self._training_page is None:
             return
         correct = self._model.add_user_selection(question_id, selection)
+        if self._model.all_questions_answered():
+            self._training_page.all_questions_answered_action()
         return correct
 
 
+    def add_wrong_answers_to_watchlist_callback(self):
+        pass
+
+
     def training_quit_callback(self):
-        if self._training_page is None:
+        if self._training_page is None or self._model is None:
+            return
+        if not self._model.all_questions_answered():
+            reply = QMessageBox.question(
+                self._view,
+                "Confirm Stop",
+                "Not all questions have been answered. Stop exam?",
+                QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No |QMessageBox.StandardButton.Cancel,
+                QMessageBox.StandardButton.Cancel
+            )
+            if reply != QMessageBox.StandardButton.Yes:
+                return
+        n_questions, n_correct, n_unanswered = self._model.get_exam_stats()
+        exam_result_dialog = AZFTrainerDialogExamResults(n_correct, n_unanswered, n_questions,
+                                                            wrong_answers_to_watchlist_callback=self._model.add_wrong_answers_to_watchlist,
+                                                            unanswered_questions_to_watchlist_callback=self._model.add_unanswered_to_watchlist,
+                                                            pass_percentage=0.75,
+                                                            parent=self._view)
+        result = exam_result_dialog.exec()
+        if result != QDialog.DialogCode.Accepted:
             return
         self._training_page.disconnect_signals_and_slots()
         self._training_page = None

@@ -1,26 +1,26 @@
+from typing import Callable
+from functools import partial
 from PyQt6.QtWidgets import QDialog
 from pilot_utils.azf_trainer.ui.dialog_new_training_base import Ui_new_training_dialog
-from pilot_utils.azf_trainer.src.model import QuestionFilter
-from typing import Callable
+
 
 class AZFTrainerDialogNewTraining(QDialog, Ui_new_training_dialog):
     def __init__(self, parent=None):
-        """
-            Params
-            ------
-                radioButton_callback (Callable):
-                    A function that should be called when the dialog is accepted. Should accept a QuestionMode and a string that is either 'all' or an int
-        """
         super().__init__(parent)
         self.setupUi(self)
-        self.lineEdit_number_questions.setText("all")
-        self.lineEdit_number_questions.textChanged.connect(self.lineEdit_changed_callback)
+        self.connect_signals_and_slots()
 
-    def lineEdit_changed_callback(self, text: str):
-        """Only allow 'all' or an integer"""
-        if "all".startswith(text):
-            return
-        try:
-            _ = int(text)
-        except:
-            self.lineEdit_number_questions.setText("")
+
+    def connect_signals_and_slots(self):
+        self.checkBox_all_questions.toggled.connect(self.checkbox_toggled_callback)
+
+
+    def disconnect_signals_and_slots(self):
+        self.checkBox_all_questions.toggled.disconnect()
+
+
+    def checkbox_toggled_callback(self, is_active: bool):
+        if is_active:
+            self.spinBox_number_questions.setEnabled(False)
+        else:
+            self.spinBox_number_questions.setEnabled(True)

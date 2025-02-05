@@ -28,11 +28,11 @@ if __name__ == '__main__':
     else:
         questions_fpath = args.questions
     if args.watched is None:
-        watched_fpath = osp.join(get_package_root(), 'pilot_utils', 'azf_trainer', 'data', 'watched.json')
+        watched_fpath = osp.join(get_package_root(), 'pilot_utils', 'azf_trainer', 'data', 'watchlist.json')
     else:
         watched_fpath = args.watched
     if args.done is None:
-        done_fpath = osp.join(get_package_root(), 'pilot_utils', 'azf_trainer', 'data', 'done.json')
+        done_fpath = osp.join(get_package_root(), 'pilot_utils', 'azf_trainer', 'data', 'ignored.json')
     else:
         done_fpath = args.done
     

@@ -58,6 +58,7 @@ class AZFQuestionWidget(QWidget, Ui_question_widget):
 
     def init_ui(self):
         self.button_submit.setEnabled(False)
+        self.button_home.setText("Stop Exam")
         self._clear_label_styles()
         for rad_but in self.answer_radio_buttons:
             rad_but.setAutoExclusive(False)
@@ -186,3 +187,7 @@ class AZFQuestionWidget(QWidget, Ui_question_widget):
             #label.setStyleSheet("color: red")
             label.setText("<html><body><p style='color:red'>&#10008;</p></body></html>")
         label.setVisible(True)
+
+
+    def all_questions_answered_action(self):
+        self.button_home.setText("Finish Exam")

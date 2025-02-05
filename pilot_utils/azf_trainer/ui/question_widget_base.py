@@ -291,5 +291,5 @@ class Ui_question_widget(object):
         self.button_previous.setText(_translate("question_widget", "Previous"))
         self.button_next.setText(_translate("question_widget", "Next"))
         self.button_watch.setText(_translate("question_widget", "Add to watch list"))
-        self.button_home.setText(_translate("question_widget", "Stop Training"))
+        self.button_home.setText(_translate("question_widget", "Stop Exam"))
 from pilot_utils.azf_trainer.ui.clickable_label import ClickableLabel

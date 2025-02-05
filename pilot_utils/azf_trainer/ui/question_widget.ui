@@ -558,7 +558,7 @@
         </font>
        </property>
        <property name="text">
-        <string>Stop Training</string>
+        <string>Stop Exam</string>
        </property>
       </widget>
      </item>
