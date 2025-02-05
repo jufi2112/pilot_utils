@@ -1,12 +1,14 @@
-from PyQt6.QtWidgets import QMessageBox, QDialog
+import json
+from PyQt6.QtWidgets import QMessageBox, QDialog, QFileDialog
 from pilot_utils.azf_trainer.ui.main_window import AZFTrainerMainWindow, MainPages
 from pilot_utils.azf_trainer.src.model import AZFTrainerModel, QuestionFilter
 from pilot_utils.azf_trainer.ui.dialog_new_training import AZFTrainerDialogNewTraining
 from pilot_utils.azf_trainer.ui.question_widget import AZFQuestionWidget
 from pilot_utils.azf_trainer.ui.dialog_exam_results import AZFTrainerDialogExamResults
-from pilot_utils.azf_trainer.src import AZFQuestion
+from pilot_utils.azf_trainer.src import AZFQuestion, parse_azf_questionnaire, AZFQuestionnaire
 from functools import partial
 from typing import Dict
+from os import path as osp
 
 class AZFTrainingController:
     def __init__(self,
@@ -27,7 +29,44 @@ class AZFTrainingController:
 
     def connect_signals_and_slots(self):
         self._view.button_start_training.clicked.connect(self.button_start_training_callback)
+        self._view.button_extract_questions.clicked.connect(self.button_extract_questions_clicked_callback)
         self._view.closeEvent = self.main_window_close_callback
+
+
+    def button_extract_questions_clicked_callback(self):
+        if osp.exists(self.fpath_questionnaire):
+            reply = QMessageBox.question(
+                self._view,
+                'Confirm Overwrite',
+                'There already is a file that contains extracted questions.\nDo you want to continue and overwrite these questions?',
+                QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No | QMessageBox.StandardButton.Cancel,
+                QMessageBox.StandardButton.Cancel
+            )
+            if reply != QMessageBox.StandardButton.Yes:
+                return
+        file_name, active_filter = QFileDialog.getOpenFileName(self._view,
+                                                               "Select Questionnaire PDF",
+                                                               "",
+                                                               "PDF Files (*.pdf)"
+                                                               )
+        if osp.isfile(file_name) and osp.splitext(file_name)[1].lower() == '.pdf':
+            # Valid file
+            questionnaire: AZFQuestionnaire = parse_azf_questionnaire(file_name)
+            with open(self.fpath_questionnaire, 'w') as file:
+                json.dump(questionnaire.get_json(), file, indent=4)
+            QMessageBox.information(self._view,
+                                    "Question Extraction Succeeded",
+                                    f"Successfully extracted {questionnaire.get_num_questions()} questions from PDF",
+                                    QMessageBox.StandardButton.Ok,
+                                    QMessageBox.StandardButton.Ok
+                                    )
+        else:
+            QMessageBox.information(self._view,
+                                    "Question Extraction Failed",
+                                    "Could not load the provided PDF.",
+                                    QMessageBox.StandardButton.Ok,
+                                    QMessageBox.StandardButton.Ok
+                                    )
 
 
     def button_start_training_callback(self):
