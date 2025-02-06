@@ -55,7 +55,7 @@
           </font>
          </property>
          <property name="text">
-          <string>Only show questions from watch list</string>
+          <string>Only show questions with bookmark</string>
          </property>
         </widget>
        </item>
@@ -67,7 +67,7 @@
           </font>
          </property>
          <property name="text">
-          <string>Only show ignored questions</string>
+          <string>Only show hidden questions</string>
          </property>
         </widget>
        </item>
@@ -91,7 +91,7 @@
           </font>
          </property>
          <property name="text">
-          <string>Default (unmarked and watch list)</string>
+          <string>Default (unmarked and bookmarked)</string>
          </property>
          <property name="checked">
           <bool>true</bool>

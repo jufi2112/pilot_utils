@@ -131,10 +131,10 @@ class Ui_new_training_dialog(object):
     def retranslateUi(self, new_training_dialog):
         _translate = QtCore.QCoreApplication.translate
         new_training_dialog.setWindowTitle(_translate("new_training_dialog", "Question Filter"))
-        self.radioButton_watched_only.setText(_translate("new_training_dialog", "Only show questions from watch list"))
-        self.radioButton_done_only.setText(_translate("new_training_dialog", "Only show ignored questions"))
+        self.radioButton_watched_only.setText(_translate("new_training_dialog", "Only show questions with bookmark"))
+        self.radioButton_done_only.setText(_translate("new_training_dialog", "Only show hidden questions"))
         self.radioButton_show_all.setText(_translate("new_training_dialog", "Show all questions"))
-        self.radioButton_default.setText(_translate("new_training_dialog", "Default (unmarked and watch list)"))
+        self.radioButton_default.setText(_translate("new_training_dialog", "Default (unmarked and bookmarked)"))
         self.label_number_questions.setText(_translate("new_training_dialog", "Number of questions:"))
         self.checkBox_all_questions.setText(_translate("new_training_dialog", "Use all available questions"))
         self.button_start.setText(_translate("new_training_dialog", "Start"))

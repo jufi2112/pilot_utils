@@ -13,7 +13,7 @@ class AZFExerciseMode(Enum):
     UNDEFINED = "UNDEFINED"
     TRAINING = "TRAINING"
     EXAM = "EXAM"
-    SHOW_IGNORED = "IGNORED"
+    SHOW_HIDDEN = "HIDDEN"
     SHOW_BOOKMARKED = "BOOKMARKED"
 
 
@@ -94,7 +94,8 @@ class AZFQuestionWidget(QWidget, Ui_question_widget):
         elif self.exercise_mode == AZFExerciseMode.EXAM:
             self.button_home.setText("Stop Exam")
             self._set_submit_button_exam_text()
-        # TODO: Rest
+        elif self.exercise_mode in [AZFExerciseMode.SHOW_BOOKMARKED, AZFExerciseMode.SHOW_HIDDEN]:
+            self.button_home.setText("Exit")
         self._clear_label_styles()
         for rad_but in self.answer_radio_buttons:
             rad_but.setAutoExclusive(False)
@@ -190,6 +191,8 @@ class AZFQuestionWidget(QWidget, Ui_question_widget):
                       selected_answer: int = None,
                       correct_answer: int = None):
         self.init_ui()
+        self.button_previous.setEnabled(current_question_index > 1)
+        self.button_next.setEnabled(current_question_index < total_questions)
         self.label_question_number.setText(f"Question {current_question_index} of {total_questions} (ID: {question_id})")
         self.current_question_index = question_id
         self.label_question.setText(question_text)
@@ -250,7 +253,6 @@ class AZFQuestionWidget(QWidget, Ui_question_widget):
             self.button_home.setText("Finish Training")
         elif self.exercise_mode == AZFExerciseMode.EXAM:
             self.button_home.setText("Finish Exam")
-        # TODO: add text for ignored / bookmarked
 
 
     def timer_tick_callback(self):

@@ -6,11 +6,11 @@ from os import path as osp
 from typing import Union, Set, Dict, List, Tuple
 from pilot_utils.azf_trainer.src import AZFQuestionnaire, AZFQuestion
 
-class QuestionFilter(Enum):
+class AZFQuestionFilter(Enum):
     ALL = "ALL"
-    NOT_IGNORED = "NOT_IGNORED"
-    IGNORED_ONLY = "IGNORED_ONLY"
-    WATCHED_ONLY = "WATCHED_ONLY"
+    NOT_HIDDEN = "NOT_HIDDEN"
+    HIDDEN = "HIDDEN"
+    BOOKMARKED = "BOOKMARKED"
 
 
 class AZFTrainerModel:
@@ -19,7 +19,7 @@ class AZFTrainerModel:
                  fpath_questionnaire: str,
                  fpath_ignored: str,
                  fpath_watched: str,
-                 question_mode: QuestionFilter = QuestionFilter.NOT_IGNORED
+                 question_mode: AZFQuestionFilter = AZFQuestionFilter.NOT_HIDDEN
                  ):
         self.questionnaire = AZFQuestionnaire.from_json(fpath_questionnaire)
         self.max_questions = n_questions if n_questions > 0 else self.questionnaire.get_num_questions()
@@ -55,11 +55,11 @@ class AZFTrainerModel:
         """
         filtered_qids = []
         for qid, _ in self.questionnaire:
-            if self.question_mode == QuestionFilter.IGNORED_ONLY and qid not in self.indices_ignored:
+            if self.question_mode == AZFQuestionFilter.HIDDEN and qid not in self.indices_ignored:
                 continue
-            if self.question_mode == QuestionFilter.WATCHED_ONLY and qid not in self.indices_watched:
+            if self.question_mode == AZFQuestionFilter.BOOKMARKED and qid not in self.indices_watched:
                 continue
-            if self.question_mode == QuestionFilter.NOT_IGNORED and qid in self.indices_ignored:
+            if self.question_mode == AZFQuestionFilter.NOT_HIDDEN and qid in self.indices_ignored:
                 continue
             filtered_qids.append(qid)
         filtered_qids = list(set(filtered_qids))

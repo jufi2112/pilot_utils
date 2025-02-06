@@ -1,7 +1,7 @@
 import json
 from PyQt6.QtWidgets import QMessageBox, QDialog, QFileDialog
 from pilot_utils.azf_trainer.ui.main_window import AZFTrainerMainWindow, AZFMainPages
-from pilot_utils.azf_trainer.src.model import AZFTrainerModel, QuestionFilter
+from pilot_utils.azf_trainer.src.model import AZFTrainerModel, AZFQuestionFilter
 from pilot_utils.azf_trainer.ui.dialog_new_training import AZFTrainerDialogNewTraining
 from pilot_utils.azf_trainer.ui.question_widget import AZFQuestionWidget, AZFExerciseMode
 from pilot_utils.azf_trainer.ui.dialog_exam_results import AZFTrainerDialogExamResults
@@ -24,7 +24,7 @@ class AZFTrainingController:
         self._update_home_page_button_states()
         self._model = None
         self._training_page: AZFQuestionWidget = None
-        self.question_filter: QuestionFilter = None
+        self.question_filter: AZFQuestionFilter = None
         self.n_questions: int = None
         self.exercise_mode: AZFExerciseMode = AZFExerciseMode.UNDEFINED
         self.connect_signals_and_slots()
@@ -34,6 +34,8 @@ class AZFTrainingController:
         self._view.button_start_training.clicked.connect(self.button_start_training_clicked_callback)
         self._view.button_start_exam.clicked.connect(self.button_start_exam_clicked_callback)
         self._view.button_extract_questions.clicked.connect(self.button_extract_questions_clicked_callback)
+        self._view.button_show_watched.clicked.connect(self.button_show_bookmarked_clicked_callback)
+        self._view.button_show_done.clicked.connect(self.button_show_hidden_clicked_callback)
         self._view.closeEvent = self.main_window_close_callback
 
 
@@ -107,12 +109,15 @@ class AZFTrainingController:
         if success:
             self._view.add_stacked_page(self._training_page, AZFMainPages.EXERCISE)
             self._view.switch_main_page(AZFMainPages.EXERCISE)
+        else:
+            QMessageBox.information(self._view, "Training Not Possible", "Could not find any questions that matched your filter criteria.")
+            self._reset_exercise_state()
 
 
     def button_start_exam_clicked_callback(self):
         if self._model is not None:
             raise ValueError("Local model instance is not None when start exam was clicked")
-        self.question_filter = QuestionFilter.ALL
+        self.question_filter = AZFQuestionFilter.ALL
         self.n_questions = 40
         self.exercise_mode = AZFExerciseMode.EXAM
         self._model = AZFTrainerModel(self.n_questions,
@@ -134,17 +139,81 @@ class AZFTrainingController:
         if success:
             self._view.add_stacked_page(self._training_page, AZFMainPages.EXERCISE)
             self._view.switch_main_page(AZFMainPages.EXERCISE)
+        else:
+            QMessageBox.information(self._view, "Exam Not Possible", "Could not find any questions for the exam.")
+            self._reset_exercise_state()
+
+
+    def button_show_bookmarked_clicked_callback(self):
+        if self._model is not None:
+            raise ValueError("Local model instance is not None when Show Bookmarked was clicked")
+        self.question_filter = AZFQuestionFilter.BOOKMARKED
+        self.n_questions = -1
+        self.exercise_mode = AZFExerciseMode.SHOW_BOOKMARKED
+        self._model = AZFTrainerModel(self.n_questions,
+                                      self.fpath_questionnaire,
+                                      self.fpath_ignored,
+                                      self.fpath_bookmarked,
+                                      self.question_filter
+                                      )
+        self._training_page = AZFQuestionWidget(parent=self._view.stackedWidget,
+                                                submission_callback=self.exercise_submit_callback,
+                                                mark_done_callback=self.exercise_mark_ignored_callback,
+                                                watch_callback=self.exercise_bookmark_callback,
+                                                stop_callback=self.exercise_quit_callback,
+                                                previous_question_callback=self.exercise_previous_question_callback,
+                                                next_question_callback=self.exercise_next_question_callback,
+                                                exercise_mode=self.exercise_mode
+                                                )
+        success = self.exercise_next_question_callback()
+        if success:
+            self._view.add_stacked_page(self._training_page, AZFMainPages.EXERCISE)
+            self._view.switch_main_page(AZFMainPages.EXERCISE)
+        else:
+            QMessageBox.information(self._view, "No Bookmarked Questions", "You have not yet added a bookmark to a question.")
+            self._reset_exercise_state()
+
+
+    def button_show_hidden_clicked_callback(self):
+        if self._model is not None:
+            raise ValueError("Local model instance is not None when Show Bookmarked was clicked")
+        self.question_filter = AZFQuestionFilter.HIDDEN
+        self.n_questions = -1
+        self.exercise_mode = AZFExerciseMode.SHOW_HIDDEN
+        self._model = AZFTrainerModel(self.n_questions,
+                                      self.fpath_questionnaire,
+                                      self.fpath_ignored,
+                                      self.fpath_bookmarked,
+                                      self.question_filter
+                                      )
+        self._training_page = AZFQuestionWidget(parent=self._view.stackedWidget,
+                                                submission_callback=self.exercise_submit_callback,
+                                                mark_done_callback=self.exercise_mark_ignored_callback,
+                                                watch_callback=self.exercise_bookmark_callback,
+                                                stop_callback=self.exercise_quit_callback,
+                                                previous_question_callback=self.exercise_previous_question_callback,
+                                                next_question_callback=self.exercise_next_question_callback,
+                                                exercise_mode=self.exercise_mode
+                                                )
+        success = self.exercise_next_question_callback()
+        if success:
+            self._view.add_stacked_page(self._training_page, AZFMainPages.EXERCISE)
+            self._view.switch_main_page(AZFMainPages.EXERCISE)
+        else:
+            QMessageBox.information(self._view, "No Hidden Questions", "You have not yet hidden any questions.")
+            self._reset_exercise_state()
+
 
 
     def start_new_training_accepted_callback(self, dialog: AZFTrainerDialogNewTraining):
         if dialog.radioButton_show_all.isChecked():
-            self.question_filter = QuestionFilter.ALL
+            self.question_filter = AZFQuestionFilter.ALL
         elif dialog.radioButton_done_only.isChecked():
-            self.question_filter = QuestionFilter.IGNORED_ONLY
+            self.question_filter = AZFQuestionFilter.HIDDEN
         elif dialog.radioButton_watched_only.isChecked():
-            self.question_filter = QuestionFilter.WATCHED_ONLY
+            self.question_filter = AZFQuestionFilter.BOOKMARKED
         else:
-            self.question_filter = QuestionFilter.NOT_IGNORED
+            self.question_filter = AZFQuestionFilter.NOT_HIDDEN
         self.n_questions = -1 if dialog.checkBox_all_questions.isChecked() else dialog.spinBox_number_questions.value()
 
 
@@ -153,8 +222,6 @@ class AZFTrainingController:
             return False
         data, current_index, total_questions = self._model.get_next_question()
         if total_questions == 0:
-            QMessageBox.information(self._view, "Training Not Possible", "No questions matched your filter criteria")
-            self.exercise_quit_callback()
             return False
         if data is None:
             QMessageBox.information(self._view, "Training Not Possible", "Failed to load next question")
@@ -183,9 +250,6 @@ class AZFTrainingController:
     def _send_question_to_training_page(self, data: Dict, current_index: int, total_questions: int):
         if self._training_page is None:
             return
-        # TODO: put this logic into question_widget?
-        self._training_page.button_previous.setEnabled(current_index > 1)
-        self._training_page.button_next.setEnabled(current_index < total_questions)
         question: AZFQuestion = data['question']
         correct = [idx for idx, answer in enumerate(question.answers) if answer.correct][0]
         watched = data['watched']
@@ -233,42 +297,53 @@ class AZFTrainingController:
     def exercise_quit_callback(self, force_end: bool = False):
         if self._training_page is None or self._model is None:
             return
-        if not self._model.all_questions_answered() and not force_end:
-            exercise_name = "<undefined>"
-            if self.exercise_mode == AZFExerciseMode.TRAINING:
-                exercise_name = "training"
-            elif self.exercise_mode == AZFExerciseMode.EXAM:
-                exercise_name = "exam"
-            # TODO: add handling of bookmarked / ignored (no confirmation for not-answered questions)
+        if self.exercise_mode in [AZFExerciseMode.SHOW_BOOKMARKED, AZFExerciseMode.SHOW_HIDDEN]:
             reply = QMessageBox.question(
                 self._view,
-                "Confirm Stop",
-                f"Not all questions have been answered. Stop {exercise_name}?",
-                QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No |QMessageBox.StandardButton.Cancel,
+                "Confirm Exit",
+                "Are you sure you want to leave this page?",
+                QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No | QMessageBox.StandardButton.Cancel,
                 QMessageBox.StandardButton.Cancel
             )
             if reply != QMessageBox.StandardButton.Yes:
                 return
-        if self._training_page.timer is not None:
-            self._training_page.timer.stop()
-            self._training_page.button_timer_stop.setText("Exam Over")
-            self._training_page.button_timer_stop.setEnabled(False)
-        n_questions, n_correct, n_unanswered = self._model.get_exam_stats()
-        exam_result_dialog = AZFTrainerDialogExamResults(n_correct, n_unanswered, n_questions,
-                                                         wrong_answers_to_watchlist_callback=self._model.add_wrong_answers_to_watchlist,
-                                                         unanswered_questions_to_watchlist_callback=self._model.add_unanswered_to_watchlist,
-                                                         exercise_mode=self.exercise_mode, pass_percentage=0.75,
-                                                         parent=self._view
-                                                         )
-        result = exam_result_dialog.exec()
-        if result != QDialog.DialogCode.Accepted:
-            self._training_page.exercise_finished = True
-            return
+        else:
+            if not self._model.all_questions_answered() and not force_end:
+                exercise_name = "<undefined>"
+                if self.exercise_mode == AZFExerciseMode.TRAINING:
+                    exercise_name = "training"
+                elif self.exercise_mode == AZFExerciseMode.EXAM:
+                    exercise_name = "exam"
+                # TODO: add handling of bookmarked / ignored (no confirmation for not-answered questions)
+                reply = QMessageBox.question(
+                    self._view,
+                    "Confirm Stop",
+                    f"Not all questions have been answered. Stop {exercise_name}?",
+                    QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No |QMessageBox.StandardButton.Cancel,
+                    QMessageBox.StandardButton.Cancel
+                )
+                if reply != QMessageBox.StandardButton.Yes:
+                    return
+            if self._training_page.timer is not None:
+                self._training_page.timer.stop()
+                self._training_page.button_timer_stop.setText("Exam Over")
+                self._training_page.button_timer_stop.setEnabled(False)
+            n_questions, n_correct, n_unanswered = self._model.get_exam_stats()
+            exam_result_dialog = AZFTrainerDialogExamResults(n_correct, n_unanswered, n_questions,
+                                                             wrong_answers_to_watchlist_callback=self._model.add_wrong_answers_to_watchlist,
+                                                             unanswered_questions_to_watchlist_callback=self._model.add_unanswered_to_watchlist,
+                                                             exercise_mode=self.exercise_mode, pass_percentage=0.75,
+                                                             parent=self._view
+                                                             )
+            result = exam_result_dialog.exec()
+            if result != QDialog.DialogCode.Accepted:
+                self._training_page.exercise_finished = True
+                return
         self._update_home_page_button_states()
         self._view.switch_main_page(AZFMainPages.HOME)
         self._view.stackedWidget.removeWidget(self._training_page)
-        # TODO: Alternative: self._training_page.deleteLater()
-        self._training_page.disconnect_signals_and_slots()
+        self._training_page.deleteLater()
+        #self._training_page.disconnect_signals_and_slots()
         self._training_page = None
         self._model = None
         self.question_filter = None
@@ -287,3 +362,13 @@ class AZFTrainingController:
         self._view.button_start_exam.setEnabled(osp.exists(self.fpath_questionnaire))
         self._view.button_show_watched.setEnabled(osp.exists(self.fpath_bookmarked))
         self._view.button_show_done.setEnabled(osp.exists(self.fpath_ignored))
+
+
+    def _reset_exercise_state(self):
+        self._model = None
+        if self._training_page is not None:
+            self._training_page.deleteLater()
+            self._training_page = None
+        self.question_filter = AZFQuestionFilter.ALL
+        self.exercise_mode = AZFExerciseMode.UNDEFINED
+        self.n_questions = None

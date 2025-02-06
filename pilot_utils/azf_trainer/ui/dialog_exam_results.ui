@@ -163,7 +163,7 @@
         </font>
        </property>
        <property name="text">
-        <string>Add unanswered questions to watch list (0)</string>
+        <string>Add bookmark to unanswered questions (0)</string>
        </property>
       </widget>
      </item>
@@ -181,7 +181,7 @@
         </font>
        </property>
        <property name="text">
-        <string>Add wrong answers to watch list (0)</string>
+        <string>Add bookmark to wrong answers (0)</string>
        </property>
       </widget>
      </item>

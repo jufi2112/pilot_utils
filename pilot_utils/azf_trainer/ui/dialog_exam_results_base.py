@@ -107,5 +107,5 @@ class Ui_dialog_exam_results(object):
         self.label_result.setText(_translate("dialog_exam_results", "Exam result: passed"))
         self.button_menu.setText(_translate("dialog_exam_results", "Back to Menu"))
         self.button_exam.setText(_translate("dialog_exam_results", "Back to Exam"))
-        self.button_unanswered_to_watchlist.setText(_translate("dialog_exam_results", "Add unanswered questions to watch list (0)"))
-        self.button_wrong_to_watchlist.setText(_translate("dialog_exam_results", "Add wrong answers to watch list (0)"))
+        self.button_unanswered_to_watchlist.setText(_translate("dialog_exam_results", "Add bookmark to unanswered questions (0)"))
+        self.button_wrong_to_watchlist.setText(_translate("dialog_exam_results", "Add bookmark to wrong answers (0)"))

@@ -53,13 +53,13 @@ class AZFTrainerDialogExamResults(QDialog, Ui_dialog_exam_results):
 
 
     def _set_button_unanswered_to_watchlist_text(self, n_unanswered: int):
-        self.button_unanswered_to_watchlist.setText(f"Add unanswered questions to watch list ({n_unanswered})")
+        self.button_unanswered_to_watchlist.setText(f"Add bookmark to unanswered questions ({n_unanswered})")
         if n_unanswered == 0:
             self.button_unanswered_to_watchlist.setEnabled(False)
 
 
     def _set_button_wrong_to_watchlist_text(self, n_wrong: int):
-        self.button_wrong_to_watchlist.setText(f"Add wrong answers to watch list ({n_wrong})")
+        self.button_wrong_to_watchlist.setText(f"Add bookmark to wrong answers ({n_wrong})")
         if n_wrong == 0:
             self.button_wrong_to_watchlist.setEnabled(False)
 
