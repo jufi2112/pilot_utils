@@ -9,6 +9,7 @@ from pilot_utils.azf_trainer.src import AZFQuestion, parse_azf_questionnaire, AZ
 from functools import partial
 from typing import Dict
 from os import path as osp
+import os
 
 class AZFTrainingController:
     def __init__(self,
@@ -20,6 +21,7 @@ class AZFTrainingController:
         self.fpath_questionnaire = fpath_questionnaire
         self.fpath_ignored = fpath_ignored
         self.fpath_bookmarked = fpath_bookmarked
+        self._update_home_page_button_states()
         self._model = None
         self._training_page: AZFQuestionWidget = None
         self.question_filter: QuestionFilter = None
@@ -54,6 +56,7 @@ class AZFTrainingController:
         if osp.isfile(file_name) and osp.splitext(file_name)[1].lower() == '.pdf':
             # Valid file
             questionnaire: AZFQuestionnaire = parse_azf_questionnaire(file_name)
+            os.makedirs(osp.dirname(self.fpath_questionnaire), exist_ok=True)
             with open(self.fpath_questionnaire, 'w') as file:
                 json.dump(questionnaire.get_json(), file, indent=4)
             QMessageBox.information(self._view,
@@ -62,6 +65,7 @@ class AZFTrainingController:
                                     QMessageBox.StandardButton.Ok,
                                     QMessageBox.StandardButton.Ok
                                     )
+            self._update_home_page_button_states()
         else:
             QMessageBox.information(self._view,
                                     "Question Extraction Failed",
@@ -195,7 +199,7 @@ class AZFTrainingController:
                                           answer_c=question.answers[2].answer,
                                           answer_d=question.answers[3].answer,
                                           is_question_ignored=ignored,
-                                          is_question_watched=watched,
+                                          is_question_bookmarked=watched,
                                           selected_answer=data['user_selection'],
                                           correct_answer=correct
                                           )
@@ -260,6 +264,7 @@ class AZFTrainingController:
         if result != QDialog.DialogCode.Accepted:
             self._training_page.exercise_finished = True
             return
+        self._update_home_page_button_states()
         self._view.switch_main_page(AZFMainPages.HOME)
         self._view.stackedWidget.removeWidget(self._training_page)
         # TODO: Alternative: self._training_page.deleteLater()
@@ -273,3 +278,12 @@ class AZFTrainingController:
 
     def main_window_close_callback(self, event):
         event.accept()
+
+
+    def _update_home_page_button_states(self):
+        if self._view is None:
+            return
+        self._view.button_start_training.setEnabled(osp.exists(self.fpath_questionnaire))
+        self._view.button_start_exam.setEnabled(osp.exists(self.fpath_questionnaire))
+        self._view.button_show_watched.setEnabled(osp.exists(self.fpath_bookmarked))
+        self._view.button_show_done.setEnabled(osp.exists(self.fpath_ignored))

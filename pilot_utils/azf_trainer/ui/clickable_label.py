@@ -1,5 +1,5 @@
 from PyQt6.QtWidgets import QLabel
-from PyQt6.QtCore import pyqtSignal
+from PyQt6.QtCore import pyqtSignal, Qt
 
 class ClickableLabel(QLabel):
     """
@@ -12,5 +12,7 @@ class ClickableLabel(QLabel):
 
 
     def mousePressEvent(self, ev):
-        super().mousePressEvent(ev)
-        self.clicked.emit()
+        if ev.button() == Qt.MouseButton.LeftButton:
+            self.clicked.emit()
+        else:
+            super().mousePressEvent(ev)

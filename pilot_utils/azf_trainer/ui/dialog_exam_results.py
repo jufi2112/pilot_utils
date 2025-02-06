@@ -26,8 +26,8 @@ class AZFTrainerDialogExamResults(QDialog, Ui_dialog_exam_results):
         self.setupUi(self)
         percentage = round((questions_correct / questions_total)*100, 1)
         self.label_correct.setText(f"Correct answers: {questions_correct} out of {questions_total} ({percentage} %)")
-        cross = "<html><body><p style='color:red'>&#10008; failed</p></body></html>"
-        check = "<html><body><p style='color:green'>&#10004; passed</p></body></html>"
+        cross = "<span style='color:red'>&#10008; failed</span>"
+        check = "<span style='color:green'>&#10004; passed</span>"
         exercise_name = "<undefined>"
         if exercise_mode == AZFExerciseMode.TRAINING:
             exercise_name = "Training"

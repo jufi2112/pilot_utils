@@ -1,10 +1,13 @@
 from pilot_utils.azf_trainer.ui.question_widget_base import Ui_question_widget
 from pilot_utils.azf_trainer.ui.clickable_label import ClickableLabel
+from pilot_utils.azf_trainer.ui.clickable_svg import ClickableSvgWidget
 from PyQt6.QtWidgets import QWidget, QRadioButton, QLabel
-from PyQt6.QtCore import QTimer
+from PyQt6.QtCore import QTimer, Qt
+from PyQt6.QtGui import QPixmap
 from functools import partial
 from typing import Callable, List, Dict
 from enum import Enum
+from pilot_utils.azf_trainer.ui import resource_rc
 
 class AZFExerciseMode(Enum):
     UNDEFINED = "UNDEFINED"
@@ -43,6 +46,8 @@ class AZFQuestionWidget(QWidget, Ui_question_widget):
         """
         super().__init__(parent)
         self.setupUi(self)
+        self._replace_placeholder_widgets()
+        self._setup_ignore_submit_bookmark_grid()
         self.exercise_mode: AZFExerciseMode = exercise_mode
         if self.exercise_mode == AZFExerciseMode.UNDEFINED:
             raise ValueError("AZFQuestionWidget got undefined exercise mode")
@@ -65,10 +70,12 @@ class AZFQuestionWidget(QWidget, Ui_question_widget):
         self.answer_labels: List[QLabel] = [self.label_answer_A, self.label_answer_B, self.label_answer_C, self.label_answer_D]
         self.result_labels: List[QLabel] = [self.label_answer_A_result, self.label_answer_B_result, self.label_answer_C_result, self.label_answer_D_result]
         self.answer_radio_buttons: List[ClickableLabel] = [self.radioButton_answer_A, self.radioButton_answer_B, self.radioButton_answer_C, self.radioButton_answer_D]
-        self.is_watched: bool = False
+        self.is_bookmarked: bool = False
         self.is_ignored: bool = False
         self.connect_signals_and_slots()
         self.init_ui()
+        self._adapt_bookmark_widgets(False)
+        self._adapt_ignore_widgets(False)
 
 
     def _clear_label_styles(self):
@@ -107,8 +114,10 @@ class AZFQuestionWidget(QWidget, Ui_question_widget):
         self.radioButton_answer_C.toggled.connect(self.radio_button_checked_callback)
         self.radioButton_answer_D.toggled.connect(self.radio_button_checked_callback)
         self.button_submit.clicked.connect(self.button_submit_clicked_callback)
-        self.button_done.clicked.connect(self.button_ignore_clicked_callback)
-        self.button_watch.clicked.connect(self.button_bookmark_clicked_callback)
+        self.label_ignore_text.clicked.connect(self.ignore_clicked_callback)
+        self.svg_widget_ignore.clicked.connect(self.ignore_clicked_callback)
+        self.label_bookmark_text.clicked.connect(self.bookmark_clicked_callback)
+        self.svg_widget_bookmark.clicked.connect(self.bookmark_clicked_callback)
         self.button_home.clicked.connect(self.stop_callback)
         self.button_previous.clicked.connect(self.previous_question_callback)
         self.button_next.clicked.connect(self.next_question_callback)
@@ -124,8 +133,10 @@ class AZFQuestionWidget(QWidget, Ui_question_widget):
         self.radioButton_answer_C.toggled.disconnect()
         self.radioButton_answer_D.toggled.disconnect()
         self.button_submit.clicked.disconnect()
-        self.button_done.clicked.disconnect()
-        self.button_watch.clicked.disconnect()
+        self.label_ignore_text.clicked.disconnect()
+        self.svg_widget_ignore.clicked.disconnect()
+        self.label_bookmark_text.clicked.disconnect()
+        self.svg_widget_bookmark.clicked.disconnect()
         self.button_home.clicked.disconnect()
         self.button_previous.clicked.disconnect()
         self.button_next.clicked.disconnect()
@@ -175,7 +186,7 @@ class AZFQuestionWidget(QWidget, Ui_question_widget):
                       answer_c: str,
                       answer_d: str,
                       is_question_ignored: bool,
-                      is_question_watched: bool,
+                      is_question_bookmarked: bool,
                       selected_answer: int = None,
                       correct_answer: int = None):
         self.init_ui()
@@ -184,10 +195,10 @@ class AZFQuestionWidget(QWidget, Ui_question_widget):
         self.label_question.setText(question_text)
         for text, label in zip([answer_a, answer_b, answer_c, answer_d], self.answer_labels):
             label.setText(text)
-        self.button_done.setChecked(is_question_ignored)
         self.is_ignored = is_question_ignored
-        self.button_watch.setChecked(is_question_watched)
-        self.is_watched = is_question_watched
+        self._adapt_bookmark_widgets(is_question_bookmarked)
+        self._adapt_ignore_widgets(is_question_ignored)
+        self.is_bookmarked = is_question_bookmarked
         if selected_answer is not None and correct_answer is not None:
             self.answer_radio_buttons[selected_answer].setChecked(True)
             if self.exercise_mode == AZFExerciseMode.EXAM and not self.exercise_finished:
@@ -211,16 +222,16 @@ class AZFQuestionWidget(QWidget, Ui_question_widget):
             self._set_result_label(correct, True)
 
 
-    def button_ignore_clicked_callback(self):
+    def ignore_clicked_callback(self):
         self.is_ignored = not self.is_ignored
-        self.button_done.setChecked(self.is_ignored)
+        self._adapt_ignore_widgets(self.is_ignored)
         self.mark_done_callback(self.current_question_index, self.is_ignored)
 
 
-    def button_bookmark_clicked_callback(self):
-        self.is_watched = not self.is_watched
-        self.button_watch.setChecked(self.is_watched)
-        self.watch_callback(self.current_question_index, self.is_watched)
+    def bookmark_clicked_callback(self):
+        self.is_bookmarked = not self.is_bookmarked
+        self._adapt_bookmark_widgets(self.is_bookmarked)
+        self.watch_callback(self.current_question_index, self.is_bookmarked)
 
 
     def _set_result_label(self, index: int, is_correct: bool):
@@ -291,3 +302,52 @@ class AZFQuestionWidget(QWidget, Ui_question_widget):
         minutes = seconds // 60
         seconds = seconds % 60
         return f"{minutes:02}:{seconds:02}"
+
+
+    def _adapt_bookmark_widgets(self, is_bookmarked: bool):
+        self.label_bookmark_text.setText("  Bookmark")
+        if is_bookmarked:
+            self.svg_widget_bookmark.load(":/icons/bookmark_filled.svg")
+            #self.svg_widget_bookmark.setFixedSize(37.5, 60)
+            #self.label_bookmark_text.setText("Bookmark")
+        else:
+            self.svg_widget_bookmark.load(":/icons/bookmark_empty.svg")
+            #self.svg_widget_bookmark.setFixedSize(37.5, 60)
+            #self.label_bookmark_text.setText("Bookmark")
+        self.svg_widget_bookmark.setFixedSize(37.5, 60)
+
+
+    def _adapt_ignore_widgets(self, is_ignored: bool):
+        if is_ignored:
+            self.svg_widget_ignore.load(":/icons/eye_crossed.svg")
+            self.label_ignore_text.setText("  Do not show again")
+            #self.svg_widget_ignore.setFixedSize(90, 40)
+            #self.label_ignore_text.setText("Ignored")
+        else:
+            self.svg_widget_ignore.load(":/icons/eye.svg")
+            self.label_ignore_text.setText("  Show again")
+            #self.svg_widget_ignore.setFixedSize(90, 40)
+            #self.label_ignore_text.setText("Ignore")
+        self.svg_widget_ignore.setFixedSize(80, 40)
+
+
+    def _replace_placeholder_widgets(self):
+        layout = self.svg_widget_bookmark.parentWidget().layout()
+        clickable_svg: ClickableSvgWidget = ClickableSvgWidget(":/icons/bookmark_empty.svg")
+        layout.replaceWidget(self.svg_widget_bookmark, clickable_svg)
+        self.svg_widget_bookmark.deleteLater()
+        self.svg_widget_bookmark = clickable_svg
+        layout = self.svg_widget_ignore.parentWidget().layout()
+        clickable_svg: ClickableSvgWidget = ClickableSvgWidget(":/icons/eye.svg")
+        layout.replaceWidget(self.svg_widget_ignore, clickable_svg)
+        self.svg_widget_ignore.deleteLater()
+        self.svg_widget_ignore = clickable_svg
+
+
+    def _setup_ignore_submit_bookmark_grid(self):
+        self.gridLayout_ignore_submit_bookmark.setColumnStretch(0, 1)
+        self.gridLayout_ignore_submit_bookmark.setColumnStretch(1, 2)
+        self.gridLayout_ignore_submit_bookmark.setColumnStretch(2, 1)
+        self.gridLayout_ignore_submit_bookmark.setAlignment(self.horizontalLayout_ignore, Qt.AlignmentFlag.AlignLeft)
+        self.gridLayout_ignore_submit_bookmark.setAlignment(self.horizontalLayout_submit, Qt.AlignmentFlag.AlignCenter)
+        self.gridLayout_ignore_submit_bookmark.setAlignment(self.horizontalLayout_bookmark, Qt.AlignmentFlag.AlignRight)
