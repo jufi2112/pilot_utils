@@ -226,10 +226,10 @@ class AZFTrainingController:
         pass
 
 
-    def exercise_quit_callback(self):
+    def exercise_quit_callback(self, force_end: bool = False):
         if self._training_page is None or self._model is None:
             return
-        if not self._model.all_questions_answered():
+        if not self._model.all_questions_answered() and not force_end:
             exercise_name = "<undefined>"
             if self.exercise_mode == AZFExerciseMode.TRAINING:
                 exercise_name = "training"
@@ -245,6 +245,10 @@ class AZFTrainingController:
             )
             if reply != QMessageBox.StandardButton.Yes:
                 return
+        if self._training_page.timer is not None:
+            self._training_page.timer.stop()
+            self._training_page.button_timer_stop.setText("Exam Over")
+            self._training_page.button_timer_stop.setEnabled(False)
         n_questions, n_correct, n_unanswered = self._model.get_exam_stats()
         exam_result_dialog = AZFTrainerDialogExamResults(n_correct, n_unanswered, n_questions,
                                                          wrong_answers_to_watchlist_callback=self._model.add_wrong_answers_to_watchlist,

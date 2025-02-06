@@ -1,6 +1,7 @@
 from pilot_utils.azf_trainer.ui.question_widget_base import Ui_question_widget
 from pilot_utils.azf_trainer.ui.clickable_label import ClickableLabel
 from PyQt6.QtWidgets import QWidget, QRadioButton, QLabel
+from PyQt6.QtCore import QTimer
 from functools import partial
 from typing import Callable, List, Dict
 from enum import Enum
@@ -45,6 +46,12 @@ class AZFQuestionWidget(QWidget, Ui_question_widget):
         self.exercise_mode: AZFExerciseMode = exercise_mode
         if self.exercise_mode == AZFExerciseMode.UNDEFINED:
             raise ValueError("AZFQuestionWidget got undefined exercise mode")
+        self.timer = None
+        self.time_remaining = 60 * 60
+        if self.exercise_mode != AZFExerciseMode.EXAM:
+            self._hide_timer()
+        else:
+            self._setup_timer(self.time_remaining)
         self.exercise_finished = False
         # When in exam mode, store selection for each question
         self.exam_selection = {}
@@ -122,6 +129,9 @@ class AZFQuestionWidget(QWidget, Ui_question_widget):
         self.button_home.clicked.disconnect()
         self.button_previous.clicked.disconnect()
         self.button_next.clicked.disconnect()
+        if self.timer is not None:
+            self.timer.timeout.disconnect()
+            self.button_timer_stop.clicked.disconnect()
 
 
     def label_question_clicked_callback(self, radioButton: QRadioButton):
@@ -183,7 +193,8 @@ class AZFQuestionWidget(QWidget, Ui_question_widget):
             if self.exercise_mode == AZFExerciseMode.EXAM and not self.exercise_finished:
                 return
             self._highlight_correct(selected_answer, correct_answer)
-            self.button_submit.setEnabled(True)
+            if self.exercise_mode != AZFExerciseMode.EXAM:
+                self.button_submit.setEnabled(True)
 
 
     def _highlight_correct(self, selected: int, correct: int):
@@ -231,5 +242,52 @@ class AZFQuestionWidget(QWidget, Ui_question_widget):
         # TODO: add text for ignored / bookmarked
 
 
+    def timer_tick_callback(self):
+        if self.time_remaining > 0:
+            self.time_remaining -= 1
+            self.label_timer.setText(self._format_time(self.time_remaining))
+            self.progressBar_timer.setValue(self.time_remaining)
+        else:
+            self.timer.stop()
+            self.progressBar_timer.setValue(0)
+            self.label_timer.setText(self._format_time(0))
+            self.button_timer_stop.setEnabled(False)
+            self.button_timer_stop.setText("Time's Up!")
+            self.stop_callback(True)
+
+
+    def timer_toggle_active_callback(self):
+        if self.timer is None:
+            return
+        if self.timer.isActive():
+            self.button_timer_stop.setText("Resume")
+            self.timer.stop()
+        else:
+            self.button_timer_stop.setText("Pause")
+            self.timer.start(1000)
+
+
     def _set_submit_button_exam_text(self):
         self.button_submit.setText(f"Unanswered questions: {40-len(self.exam_selection)}")
+
+
+    def _hide_timer(self):
+        self.label_timer.hide()
+        self.progressBar_timer.hide()
+        self.button_timer_stop.hide()
+
+
+    def _setup_timer(self, time_s: int):
+        self.progressBar_timer.setMaximum(time_s)
+        self.progressBar_timer.setValue(time_s)
+        self.label_timer.setText(self._format_time(time_s))
+        self.timer = QTimer(self)
+        self.timer.timeout.connect(self.timer_tick_callback)
+        self.timer.start(1000)
+        self.button_timer_stop.clicked.connect(self.timer_toggle_active_callback)
+
+
+    def _format_time(self, seconds: int) -> str:
+        minutes = seconds // 60
+        seconds = seconds % 60
+        return f"{minutes:02}:{seconds:02}"
