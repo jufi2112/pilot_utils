@@ -1,0 +1,263 @@
+// Aircraft Type = Airbus A319 / A320 / A321
+// Checklist Type = Normal Procedures
+// real_world_clearance = False
+
+# AIRCRAFT AND SIMULATOR SETUP
+- Time .. As Chosen
+- Weather .. As Chosen
+- A/C Position .. As Chosen
+** --- IF FLYING ON IVAO ---
++ A/C Position .. Free of other traffic
++ IVAO Pilot Client .. Connect
+- EFB > Fenix > MY FLIGHTS .. Import Flight Plan
+- A/C Refueling / Boarding / Loading .. Initiate / Completed
+
+# COCKPIT INSPECTION
+- ADIRS .. OFF
+- Gear Lever .. DOWN
+- Thrust Levers .. IDLE
+- ENG Master Switches .. OFF
+- ENG Mode Selector .. NORM
+- Spoilers .. RETRACTED
+- Flaps .. UP
+- PARKING BRK .. ON
+- Weather Radar & PWS .. Both OFF
+- XPDR .. STBY
+- TCAS .. ABV & STBY
+- EXT PWR .. Check green AVAIL
+** --- IF EXT PWR NOT AVAILABLE ---
++ EFB > Fenix > GROUND SERVICES .. Enable GPU
+
+# COCKPIT PREPARATION
+- BAT 1 & 2 .. ON
+- EXT PWR .. ON
+- PFD / ND / UPPER and LOWER ECAM .. Observe SELF TEST
+- Internal Lights .. As Desired
+= --- OVERHEAD PANEL ---
+- ADIRS 1 / 2 / 3 .. NAV
+- OXYGEN CREW SUPPLY .. ON
+- FUEL PUMPS L / CTR / R .. ON
+- STROBE Light .. AUTO
+- EMER EXIT LT .. ARM
+- NO SMOKING Light .. ON
+- SEAT BELTS Light .. ON
+= --- PEDESTRAL ---
+- Frequencies .. Set
+- PA .. As Desired
+- Weather Radar & PWS .. Verify Both OFF
+- ATIS .. As Required / Obtained
++ QNH .. Set
+
+= --- MCDU ---
+- ENG Model & NAV DATA BASE .. Check
+- INIT Page 1 .. Set
+** --- IF FLYING ON IVAO ---
++ IFR Clearance .. Obtained
++ FCU ALT SELECT .. Set Initial Climb
++ XPDR .. Set Squawk
+- F-PLN Page .. Enter
++ Check and Remove Discontinuities
++ SID and STAR .. Verify Constraints
+- RAD NAV Page .. Verify Frequencies
+** --- Once A/C Loading Completed ---
+- INIT Page 2 .. Set
++ Fuel Quantity .. Verify Sufficient
+- PROG Page .. Set
++ Altitudes .. Verify
++ Emergency Runway .. Enter
+- PERF Page .. Set
++ Performance Values .. Calculate in EFB > Departure Perf
+- SEC F-PLN Page .. COPY ACTIVE
+
+# BEFORE START
+- PARKING BRK .. Verify ON
+- BEACON Light .. ON
+- NAV & LOGO Lights .. ON
+- APU Fire TEST .. Verify
+- ENG 1 Fire TEST .. Verify
+- ENG 2 Fire TEST .. Verify
+- APU Start
++ APU MASTER SW .. ON
+** --- ONCE ECAM 2 SHOWS APU Parameters ---
++ APU START .. ON
+** --- ONCE APU START GREEN AVAIL ILLUMINATED ---
++ APU BLEED .. ON
+- EXT PWR .. OFF
+
+# PUSHBACK & ENGINE START
+- A/C Refueling / Boarding / Loading .. Verify Completed
+- APU BLEED .. Verify ON
+= --- ONCE IRS ALIGNED ---
+- Pushback and Start-up Clearance .. As Required / Obtained
+- Off-Block Time .. Noted
+- Pushback .. Perform / Follow Instructions
+- Thrust Levers .. Verify IDLE
+- Engine Start Procedure
++ ENG MODE Selector .. IGN / START
++ ENG 2 Master Switch .. ON
++ ENG 2 Parameters .. MONITOR
++ ENG 2 N1 .. Wait for AVAIL
++ ENG 1 .. Repeat Steps 7.b to 7.d
+- ENG MODE Selector .. NORM
+
+# BEFORE TAXI
+- Pushback .. Completed
+- PARKING BRK .. ON
+- COCKPIT DOOR .. LOCK
+- FLAPS .. As Required
+- Spoilers .. ARMED
+- Weather Radar .. 1 or 2
+- PWS .. AUTO
+- ECAM .. F/CTL Page
++ PITCH TRIM .. As Required
++ Flight Controls .. Free and Correct
++ ECAM F/CTL Page .. Deactivate
+- AUTO BRK .. MAX
+- Flight Director (FD) .. Activate
+- NOSE Light .. TAXI
+- RWY TURN OFF Light .. ON
+- APU BLEED .. OFF
+- APU MASTER SW .. OFF
+- Taxi Clearance .. As Required / Obtained
+
+# TAXI
+- PARKING BRK .. OFF
+- Brakes .. Check
+- TO Config .. Push
+- UPPER ECAM T.O Memo .. Check No Warnings / No Blue besides CABIN
++ CABIN item will become READY during taxi roll
+
+# BEFORE TAKEOFF
+- PARKING BRK .. ON
+- Initial Climb Altitude .. Verify
+- QNH .. Verify
+- ND .. Set Desired Range
+- Radio Frequencies .. Set / Verify
+- Crew Briefing .. Completed
+- Squawk .. Verify
+- XPDR .. ON
+- TCAS .. ABV & TA or TA/RA
+** --- IF FLYING ON IVAO ---
++ IVAO Pilot Client TCAS .. ON
++ IVAO Pilot Client XPDR .. Verify ALT and Correct Squawk
+- NOSE Light .. TO
+- LAND Lights .. ON
+- RWY TURN OFF Lights .. OFF
+- PACK 1 & 2 .. OFF
+- Takeoff Clearance .. As Required / Obtained
+= ---------- CLEARED FOR TAKEOFF ----------
+- Start Time .. Noted
+- Clock .. Start
+- PARKING BRK .. OFF
+
+# TAKEOFF
+- Thrust Levers .. FLEX or TOGA
+- Elevator Control .. Rotate at Vr (less than 9.5 Degrees Pitch)
+
+# AFTER TAKEOFF / CLIMB
+- Landing Gear (at positive rate of climb, max 220 KT) .. UP
+- AP 1 (min 100 ft AGL) .. As Required / ON
+- A/THR .. Verify ON
+- Thrust Levers (when prompted) .. CLIMB
+- Flaps .. UP According to Speed
+- PACK 1 & 2 .. ON
+- QNH (at Transition Altitude / when prompted) .. STD (pull)
+- Spoilers .. RET
+- LAND LT and NOSE LT (after passing FL 100) .. OFF
+- SEAT BELTS (calm air, after pitch < 7.5 degrees) .. OFF
+- ND .. Adjust Range
+
+# CRUISE
+- TOD .. Monitor
+- Destination Data (when prompted) .. Enter
+= --- BEFORE TOD ---
+- FCU ALT SELECT .. Set Procedure / Assigned Altitude
+= --- AT TOD ---
+- ALT SELECT KNOB .. Initiate Descent
++ Push (for managed descent, following planned profile)
++ Pull (for open descent, when vectored by ATC)
+
+# DESCEND
+- TCAS Mode .. BLW
+- Destination Data .. Verify / Set
+- Arrival Performance .. Calculate in EFB > Arrival Perf
++ Landing Weight = GW - (Current FOB - EFOB at Destination (MCDU FUEL PRED Page))
+- AUTO BRK .. As Required
+- SEAT BEALTS .. As Required
+= --- WHEN PASSING FL 100 ---
+- NOSE LT and LAND LT .. ON
+- SEAT BELTS .. ON
+= --- AT TRANSITION ALTITUDE ---
+- QNH .. Set Local
+
+# APPROACH
+- MCDU > PERF > APPR MODE .. Confirm Activated
+- LS .. Enable
+= --- CLEARED FOR ILS APPROACH ---
+- LOC Mode .. Enable
+- APPR Mode .. Enable
+- Landing Gear (max 250 KT).. DOWN
+- Flaps .. Set According to Speed
+- Spoilers .. ARMED
+- UPPER ECAM LDG Memo .. No Blue
+- QNH .. Verify Local
+- AUTO BRK .. Verify Set
+
+# LANDING
+- Landing Clearance .. As Required / Obtained
+- AP 1 & 2 .. According to Desired Landing Mode
+- Approach Speed .. Monitor
+= --- AT RETARD CALLOUT ---
+- Thrust Lever .. IDLE
+- Initiate Flare
+
+# GO AROUND
+- Thrust Lever .. TOGA
+- Pitch .. UP
+- Landing Gear (on positive climb) .. UP
+- Flaps .. UP According to Speed
+- Spoilers .. RET
+
+# AFTER LANDING
+- REVERSE THRUST .. As Required
+= --- CLEAR OF RWY ---
+- PARKING BRK .. ON
+- Flaps .. UP
+- Spoilers .. RET
+- Weather Radar & PWS .. OFF
+- XPDR .. OFF
+- TCAS .. ABV & STBY
+- LS Mode .. Disable
+- Clock .. Stop
+- Landing Time .. Noted
+- LDG LT .. OFF
+- NOSE LT .. TAXI
+- RWY TURNOFF LT .. ON
+- APU .. As Required / Start
++ Do not turn on APU BLEED
+- Taxi Clearance .. As Required / Obtained
+- PARKING BRK .. OFF
+
+# PARKING
+- PARKING BRK .. ON
+- Thrust Lever .. IDLE
+- NOSE LT & RWY TURNOFF LT .. OFF
+- ENG 1 & 2 Master .. OFF
+- Deboarding .. Start (EFB Message)
+- STROBE LT .. OFF
+- BEACON LT .. OFF
+- NAV & LOGO LT .. OFF
+- SEAT BELTS .. OFF
+- EXT PWR .. As Required
+- Wait until Deboarding Complete
+
+# SHUTDOWN
+- ADIRS 1 / 2 / 3 .. OFF
+- OXYGEN CREW SUPPLY .. OFF
+- FUEL PUMPS L / CTR / R .. OFF
+- NO SMOKING .. OFF
+- EMER EXIT LT .. OFF
+- APU & EXT PWR .. OFF
+- BAT 1 & 2 .. OFF
+** --- IF FLYING ON IVAO ---
++ IVAO Pilot Client .. Disconnect

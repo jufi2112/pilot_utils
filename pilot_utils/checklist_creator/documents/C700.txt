@@ -1,0 +1,262 @@
+// Aircraft Type = C700
+// Checklist Type = Normal Procedures
+// real_world_clearance = False
+
+
+# Aircraft and Simulator Setup
+- Time .. As Chosen
+- Weather .. As Chosen
+- A/C Position .. As Chosen
+** --- IF FLYING ON IVAO ---
++ A/C Position .. Free of other traffic
++ IVAO Pilot Client .. Connect
+- A/C Refueling/Boarding/Loading .. Completed
+
+
+# Cockpit Inspection
+- STBY PWR Switch .. TEST and Hold (Green light for min 10 sec)/ON
+- EMER LTS Switch .. ARM
+- LANDING GEAR Handle .. DOWN
+- BATT Buttons (Both) .. ON, Check Volts
+- EIS/CAS .. Check
+- XPDR .. STBY
+- External Power Source .. As Desired
++ EXT PWR Button (if AVAIL illuminated) .. ON
++ BATT Amps (both) .. 0 or Charging
+** ---AND/OR---
++ APU Knob .. ON/START
++ External Power .. Disconnected
++ BATT Amps (both) .. 0 or Charging
+- Exterior/Interior Lights .. ON/CHECK/OFF, or as Required
+
+
+# Cockpit Preparation
+- Cockpit Inspection .. Completed
+- EIS/CAS .. Check
+- Radio Frequencies .. Set
+- ATIS .. As Required/Obtained
+- Enroute Clearance .. As Required/Obtained
+- Flight Plan .. Entered
++ Speed and Altitude Constraints .. Verify
++ No Discontinuities .. Verify 
++ Cruise Altitude .. Set as Altitude Constraint ("AT") at Desired Waypoint
++ Calculated VNAV Profile .. Check/Verify
+- Weight and Fuel (MFD GTC: Perf) .. Completed
+- Takeoff Data (MFD GTC: Perf) .. Completed
+- V Speeds .. Verify/Set
+- Pressurization LDG ELEV .. Verify/Set
+- Fuel Quantity and Balance .. Check
+- Trims .. Check/Set for Takeoff
+- Autopilot (First Flight of Day) .. Engage/Disengage
+- APU Knob (if not already started) .. ON/START
+- External Power (if used) .. Disconnected
+- PAX Signs .. ON
+- Engine Dry Motor .. Consider
++ Refer to checklist "Engine Dry Motor"
+
+
+# Before Start
+- EMER/PARK BRAKE Handle .. Set (PARK BRAKE ON Displayed)
+- EIS/CAS .. Check
+- TO/GA .. Press
+- Start-up Clearance .. As Required/Obtained
+
+
+# Starting Engines (Using APU)
+- Throttles .. IDLE
+- ENGINE RUN/STOP Button (either engine) .. RUN
+- START Pressure .. Verify >= 32 PSI
+- ENGINE STARTER Button .. Push
+- Engine Instruments .. Monitor
+- Opposite Engine .. Repeat Steps 1 to 5
+- EIS/CAS .. Check
+
+
+# Before Taxi
+- Flight Controls .. Free and Correct/Check
+- Speedbrakes .. Check/Retracted
+- Flaps .. Set for Takeoff
+- Flight Instruments/Avionics .. Check
++ Attitude & Heading, Air Data Displays .. Aligned/No Flags
++ Altimeters .. Confirm and Compare (75 feet of field elevation, 50 feet of each other)
++ PFD NAV Source .. As Required/FMS
+- Autopilot Panel .. Check
++ FD .. As Required/ON
++ Heading .. As Required/Runway Heading
++ Altitude .. As Required/Initial Climb Clearance 
+- ENGINE ICE PROTECTION Buttons .. As Required
+- Taxi Clearance .. As Required/Obtained
+- Off-Block Time .. Noted
+
+
+# Taxi
+- Exterior Lights .. As Required
+- EMER/PARK BRAKE Handle .. Stowed
+- Brakes .. Check
+- Nosewheel Steering .. Check
+- Thrust Reversers .. Check, as Required/Stowed
++ Deploy (Reverse Idle) .. Verify Green T/R DEPLOY Indications
++ Stow .. Verify Indications Clear
+
+
+# Before Takeoff
+- Flaps .. Set for Takeoff
+- Speedbrakes .. Retracted
+- Trims .. Set for Takeoff
+- Ice Protection Systems .. Check, As Required
+- Radio Frequencies .. Set
+- V Speeds .. Displayed
+- SPD Knob .. FMS
+- Crew Briefing .. Complete
++ If rolling takeoff planned, add 500 feet to Computed Takeoff Distance
+- Radar .. As Required
+- PITOT/STATIC Button (on icing conditions, within 1 min before takeoff) .. ON 15 Seconds then Norm
+- XPDR .. AUTO
+** --- IF FLYING ON IVAO ---
++ IVAO Pilot Client TCAS .. On
+- MFD Map Zoom .. Adjust
+- Takeoff Clearance .. As Required/Obtained
+= ----------------CLEARED FOR TAKEOFF----------------
+- Flight Controls .. Free
+- Start Time .. Noted
+- ICE PROTECTION BUTTONS .. As Required
+- Exterior Lights .. As Required
+- EIS/CAS .. Check
+
+
+# Static Takeoff
+- Throttles .. TO
+- Autothrottle (if used) .. Check Green HOLD
+- EIS/CAS .. Check (N1 matches command, green TO)
+- Brakes .. Release
+- Elevator Control .. Rotate at Vr (10 degrees initial pitch)
+
+# Rolling Takeoff
+- Brakes .. Release
+- Throttles .. TO (within 500 feet after brake release)
+- Autothrottle (if used) .. Check Green HOLD
+- EIS/CAS .. Check (N1 matches command, green TO)
+- Elevator Control .. Rotate at Vr (10 degrees initial pitch)
+
+
+# After Takeoff/Climb
+- Landing Gear (at positive rate of climb) .. Up
+- Flaps (at or above V2 + 20 knots) .. Up
+- Autopilot Panel .. Check/Set
++ VNAV .. As Required/ON
++ FLC .. As Required/ON
++ NAV or HDG .. As Required/ON
++ AP .. As Required/ON
+** ---If using NAV mode---
++ HDG SYNC .. Push
+- Autothrottle .. Check/Set, As Required
+- Throttles .. CLB
+- ICE PROTECTIONS Buttons .. As Required
+- Pressurization .. Check
+- Altimeters (at transition altitude) .. STD
+- Exterior Lights .. As Required
+- APU Knob (prior to climb above FL350) .. OFF
+
+
+# Cruise
+- Throttles .. CRU or as Desired
+- Autopilot (if in RVSM airspace) .. As Required
+- Altimeters (if in RVSM airspace) .. Crosscheck (within 200 feet at 1 hour intervals or less)
+- Time to TOD .. Observe
+
+
+# Before Descent
+- Descent Clearance .. As Required/Obtained
+- AP ALTITUDE .. As Required/Set to Descent Altitude
+- VNAV PATH Mode .. Armed (White Text in Flight Mode Annunciator)
+
+
+# Descent
+- VNAV Mode .. Verify Green V PATH in Flight Mode Annunciator
+- Pressurization LDG ELEV .. Verify Landing Elevation
+- APU Knob (at or below FL310) .. ON/START, As Desired
+- Altimeters (at transition level) .. Set to local QNH
+- Exterior Lights .. As Required
+- Landing Data .. Confirm
++ V Speeds .. Set
++ Landing Distance .. Calculate
+** ---If ILS Approach Planned---
++ NAV Frequencies .. Set/Verify
+
+
+# Approach
+- ICE PROTECTION Buttons .. As Required
+- Flight Instruments/Avionics
++ FMS/Navigation Aids .. Set, As Required
++ Minimums .. Set
++ Altimeters .. Verify Set to local QNH
+** ---If ILS Approach Planned---
++ NAV Frequencies .. Verify set to ILS Frequency
+- Crew Briefing .. Complete
+- If approach requires flying of sharp/acute angles .. Consider Speed Reduction
+= ----------------CLEARED FOR APPROACH----------------
+- If ILS Approach:
++ PFD NAV Source .. Set LOC1/LOC2
++ APPR Mode .. ON
++ Flight Mode Annunciator .. Verify LOC and GS Mode Armed
+- Flaps .. 1 or 2, when Desired
+
+
+# Before Landing
+- Landing Gear .. Down (3 Green)
+- Flaps .. Full
+- Exterior Lights .. As Required
+- Speedbrakes .. Retracted
+- EIS/CAS .. Check
+- Autopilot (prior to minimum use height) .. Disengage
+- Airspeed (minimum) .. Vref
+- Landing Clearance .. As Required/Obtained
+
+
+# Landing
+- Autothrottle (if used) .. Check Green RETARD at 50 feet AGL
+- Throttles .. IDLE
+- Brakes (after nosewheel touchdown) .. Apply
+- Thrust Reversers .. Deploy (Reverse Idle by 45 Knots)
+
+
+# Go-Around
+- TO/GA Button (either throttle) .. Push
+- Throttles .. TO
+- Pitch Attitude .. 7.5 Degrees Nose Up Initially
+- Flaps .. 2
+- Climb Airspeed .. Vapp (Minimum)
+- Landing Gear (at positive rate of climb) .. Up
+- Flaps (at or above Vapp + 10 knots) .. Up
+- SPD Knob .. FMS
+- Throttles .. AS Required
+
+
+# After Landing
+- Thrust Reversers .. Stow
+= ----------------AFTER RUNWAY VACATED----------------
+- Flaps .. Up
+- Landing Time .. Noted
+- XPDR .. STBY
+- ICE PROTECTION:
++ ENGINE Buttons (both) .. As Required
++ WING Button .. OFF
++ STAB Button .. OFF
+- Exterior Lights .. As Required
+- Taxi Clearance .. As Required/Obtained
+
+
+# Shutdown
+- Throttles .. IDLE
+- EMER/PARK BRAKE Handle .. Set
+- ENGINE ICE PROTECTION Buttons (both) .. OFF
+- ENGINE RUN/STOP Buttons (both) .. OFF
+- On-Block Time .. Noted
+- PAX Lights .. Off
+- EMER LTS Switch .. OFF
+- STBY PWR Switch .. OFF
+- APU Knob .. OFF
+- Exterior Lights .. Off
+- Batt Buttons (both) .. OFF
+** --- IF FLYING ON IVAO ---
+- IVAO Pilot Client .. Disconnect

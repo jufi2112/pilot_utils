@@ -1,2 +1,5 @@
 pypdf>=4.2.0
 reportlab
+numpy
+pymupdf
+pyqt6

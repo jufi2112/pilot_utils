@@ -1,0 +1,376 @@
+[
+    {
+        "id": 1,
+        "question": "Select the correct definition for \"ESTIMATED TIME OF ARRIVAL\" in respect to IFR flights:",
+        "answers": [
+            {
+                "answer": "The time at which it is estimated that the aircraft will arrive over that designated point defined by reference to navigation aids, from which it is intended, that an instrument approach will be commenced",
+                "correct": true
+            },
+            {
+                "answer": "The time at which the aircraft will actually arrive over that designated point defined by reference to navigation aids, from which it is intended, that a visual approach will be commenced",
+                "correct": false
+            },
+            {
+                "answer": "The time at which it is estimated that the aircraft will arrive over that designated point defined by reference to visual aids, from which it is intended, that an approach will be commenced",
+                "correct": false
+            },
+            {
+                "answer": "In any case that time at which the aircraft will arrive over the aerodrome",
+                "correct": false
+            }
+        ]
+    },
+    {
+        "id": 2,
+        "question": "What does the term \"AERONAUTICAL STATION\" mean?",
+        "answers": [
+            {
+                "answer": "A land station in the aeronautical mobile service. In certain instances, an aeronautical station may be located, for example, on board ship or on a platform at sea",
+                "correct": true
+            },
+            {
+                "answer": "A station forming part of the aeronautical telecommunication network",
+                "correct": false
+            },
+            {
+                "answer": "A station in the aeronautical telecommunication service located on land or on board of an aircraft to exchange radiotelephony communications",
+                "correct": false
+            },
+            {
+                "answer": "Any station established to exchange radiotelephony communications",
+                "correct": false
+            }
+        ]
+    },
+    {
+        "id": 3,
+        "question": "What does the term \"BLIND TRANSMISSION\" mean?",
+        "answers": [
+            {
+                "answer": "A Transmission of a message to the air traffic service in cases where radio contact cannot be established",
+                "correct": true
+            },
+            {
+                "answer": "A transmission of information relating to air navigation that is not addressed to a specific station or stations",
+                "correct": false
+            },
+            {
+                "answer": "A transmission where no reply is required from the receiving station",
+                "correct": false
+            },
+            {
+                "answer": "A transmission of messages relating to enroute weather information which may affect the safety of aircraft operations that is not addressed to a specific station or stations",
+                "correct": false
+            }
+        ]
+    },
+    {
+        "id": 4,
+        "question": "What does the term \"GENERAL CALL\" mean?",
+        "answers": [
+            {
+                "answer": "Stations in the aeronautical mobile service may simultaneously call all stations maintaining listening watch on a frequency",
+                "correct": true
+            },
+            {
+                "answer": "A radiotelephony communication from a ground station to aircraft in flight",
+                "correct": false
+            },
+            {
+                "answer": "A transmission containing meteorological and operational information to aircraft engaged in flights over remote and oceanic areas out of range of VHF ground stations",
+                "correct": false
+            },
+            {
+                "answer": "A transmission where no reply is required from the receiving station",
+                "correct": false
+            }
+        ]
+    },
+    {
+        "id": 5,
+        "question": "What does the term \"AIR-GROUND COMMUNICATION\" mean?",
+        "answers": [
+            {
+                "answer": "Two-way communication between aircraft and stations or locations on the surface of the earth",
+                "correct": true
+            },
+            {
+                "answer": "One-way communication from stations or locations on the surface of the earth",
+                "correct": false
+            },
+            {
+                "answer": "Any communication from aircraft to ground stations requiring handling by the Aeronautical Fixed Telecommunication Network (AFTN)",
+                "correct": false
+            },
+            {
+                "answer": "One-way communication from aircraft to stations or locations on the surface of the earth",
+                "correct": false
+            }
+        ]
+    },
+    {
+        "id": 29,
+        "question": "Messages concerning non-routine landings of an aircraft are:",
+        "answers": [
+            {
+                "answer": "Flight Regularity Messages",
+                "correct": true
+            },
+            {
+                "answer": "Flight Safety Messages",
+                "correct": false
+            },
+            {
+                "answer": "Unauthorized Messages in the aeronautical mobile service",
+                "correct": false
+            },
+            {
+                "answer": "Urgency Messages",
+                "correct": false
+            }
+        ]
+    },
+    {
+        "id": 30,
+        "question": "A message concerning aircraft parts and material urgently required is ...",
+        "answers": [
+            {
+                "answer": "a Flight Regularity Messages",
+                "correct": true
+            },
+            {
+                "answer": "an Urgency Message",
+                "correct": false
+            },
+            {
+                "answer": "a Flight Security Message",
+                "correct": false
+            },
+            {
+                "answer": "a Flight Safety Message",
+                "correct": false
+            }
+        ]
+    },
+    {
+        "id": 31,
+        "question": "Flight Safety Messages are ...",
+        "answers": [
+            {
+                "answer": "air traffic control messages",
+                "correct": true
+            },
+            {
+                "answer": "messages concerning non-routine landings",
+                "correct": false
+            },
+            {
+                "answer": "messages relating to direction finding",
+                "correct": false
+            },
+            {
+                "answer": "messages concerning the safety of an aircraft, a vessel, any other vehicle or a person",
+                "correct": false
+            }
+        ]
+    },
+    {
+        "id": 32,
+        "question": "A message concerning an aircraft being threatened by serious and/or imminent danger, requiring immediate assistance is called:",
+        "answers": [
+            {
+                "answer": "Distress Message",
+                "correct": true
+            },
+            {
+                "answer": "Flight Safety Message",
+                "correct": false
+            },
+            {
+                "answer": "Urgency Message",
+                "correct": false
+            },
+            {
+                "answer": "Class B Message",
+                "correct": false
+            }
+        ]
+    },
+    {
+        "id": 33,
+        "question": "Which of the messages listed below shall be handled by the aeronautical mobile service?",
+        "answers": [
+            {
+                "answer": "Messages Relating to Direction Finding",
+                "correct": true
+            },
+            {
+                "answer": "Aeronautical Security Messages",
+                "correct": false
+            },
+            {
+                "answer": "Aeronautical Administrative Messages",
+                "correct": false
+            },
+            {
+                "answer": "Messages of Airline Operators",
+                "correct": false
+            }
+        ]
+    },
+    {
+        "id": 34,
+        "question": "Which of the messages listed below shall not be handled by the aeronautical mobile service?",
+        "answers": [
+            {
+                "answer": "Radio Teletype Messages",
+                "correct": true
+            },
+            {
+                "answer": "Urgency Messages",
+                "correct": false
+            },
+            {
+                "answer": "Flight Safety Messages",
+                "correct": false
+            },
+            {
+                "answer": "Meteorological Messages",
+                "correct": false
+            }
+        ]
+    },
+    {
+        "id": 137,
+        "question": "What shall the pilot\u2018s read back be for: \"CLIMB TO ALTITUDE 2500 feet\"?",
+        "answers": [
+            {
+                "answer": "Climbing to altitude two thousand five hundred feet",
+                "correct": true
+            },
+            {
+                "answer": "Up two thousand five hundred",
+                "correct": false
+            },
+            {
+                "answer": "Climbing altitude two thousand five hundred feet",
+                "correct": false
+            },
+            {
+                "answer": "Climbing to two point five",
+                "correct": false
+            }
+        ]
+    },
+    {
+        "id": 138,
+        "question": "ATC clears Fastair 345 to descend from FL 100 to FL 80. What is the correct read back by the pilot?",
+        "answers": [
+            {
+                "answer": "Fastair 345 leaving flight level 100 descending to flight level 80",
+                "correct": true
+            },
+            {
+                "answer": "Fastair 345 leaving 100 to 80",
+                "correct": false
+            },
+            {
+                "answer": "Descending to 80, Fastair 345",
+                "correct": false
+            },
+            {
+                "answer": "Down to flight level 80, Fastair 345",
+                "correct": false
+            }
+        ]
+    },
+    {
+        "id": 139,
+        "question": "Runway visual range (RVR) is included in the weather report when the visibility is \u2026",
+        "answers": [
+            {
+                "answer": "less than 1500 m",
+                "correct": true
+            },
+            {
+                "answer": "1000 ft or less",
+                "correct": false
+            },
+            {
+                "answer": "less than 1000 m",
+                "correct": false
+            },
+            {
+                "answer": "1500 ft or less",
+                "correct": false
+            }
+        ]
+    },
+    {
+        "id": 140,
+        "question": "A pilot of an IFR flight shall inform the ATC unit competent for approaches and departures that he has received ATIS ...",
+        "answers": [
+            {
+                "answer": "upon initial contact",
+                "correct": true
+            },
+            {
+                "answer": "if deemed necessary",
+                "correct": false
+            },
+            {
+                "answer": "if the control zone is IMC",
+                "correct": false
+            },
+            {
+                "answer": "on request only",
+                "correct": false
+            }
+        ]
+    },
+    {
+        "id": 141,
+        "question": "When the term \"SCATTERED (SCT)\" is used in radiotelephony in connection with meteorological conditions, the cloud amount is ...",
+        "answers": [
+            {
+                "answer": "3 to 4 oktas",
+                "correct": true
+            },
+            {
+                "answer": "5 to 7 oktas",
+                "correct": false
+            },
+            {
+                "answer": "NO SIGNIFICANT CLOUDS",
+                "correct": false
+            },
+            {
+                "answer": "8 oktas",
+                "correct": false
+            }
+        ]
+    },
+    {
+        "id": 142,
+        "question": "When the term \"BROKEN (BKN)\" is used in radiotelephony in connection with meteorological conditions, the cloud amount is \u2026",
+        "answers": [
+            {
+                "answer": "5 to 7 oktas",
+                "correct": true
+            },
+            {
+                "answer": "1 to 4 oktas",
+                "correct": false
+            },
+            {
+                "answer": "NO SIGNIFICANT CLOUDS",
+                "correct": false
+            },
+            {
+                "answer": "8 oktas",
+                "correct": false
+            }
+        ]
+    }
+]

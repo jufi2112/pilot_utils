@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/">
+        <file>icons/bookmark_empty.svg</file>
+        <file>icons/bookmark_filled.svg</file>
+        <file>icons/eye.svg</file>
+        <file>icons/eye_crossed.svg</file>
+        <file>icons/trash.svg</file>
+    </qresource>
+</RCC>

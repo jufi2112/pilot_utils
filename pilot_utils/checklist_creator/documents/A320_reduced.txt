@@ -1,0 +1,189 @@
+// Aircraft Type = Airbus A319 / A320 / A321
+// Checklist Type = Reduced Procedures
+// Checklist Version = 1.0.3
+// Real World Clearance = False
+
+# AIRCRAFT AND SIMULATOR SETUP
+- Time / Weather / A/C Position .. As Chosen
+** --- IF FLYING ON IVAO ---
++ A/C Position .. Free of other traffic
++ IVAO Pilot Client .. Connect
+- EFB > Fenix > MY FLIGHTS .. Import Flight Plan
+- A/C Refueling / Boarding .. Initiate
+- Sidestick, Throttle, Rudders, External Monitor .. Connected
+- MSFS Pop-Out Panel Manager .. Start Pop-Out
+
+# COCKPIT INSPECTION
+- LDG Gear .. DOWN & Synced to Hardware
+- THR LVR .. IDLE & Synced to Hardware
+
+# COCKPIT PREPARATION
+- BAT 1 & 2 .. ON
+- EXT PWR .. ON
+- Overhead Panel .. Set
++ STROBE Light .. Auto
+- PA & CAB Comms .. As Desired
+- Frequencies .. Set
+- MCDU .. DIFRIPPS
++ SID / STAR .. Check Constraints
++ Fuel .. Check Quantity
+- QNH, Squawk, Initial Climb .. Set
+- APU & ENG 1 & 2 Fire Warnings .. Check
+
+# BEFORE START
+- Boarding .. Completed
+- APU .. ON and AVAIL
+- APU BLEED .. ON
+- EXT PWR .. OFF
+= --- ONCE IRS ALIGNED ---
+- Push and Start Clearance .. As Required / Obtained
+- NAV & LOGO Lights .. ON
+- BEACON Lights .. ON
+- Off-Block Time .. Noted
+
+# PUSHBACK & ENGINE START
+- Pushback .. Follow Instructions
+- Engine 1 & 2 .. Start
+
+# BEFORE TAXI
+- Flaps .. As Required
+- Spoilers .. ARMED
+- Weather Radar & PWS .. ON
+- PITCH TRIM .. Set
+- Flight Controls .. Free and Correct
+- NOSE Light .. TAXI
+- RWY TURN OFF Light .. ON
+- APU & APU BLEED .. OFF
+- AUTO BRK .. MAX
+- Taxi Clearance .. As Required / Obtained
+
+# TAXI
+- Brakes .. Check
+
+# BEFORE TAKEOFF
+- PARKING BRK .. ON
+- TO CONFIG .. Pushed
++ ECAM Memo .. T.O, No Blue
+- FD .. ON
+- QNH, FCU ALT SELECTOR, Frequencies, Squawk .. Verify
+- Crew Briefing .. Completed
+- XPDR .. ON
+- TCAS .. ABV & TA/RA
+** --- IF FLYING ON IVAO ---
++ IVAO Pilot Client XPDR .. Verify ALT and Squawk Correct
++ IVAO Pilot Client TCAS .. ON & ALL
+- NOSE Light .. TO
+- LAND Light .. ON
+- RWY TURN OFF Light .. OFF
+- PACKS 1 & 2 .. OFF
+- Takeoff Clearance .. As Required / Obtained
+= --- CLEARED FOR TAKEOFF ---
+- Start Time .. Noted
+- Clock .. Start
+- PARKING BRK .. OFF
+
+# TAKEOFF
+- THR LVR .. FLEX or TOGA
+- Elevator Control .. Rotate at Vr (less than 9.5 degrees pitch)
+
+# AFTER TAKEOFF / CLIMB
+- LDG Gear (at positive rate of climb, max 220 KT) .. UP
+- A/P (min 100 ft AGL) .. As Desired / ON
+- THR LVR (when prompted) .. CLIMB
+- PACKS 1 & 2 .. ON
+- Flaps .. Up according to speed
+- Spoilers .. RET
+- QNH (at transition altitude) .. STD
+- LAND Lights, NOSE Lights (passing FL 100) .. OFF
+- PAX Signs (calm air and pitch < 7.5 degrees) .. OFF
+
+# CRUISE
+- TOD .. Monitor
+= --- 30 NM PRIOR TO TOD ---
+- MCDU > F-PLN > Arrival Routing .. Verify / Set
+- MCDU > PERF > Destination Info .. Set
+- MCDU > NAV RAD > ILS Frequency .. Verify / Set
+- FCU ALT SELECTOR .. Set Target Altitude
+- Arrival Performance .. Calculate
++ Landing Weight = GW - (Current FOB - EFOB)
+- AUTO BRK .. As Required
+= --- AT TOD ---
+- FCU ALT SELECTOR KNOB .. Initiate Descend
++ PUSH for Managed Descend (VNAV Profile According to Flight Plan)
++ PULL for Open Descend (Vectoring by ATC)
+- TCAS Mode .. BLW
+
+# DESCEND
+- VNAV / Descend Profile .. Monitor
+= --- ON PASSING FL 100 ---
+- NOSE Lights, LAND Lights .. ON
+- PAX Signs .. ON
+= --- ON PASSING TRL ---
+- QNH .. Set Local
+
+# APPROACH
+- LS .. ON
+= --- ON PASSING (DECEL) WAYPOINT ---
+- APPR Phase .. Verify Active
+= --- CLEARED FOR APPROACH ---
+- LOC Mode .. ON
+- APPR Mode .. ON
+- Flaps .. Set according to speed
+- Spoilers .. ARM
+- LDG Gear (max 250 KT) .. DOWN
+
+# BEFORE LANDING (2000 ft AGL)
+- LDG Gear .. DOWN, 3 Green
+- AUTO BRK .. As Required
+- Flaps .. Landing Configuration
+- Spoilers .. ARMED
+- ECAM Memo .. LDG, No Blue
+- A/P .. As Required
+- QNH .. Local
+- PAX Signs .. ON
+- Landing Clearance .. As Required / Obtained
+
+# AFTER LANDING (CLEAR OF RUNWAY)
+- PARKING BRK .. ON
+- Flaps .. UP
+- Spoilers .. RET
+- Weather Radar & PWS .. OFF
+- XPDR .. STBY
+- TCAS .. ABV & STBY
+** --- IF FLYING ON IVAO ---
++ IVAO Pilot Client XPDR .. Confirm OFF
++ IVAO Pilot Client TCAS .. STBY
+- LS .. OFF
+- Clock .. Stop
+- Landing Time .. Noted
+- LAND Lights .. OFF
+- NOSE Lights .. TAXI
+- RWY TURNOFF Lights .. ON
+- APU .. START
+- Taxi Clearance .. As Required / Obtained
+
+# PARKING
+- PARKING BRK .. ON
+- On-Block Time .. Noted
+- THR LVR .. IDLE
+- NOSE Light .. OFF
+- RWY TURNOFF Light .. OFF
+- APU .. AVAIL
+- ENG 1 & 2 Master .. OFF
+- All External Lights .. OFF
+- PAX Signs .. OFF
+- Deboarding .. Initiate
+- EXT PWR .. As Desired / ON
+** --- IF EXT PWR ON ---
++ APU .. OFF
+- FUEL PUMPS L / CTR / R .. OFF
+
+# SHUTDOWN
+- Deboarding .. Completed
+- OVERHEAD Panel .. All switches except BAT 1 & 2 and EXT PWR OFF
+- CHOCKS & CONES .. ON
+- PARKING BRK .. OFF
+- EXT PWR or APU (whichever is on) .. OFF
+- BAT 1 & 2 .. OFF
+** --- IF FLYING ON IVAO ---
++ IVAO Pilot Client .. Disconnect

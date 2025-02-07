@@ -10,7 +10,10 @@ setup(
     author='Julien Fischer',
     install_requires=[
         'pypdf>=4.2.0',
-        'reportlab'
+        'reportlab',
+        'numpy',
+        'pymupdf',
+        'pyqt6'
     ],
     python_requires='>=3.7.9'
 )
