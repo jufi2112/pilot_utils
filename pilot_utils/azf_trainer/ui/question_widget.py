@@ -1,6 +1,7 @@
 from pilot_utils.azf_trainer.ui.question_widget_base import Ui_question_widget
 from pilot_utils.azf_trainer.ui.clickable_label import ClickableLabel
 from pilot_utils.azf_trainer.ui.clickable_svg import ClickableSvgWidget
+from pilot_utils.azf_trainer.src import AZFQuestion
 from PyQt6.QtWidgets import QWidget, QRadioButton, QLabel
 from PyQt6.QtCore import QTimer, Qt
 from PyQt6.QtGui import QPixmap
@@ -52,7 +53,7 @@ class AZFQuestionWidget(QWidget, Ui_question_widget):
         if self.exercise_mode == AZFExerciseMode.UNDEFINED:
             raise ValueError("AZFQuestionWidget got undefined exercise mode")
         self.timer = None
-        self.time_remaining = 60 * 60
+        self.time_remaining = 30 * 60
         if self.exercise_mode != AZFExerciseMode.EXAM:
             self._hide_timer()
         else:
@@ -178,18 +179,20 @@ class AZFQuestionWidget(QWidget, Ui_question_widget):
 
 
     def fill_question(self,
-                      question_id: int,
+                      question: AZFQuestion,
                       current_question_index: int,
                       total_questions: int,
-                      question_text: str,
-                      answer_a: str,
-                      answer_b: str,
-                      answer_c: str,
-                      answer_d: str,
                       is_question_ignored: bool,
                       is_question_bookmarked: bool,
                       selected_answer: int = None,
-                      correct_answer: int = None):
+                      ):
+        question_id = question.id
+        question_text = question.question
+        answer_a = question.answers[0].answer
+        answer_b = question.answers[1].answer
+        answer_c = question.answers[2].answer
+        answer_d = question.answers[3].answer
+        correct_answer = [idx for idx, answer in enumerate(question.answers) if answer.correct][0]
         self.init_ui()
         self.button_previous.setEnabled(current_question_index > 1)
         self.button_next.setEnabled(current_question_index < total_questions)
@@ -202,11 +205,11 @@ class AZFQuestionWidget(QWidget, Ui_question_widget):
         self._adapt_bookmark_widgets(is_question_bookmarked)
         self._adapt_ignore_widgets(is_question_ignored)
         self.is_bookmarked = is_question_bookmarked
-        if selected_answer is not None and correct_answer is not None:
-            self.answer_radio_buttons[selected_answer].setChecked(True)
+        if selected_answer is not None or self.exercise_mode in [AZFExerciseMode.SHOW_BOOKMARKED, AZFExerciseMode.SHOW_HIDDEN]:
+            self.answer_radio_buttons[selected_answer if selected_answer is not None else correct_answer].setChecked(True)
             if self.exercise_mode == AZFExerciseMode.EXAM and not self.exercise_finished:
                 return
-            self._highlight_correct(selected_answer, correct_answer)
+            self._highlight_correct(selected_answer if selected_answer is not None else correct_answer, correct_answer)
             if self.exercise_mode != AZFExerciseMode.EXAM:
                 self.button_submit.setEnabled(True)
 

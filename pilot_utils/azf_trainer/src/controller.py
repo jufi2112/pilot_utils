@@ -36,6 +36,8 @@ class AZFTrainingController:
         self._view.button_extract_questions.clicked.connect(self.button_extract_questions_clicked_callback)
         self._view.button_show_watched.clicked.connect(self.button_show_bookmarked_clicked_callback)
         self._view.button_show_done.clicked.connect(self.button_show_hidden_clicked_callback)
+        self._view.button_clear_bookmarks.clicked.connect(self.button_clear_bookmarked_clicked_callback)
+        self._view.button_clear_hidden.clicked.connect(self.button_clear_hidden_clicked_callback)
         self._view.closeEvent = self.main_window_close_callback
 
 
@@ -204,6 +206,41 @@ class AZFTrainingController:
             self._reset_exercise_state()
 
 
+    def button_clear_bookmarked_clicked_callback(self):
+        if not osp.exists(self.fpath_bookmarked):
+            return
+        reply = QMessageBox.question(
+            self._view,
+            "Confirm Delete Bookmarks",
+            "Are you sure you want to remove all bookmarks?",
+            QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No | QMessageBox.StandardButton.Cancel,
+            QMessageBox.StandardButton.Cancel
+        )
+        if reply != QMessageBox.StandardButton.Yes:
+            return
+        fname_tmp = self.fpath_bookmarked + ".tmp"
+        with open(fname_tmp, 'w') as file:
+            json.dump([], file)
+        os.replace(fname_tmp, self.fpath_bookmarked)
+
+
+    def button_clear_hidden_clicked_callback(self):
+        if not osp.exists(self.fpath_ignored):
+            return
+        reply = QMessageBox.question(
+            self._view,
+            "Confirm Unhide",
+            "Are you sure you want to again show all hidden questions?",
+            QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No | QMessageBox.StandardButton.Cancel,
+            QMessageBox.StandardButton.Cancel
+        )
+        if reply != QMessageBox.StandardButton.Yes:
+            return
+        fname_tmp = self.fpath_ignored + ".tmp"
+        with open(fname_tmp, 'w') as file:
+            json.dump([], file)
+        os.replace(fname_tmp, self.fpath_ignored)
+
 
     def start_new_training_accepted_callback(self, dialog: AZFTrainerDialogNewTraining):
         if dialog.radioButton_show_all.isChecked():
@@ -251,21 +288,14 @@ class AZFTrainingController:
         if self._training_page is None:
             return
         question: AZFQuestion = data['question']
-        correct = [idx for idx, answer in enumerate(question.answers) if answer.correct][0]
         watched = data['watched']
         ignored = data['ignored']
-        self._training_page.fill_question(question_id=question.id,
+        self._training_page.fill_question(question=question,
                                           current_question_index=current_index,
                                           total_questions=total_questions,
-                                          question_text=question.question,
-                                          answer_a=question.answers[0].answer,
-                                          answer_b=question.answers[1].answer,
-                                          answer_c=question.answers[2].answer,
-                                          answer_d=question.answers[3].answer,
                                           is_question_ignored=ignored,
                                           is_question_bookmarked=watched,
-                                          selected_answer=data['user_selection'],
-                                          correct_answer=correct
+                                          selected_answer=data['user_selection']
                                           )
 
 
@@ -361,7 +391,9 @@ class AZFTrainingController:
         self._view.button_start_training.setEnabled(osp.exists(self.fpath_questionnaire))
         self._view.button_start_exam.setEnabled(osp.exists(self.fpath_questionnaire))
         self._view.button_show_watched.setEnabled(osp.exists(self.fpath_bookmarked))
+        self._view.button_clear_bookmarks.setEnabled(osp.exists(self.fpath_bookmarked))
         self._view.button_show_done.setEnabled(osp.exists(self.fpath_ignored))
+        self._view.button_clear_hidden.setEnabled(osp.exists(self.fpath_ignored))
 
 
     def _reset_exercise_state(self):

@@ -3,6 +3,9 @@ from pilot_utils.azf_trainer.ui.question_widget import AZFQuestionWidget
 from PyQt6.QtWidgets import QMainWindow, QWidget, QMessageBox
 from pilot_utils.azf_trainer import __version__
 from enum import Enum
+from PyQt6.QtGui import QIcon
+from PyQt6.QtCore import QSize
+from pilot_utils.azf_trainer.ui import resource_rc
 
 class AZFMainPages(Enum):
     HOME = "HOME"
@@ -17,6 +20,10 @@ class AZFTrainerMainWindow(QMainWindow, Ui_MainWindow):
         self.page_indices = {
             AZFMainPages.HOME: 0
         }
+        self.button_clear_bookmarks.setIcon(QIcon(":/icons/trash.svg"))
+        self.button_clear_bookmarks.setIconSize(QSize(32,32))
+        self.button_clear_hidden.setIcon(QIcon(":/icons/eye.svg"))
+        self.button_clear_hidden.setIconSize(QSize(48,48))
         self.connect_signals_and_slots()
 
 

@@ -78,7 +78,7 @@
          </spacer>
         </item>
         <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_2">
+         <layout class="QHBoxLayout" name="horizontalLayout_4">
           <item>
            <spacer name="horizontalSpacer">
             <property name="orientation">
@@ -94,9 +94,6 @@
           </item>
           <item>
            <layout class="QVBoxLayout" name="verticalLayout">
-            <property name="spacing">
-             <number>20</number>
-            </property>
             <item>
              <widget class="QPushButton" name="button_start_training">
               <property name="sizePolicy">
@@ -134,46 +131,96 @@
              </widget>
             </item>
             <item>
-             <widget class="QPushButton" name="button_show_watched">
-              <property name="enabled">
-               <bool>false</bool>
-              </property>
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="font">
-               <font>
-                <pointsize>26</pointsize>
-               </font>
-              </property>
-              <property name="text">
-               <string>Show Bookmarks</string>
-              </property>
-             </widget>
+             <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="6,1">
+              <item>
+               <widget class="QPushButton" name="button_show_watched">
+                <property name="enabled">
+                 <bool>true</bool>
+                </property>
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="font">
+                 <font>
+                  <pointsize>26</pointsize>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>Show Bookmarks</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QToolButton" name="button_clear_bookmarks">
+                <property name="enabled">
+                 <bool>true</bool>
+                </property>
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="font">
+                 <font>
+                  <pointsize>26</pointsize>
+                 </font>
+                </property>
+                <property name="text">
+                 <string/>
+                </property>
+               </widget>
+              </item>
+             </layout>
             </item>
             <item>
-             <widget class="QPushButton" name="button_show_done">
-              <property name="enabled">
-               <bool>false</bool>
-              </property>
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="font">
-               <font>
-                <pointsize>26</pointsize>
-               </font>
-              </property>
-              <property name="text">
-               <string>Show Hidden</string>
-              </property>
-             </widget>
+             <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="6,1">
+              <item>
+               <widget class="QPushButton" name="button_show_done">
+                <property name="enabled">
+                 <bool>true</bool>
+                </property>
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="font">
+                 <font>
+                  <pointsize>26</pointsize>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>Show Hidden</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QToolButton" name="button_clear_hidden">
+                <property name="enabled">
+                 <bool>true</bool>
+                </property>
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="font">
+                 <font>
+                  <pointsize>26</pointsize>
+                 </font>
+                </property>
+                <property name="text">
+                 <string/>
+                </property>
+               </widget>
+              </item>
+             </layout>
             </item>
             <item>
              <widget class="QPushButton" name="button_extract_questions">
