@@ -1,5 +1,5 @@
 import json
-import numpy as np
+import random
 from os import path as osp
 from typing import List, Dict, Tuple, Union
 
@@ -61,7 +61,8 @@ class AZFQuestion:
             -------
                 A list of tuples (answer, correct)
         """
-        indices = np.random.permutation(len(self.answers))
+        indices = [idx for idx in range(len(self.answers))]
+        random.shuffle(indices)
         return [(self.answers[idx].text, self.answers[idx].correct) for idx in indices]
 
 

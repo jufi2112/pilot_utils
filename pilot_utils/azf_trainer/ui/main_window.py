@@ -44,7 +44,7 @@ class AZFTrainerMainWindow(QMainWindow, Ui_MainWindow):
     def button_about_clicked_callback(self):
         QMessageBox.information(self,
                                 'About AZF Trainer',
-                                f"AZF Trainer version {__version__}\n\nDeveloped by Julien Fischer\n\nFor free distribution only",
+                                f"<span>AZF Trainer version {__version__}<br>Copyright &#169; 2025 Julien Fischer<br>Published under GPL v3<br><br>For non-commercial distribution only<br>Find the source code <a href='https://github.com/jufi2112/pilot_utils'>here</a>",
                                 QMessageBox.StandardButton.Ok,
                                 QMessageBox.StandardButton.Ok
                                 )
