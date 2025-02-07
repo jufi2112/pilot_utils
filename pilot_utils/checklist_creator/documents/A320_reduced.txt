@@ -2,6 +2,7 @@
 // Checklist Type = Reduced Procedures
 // Checklist Version = 1.0.3
 // Real World Clearance = False
+// Background Coloring = True
 
 # AIRCRAFT AND SIMULATOR SETUP
 - Time / Weather / A/C Position .. As Chosen
@@ -98,6 +99,7 @@
 - PAX Signs (calm air and pitch < 7.5 degrees) .. OFF
 
 # CRUISE
+- TCAS Mode .. BLW
 - TOD .. Monitor
 = --- 30 NM PRIOR TO TOD ---
 - MCDU > F-PLN > Arrival Routing .. Verify / Set
@@ -111,7 +113,7 @@
 - FCU ALT SELECTOR KNOB .. Initiate Descend
 + PUSH for Managed Descend (VNAV Profile According to Flight Plan)
 + PULL for Open Descend (Vectoring by ATC)
-- TCAS Mode .. BLW
+- TCAS Mode .. Verify BLW
 
 # DESCEND
 - VNAV / Descend Profile .. Monitor

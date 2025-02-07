@@ -1,0 +1,70 @@
+// Aircraft Type = Eurocopter H145
+// Checklist Type = Normal Procedures
+// Checklist Version = 0.0.1
+// Real World Clearance = False
+// Background Coloring = True
+
+# HELICOPTER AND SIMULATOR SETUP
+- Time / Weather / Helo Position .. As Chosen
+** --- IF FLYING ON IVAO ---
++ Helo Position .. Free of other traffic
++ IVAO Pilot Client .. Connect
+- Helo Refueling .. Initiate
+- Stick, Collective, Rudders .. Connected
+
+# ELECTRICAL POWER UP
+- BAT MSTR .. ON, then ENGAGE
++ PFD .. Confirm message "PWR-UP TST OK"
+- TEST FIRE 1 SW .. EXT, then EXT+WARN, then OFF
+- TEST FIRE 2 SW .. EXT, then EXT+WARN, then OFF
+- TEST SW .. LAMP, then OFF
++ Confirm all lamps illuminated
+- VMS Page
++ Battery .. Check > 23.5 Volts
++ Weights .. Enter, then VALIDATE and PREV Page
+- Flight Controls .. Check free movement
+- Anti-Collision Light .. ON
+
+# ENGINE STARTUP
+- PRIME PUMP 1 & 2 .. ON
+- ENG 1 MAIN SW .. IDLE
+** --- AFTER IDLE APPEARS ---
+- ENG 2 MAIN SW .. IDLE
+- PFD .. Confirm message "START-UP TST OK"
+
+# HYDRAULIC CHECK
+- TEST HYD SW .. SYS 1
++ PFD .. Confirm message "LOW PRESS HYD 2"
+- TEST HYD SW .. SYS 2
++ PFD .. Confirm message "LOW PRESS HYD 1"
+- TEST HYD SW .. OFF
+
+# AFTER ENGINE START
+- PT/STATIC HTG PILOT & COPILOT SW .. ON
+- AVIO MSTR 1 & 2 .. ON
+- STBY BAT SW .. ON
+- LAVCS SW .. PIL
+- FUEL PRIME PUMP 1 & 2 .. OFF
+- FUEL XFER PUMP F & A .. ON
+- POS & STROBE Lights .. As Required
+- EM/EX Lights .. ARM
+
+# PREFLIGHT
+- Collective .. FULL DOWN
+- TEST SW .. LAMP
++ MKR, DME1, DME2, FMS1, FMS2 lights .. Check illuminated
+- TEST SW .. PRE-FLIGHT 
++ PFD .. Check message "P-PLT TST OK"
+- TEST SW .. OFF
+- AP/BKUP ON (Bravo A/P) .. Press
++ AFCS Status Strip .. 3 Green Boxes appear
++ Will disappear after few seconds
+- AP/BKUP CUT (Stick Base Toggle) .. Press
++ AFCS Status Strip .. Yellow: SAS SAS AFCS DISENGAGED
+- AP/BKUP CUT (Stick Base Toggle) .. Press
++ AFCS Status Strip .. Red: SAS SAS Yellow: AFCS DISENGAGED
+- BEEP Trim .. Check all 4 directions
+- AP/BKUP ON (Bravo A/P) .. Press
+- ENG 1 & 2 MAIN SW .. FLIGHT
+= ONCE ALL ENGINE PARAMETERS LOOK FINE
+- ENG 1 & 2 MAIN SW .. Latch

@@ -1,6 +1,7 @@
 // Aircraft Type = Airbus A319 / A320 / A321
 // Checklist Type = Normal Procedures
-// real_world_clearance = False
+// Real World Clearance = False
+// Background Coloring = True
 
 # AIRCRAFT AND SIMULATOR SETUP
 - Time .. As Chosen
