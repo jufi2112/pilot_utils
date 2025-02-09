@@ -241,3 +241,16 @@ class AZFTrainerModel:
         for qid in self.question_ids:
             if qid not in seen_qids:
                 self.add_to_watchlist(qid, True)
+
+
+    def hide_correctly_answered(self):
+        """
+            Sets all correctly answered questions to be ignored
+        """
+        for qid, data in self.answer_history.items():
+            if data['user_selection'] is None:
+                continue
+            question = data['question']
+            correct = [idx for idx, answer in enumerate(question.answers) if answer.correct][0]
+            if data['user_selection'] == correct:
+                self.set_ignored(qid, True)

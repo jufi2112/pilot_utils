@@ -1,7 +1,7 @@
 from pilot_utils.azf_trainer.ui.main_window_base import Ui_MainWindow
 from pilot_utils.azf_trainer.ui.question_widget import AZFQuestionWidget
 from PyQt6.QtWidgets import QMainWindow, QWidget, QMessageBox
-from pilot_utils.azf_trainer import __version__
+from pilot_utils import azf_trainer
 from enum import Enum
 from PyQt6.QtGui import QIcon
 from PyQt6.QtCore import QSize
@@ -17,6 +17,7 @@ class AZFTrainerMainWindow(QMainWindow, Ui_MainWindow):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.setupUi(self)
+        self.setWindowTitle(f"AZF Trainer v. {azf_trainer.__version__}")
         self.page_indices = {
             AZFMainPages.HOME: 0
         }
@@ -44,7 +45,7 @@ class AZFTrainerMainWindow(QMainWindow, Ui_MainWindow):
     def button_about_clicked_callback(self):
         QMessageBox.information(self,
                                 'About AZF Trainer',
-                                f"<span>AZF Trainer version {__version__}<br>Copyright &#169; 2025 Julien Fischer<br>Published under GPL v3<br><br>For non-commercial distribution only<br>Find the source code <a href='https://github.com/jufi2112/pilot_utils'>here</a>",
+                                f"<span>AZF Trainer version {azf_trainer.__version__}<br>Copyright &#169; 2025 Julien Fischer<br>Published under GPL v3<br><br>For non-commercial distribution only<br>Find the source code <a href='https://github.com/jufi2112/pilot_utils'>here</a>",
                                 QMessageBox.StandardButton.Ok,
                                 QMessageBox.StandardButton.Ok
                                 )

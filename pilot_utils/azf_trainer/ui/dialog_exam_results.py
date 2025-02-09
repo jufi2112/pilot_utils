@@ -11,6 +11,7 @@ class AZFTrainerDialogExamResults(QDialog, Ui_dialog_exam_results):
                  questions_total: int,
                  wrong_answers_to_watchlist_callback: Callable,
                  unanswered_questions_to_watchlist_callback: Callable,
+                 hide_correct_questions_callback: Callable,
                  exercise_mode: AZFExerciseMode,
                  pass_percentage: float = 0.75,
                  parent=None):
@@ -37,14 +38,17 @@ class AZFTrainerDialogExamResults(QDialog, Ui_dialog_exam_results):
         self.label_result.setText(text)
         self._set_button_unanswered_to_watchlist_text(questions_unanswered)
         self._set_button_wrong_to_watchlist_text(questions_total - questions_correct - questions_unanswered)
+        self._set_button_hide_correct_text(questions_correct)
         self.wrong_answer_watchlist_callback = wrong_answers_to_watchlist_callback
         self.unanswered_question_watchlist_callback = unanswered_questions_to_watchlist_callback
+        self.hide_correct_questions_callback = hide_correct_questions_callback
         self.connect_signals_and_slots()
 
 
     def connect_signals_and_slots(self):
         self.button_unanswered_to_watchlist.clicked.connect(self.button_unanswered_to_watchlist_clicked_callback)
         self.button_wrong_to_watchlist.clicked.connect(self.button_wrong_to_watchlist_clicked_callback)
+        self.button_hide_correct.clicked.connect(self.button_hide_correct_clicked_callback)
 
 
     def disconnect_signals_and_slots(self):
@@ -64,6 +68,12 @@ class AZFTrainerDialogExamResults(QDialog, Ui_dialog_exam_results):
             self.button_wrong_to_watchlist.setEnabled(False)
 
 
+    def _set_button_hide_correct_text(self, n_correct: int):
+        self.button_hide_correct.setText(f"Hide correctly answered questions ({n_correct})")
+        if n_correct == 0:
+            self.button_hide_correct.setEnabled(False)
+
+
     def button_unanswered_to_watchlist_clicked_callback(self):
         self.unanswered_question_watchlist_callback()
         self.button_unanswered_to_watchlist.setEnabled(False)
@@ -72,3 +82,8 @@ class AZFTrainerDialogExamResults(QDialog, Ui_dialog_exam_results):
     def button_wrong_to_watchlist_clicked_callback(self):
         self.wrong_answer_watchlist_callback()
         self.button_wrong_to_watchlist.setEnabled(False)
+
+
+    def button_hide_correct_clicked_callback(self):
+        self.hide_correct_questions_callback()
+        self.button_hide_correct.setEnabled(False)

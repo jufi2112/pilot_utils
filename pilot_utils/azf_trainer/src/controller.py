@@ -362,6 +362,7 @@ class AZFTrainingController:
             exam_result_dialog = AZFTrainerDialogExamResults(n_correct, n_unanswered, n_questions,
                                                              wrong_answers_to_watchlist_callback=self._model.add_wrong_answers_to_watchlist,
                                                              unanswered_questions_to_watchlist_callback=self._model.add_unanswered_to_watchlist,
+                                                             hide_correct_questions_callback=self._model.hide_correctly_answered,
                                                              exercise_mode=self.exercise_mode, pass_percentage=0.75,
                                                              parent=self._view
                                                              )

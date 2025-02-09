@@ -180,7 +180,7 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "AZF Trainer"))
         self.label.setText(_translate("MainWindow", "AZF Trainer"))
         self.button_start_training.setText(_translate("MainWindow", "Start Training"))
         self.button_start_exam.setText(_translate("MainWindow", "Start Exam"))

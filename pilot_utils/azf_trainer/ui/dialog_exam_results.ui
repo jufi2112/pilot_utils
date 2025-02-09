@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>846</width>
-    <height>432</height>
+    <height>480</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -141,7 +141,7 @@
         </font>
        </property>
        <property name="text">
-        <string>Back to Exam</string>
+        <string>Back to Questions</string>
        </property>
       </widget>
      </item>
@@ -182,6 +182,24 @@
        </property>
        <property name="text">
         <string>Add bookmark to wrong answers (0)</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="button_hide_correct">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="MinimumExpanding" vsizetype="Minimum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>20</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>Hide correctly answered questions (0)</string>
        </property>
       </widget>
      </item>

@@ -15,7 +15,7 @@ def get_base_dir():
 
 
 if __name__ == '__main__':
-    print("Copyright (C) 2025  Julien Fischer")
+    print("Copyright (C) 2025 Julien Fischer")
     print("This program comes with ABSOLUTELY NO WARRANTY")
     print("This is free software, and you are welcome to redistribute it for non-commercial purposes")
     parser = argparse.ArgumentParser(description="AZF Theory Trainer")
