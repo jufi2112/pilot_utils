@@ -268,6 +268,20 @@ class AZFTrainingController:
         return True
 
 
+    def exercise_resend_current_question(self) -> bool:
+        if self._model is None or self._training_page is None:
+            return False
+        data, current_index, total_questions = self._model.get_current_question()
+        if total_questions == 0:
+            return False
+        if data is None:
+            QMessageBox.information(self._view, "Training Not Possible", "Failed to load current question")
+            return False
+        else:
+            self._send_question_to_training_page(data, current_index, total_questions)
+        return True
+
+
     def exercise_previous_question_callback(self):
         if self._model is None or self._training_page is None:
             return False
@@ -338,7 +352,7 @@ class AZFTrainingController:
             if reply != QMessageBox.StandardButton.Yes:
                 return
         else:
-            if not self._model.all_questions_answered() and not force_end:
+            if not self._model.all_questions_answered() and not force_end and not self._training_page.exercise_finished:
                 exercise_name = "<undefined>"
                 if self.exercise_mode == AZFExerciseMode.TRAINING:
                     exercise_name = "training"
@@ -369,6 +383,7 @@ class AZFTrainingController:
             result = exam_result_dialog.exec()
             if result != QDialog.DialogCode.Accepted:
                 self._training_page.exercise_finished = True
+                self.exercise_resend_current_question()
                 return
         self._update_home_page_button_states()
         self._view.switch_main_page(AZFMainPages.HOME)

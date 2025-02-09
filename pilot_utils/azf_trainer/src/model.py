@@ -105,6 +105,38 @@ class AZFTrainerModel:
         return self.answer_history[question.id], self.current_question_index + 1, self.max_questions
 
 
+    def get_current_question(self) -> Dict[str, Union[AZFQuestion, int, None]]:
+        """
+            Returns
+            -------
+                dict:
+                    A dict with keys 'question' that contains the question and 'user_selection' that contains
+                    an int representing the user selected answer, or None if no answer has yet been selected.
+                    If no more questions are available, returns None
+                int:
+                    Number of the current question
+                int:
+                    Total number of questions
+        """
+        if self.max_questions == 0:
+            return None, None, 0
+        if self.current_question_index is None:
+            self.current_question_index = 0
+        question: AZFQuestion = self.questionnaire.get_question_by_id(self.question_ids[self.current_question_index])
+        if question is None:
+            raise ValueError(f"The questionnaire does not contain a question with id {self.question_ids[self.current_question_index]}")
+
+        if question.id not in self.answer_history.keys():
+            random.shuffle(question.answers)
+            self.answer_history[question.id] = {
+                'question': question,
+                'user_selection': None,
+                'ignored': question.id in self.indices_ignored,
+                'watched': question.id in self.indices_watched
+            }
+        return self.answer_history[question.id], self.current_question_index + 1, self.max_questions
+
+
     def get_previous_question(self) -> Union[Dict[str, Union[AZFQuestion, int, None]], None]:
         """
             Returns
@@ -151,10 +183,7 @@ class AZFTrainerModel:
             self.indices_ignored.discard(question_id)
             if question_id in self.answer_history.keys():
                 self.answer_history[question_id]['ignored'] = False
-        fname_tmp = self.fpath_ignored + ".tmp"
-        with open(fname_tmp, 'w') as file:
-            json.dump(list(self.indices_ignored), file)
-        os.replace(fname_tmp, self.fpath_ignored)
+        self._write_ignored()
 
 
     def add_to_watchlist(self, question_id: int, watch: bool):
@@ -166,10 +195,7 @@ class AZFTrainerModel:
             self.indices_watched.discard(question_id)
             if question_id in self.answer_history.keys():
                 self.answer_history[question_id]['watched'] = False
-        fname_tmp = self.fpath_watched + ".tmp"
-        with open(fname_tmp, 'w') as file:
-            json.dump(list(self.indices_watched), file)
-        os.replace(fname_tmp, self.fpath_watched)
+        self._write_watchlist()
 
 
     def add_user_selection(self, question_id: int, selection: int) -> int:
@@ -225,7 +251,9 @@ class AZFTrainerModel:
             question = data['question']
             correct = [idx for idx, answer in enumerate(question.answers) if answer.correct][0]
             if data['user_selection'] != correct:
-                self.add_to_watchlist(qid, True)
+                self.indices_watched.add(qid)
+                self.answer_history[qid]['watched'] = True
+        self._write_watchlist()
 
 
     def add_unanswered_to_watchlist(self):
@@ -236,11 +264,13 @@ class AZFTrainerModel:
         for qid, data in self.answer_history.items():
             seen_qids.append(qid)
             if data['user_selection'] is None:
-                self.add_to_watchlist(qid, True)
+                self.indices_watched.add(qid)
+                self.answer_history[qid]['watched'] = True
         # Check which questions have not yet been visited at all (-> not in answer_history)
         for qid in self.question_ids:
             if qid not in seen_qids:
-                self.add_to_watchlist(qid, True)
+                self.indices_watched.add(qid)
+        self._write_watchlist()
 
 
     def hide_correctly_answered(self):
@@ -253,4 +283,20 @@ class AZFTrainerModel:
             question = data['question']
             correct = [idx for idx, answer in enumerate(question.answers) if answer.correct][0]
             if data['user_selection'] == correct:
-                self.set_ignored(qid, True)
+                self.indices_ignored.add(qid)
+                self.answer_history[qid]['ignored'] = True
+        self._write_ignored()
+
+
+    def _write_watchlist(self):
+        fname_tmp = self.fpath_watched + ".tmp"
+        with open(fname_tmp, 'w') as file:
+            json.dump(list(self.indices_watched), file)
+        os.replace(fname_tmp, self.fpath_watched)
+
+
+    def _write_ignored(self):
+        fname_tmp = self.fpath_ignored + ".tmp"
+        with open(fname_tmp, 'w') as file:
+            json.dump(list(self.indices_ignored), file)
+        os.replace(fname_tmp, self.fpath_ignored)

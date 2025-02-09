@@ -156,10 +156,11 @@ class AZFQuestionWidget(QWidget, Ui_question_widget):
             if self.exercise_mode != AZFExerciseMode.EXAM:
                 self.button_submit.setEnabled(True)
             else:
-                selection = [idx for idx, radioButton in enumerate(self.answer_radio_buttons) if radioButton.isChecked()][0]
-                self.exam_selection[self.current_question_index] = selection
-                self.submission_callback(self.current_question_index, selection)
-                self._set_submit_button_exam_text()
+                if not self.exercise_finished:
+                    selection = [idx for idx, radioButton in enumerate(self.answer_radio_buttons) if radioButton.isChecked()][0]
+                    self.exam_selection[self.current_question_index] = selection
+                    self.submission_callback(self.current_question_index, selection)
+                    self._set_submit_button_exam_text()
         else:
             self.button_submit.setEnabled(False)
 
@@ -205,22 +206,25 @@ class AZFQuestionWidget(QWidget, Ui_question_widget):
         self._adapt_bookmark_widgets(is_question_bookmarked)
         self._adapt_ignore_widgets(is_question_ignored)
         self.is_bookmarked = is_question_bookmarked
-        if selected_answer is not None or self.exercise_mode in [AZFExerciseMode.SHOW_BOOKMARKED, AZFExerciseMode.SHOW_HIDDEN]:
-            self.answer_radio_buttons[selected_answer if selected_answer is not None else correct_answer].setChecked(True)
+        if selected_answer is not None or self.exercise_mode in [AZFExerciseMode.SHOW_BOOKMARKED, AZFExerciseMode.SHOW_HIDDEN, AZFExerciseMode.EXAM]:
+            if not (selected_answer is None and self.exercise_mode == AZFExerciseMode.EXAM):
+                self.answer_radio_buttons[selected_answer if selected_answer is not None else correct_answer].setChecked(True)
             if self.exercise_mode == AZFExerciseMode.EXAM and not self.exercise_finished:
                 return
-            self._highlight_correct(selected_answer if selected_answer is not None else correct_answer, correct_answer)
+            self._highlight_correct(selected_answer if selected_answer is not None else correct_answer,
+                                    correct_answer,
+                                    self.exercise_mode == AZFExerciseMode.EXAM and selected_answer is None)
             if self.exercise_mode != AZFExerciseMode.EXAM:
                 self.button_submit.setEnabled(True)
 
 
-    def _highlight_correct(self, selected: int, correct: int):
+    def _highlight_correct(self, selected: int, correct: int, exam_unanswered: bool = False):
         if self.exercise_mode == AZFExerciseMode.EXAM and not self.exercise_finished:
             return
         self._clear_label_styles()
         if selected == correct:
-            self.answer_labels[selected].setStyleSheet("color: green")
-            self._set_result_label(selected, True)
+            self.answer_labels[selected].setStyleSheet(f"color: {'red' if exam_unanswered else 'green'}")
+            self._set_result_label(selected, True, exam_unanswered)
         else:
             self.answer_labels[selected].setStyleSheet("color: red")
             self.answer_labels[correct].setStyleSheet("color: green")
@@ -240,11 +244,11 @@ class AZFQuestionWidget(QWidget, Ui_question_widget):
         self.watch_callback(self.current_question_index, self.is_bookmarked)
 
 
-    def _set_result_label(self, index: int, is_correct: bool):
+    def _set_result_label(self, index: int, is_correct: bool, exam_unanswered: bool = False):
         label: QLabel = self.result_labels[index]
         if is_correct:
             #label.setStyleSheet("color: green")
-            label.setText("<html><body><p style='color:green'>&#10004;</p></body></html>")
+            label.setText(f"<html><body><p style='color:{'red' if exam_unanswered else 'green'}'>&#10004;</p></body></html>")
         else:
             #label.setStyleSheet("color: red")
             label.setText("<html><body><p style='color:red'>&#10008;</p></body></html>")
