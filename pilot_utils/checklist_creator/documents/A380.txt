@@ -1,0 +1,205 @@
+// Aircraft Type = Airbus A380
+// Checklist Type = Normal Procedures
+// Checklist Version = 0.0.1
+// Real World Clearance = False
+// Background Coloring = True
+
+# AIRCRAFT AND SIMULATOR SETUP
+- Time / Weather / A/C Position .. As Chosen
+** --- IF FLYING ON IVAO ---
++ A/C Position .. Free of other traffic
++ IVAO Pilot Client .. Connect
+- A/C Refueling / Boarding .. Initiate
+- Sidestick, Throttle, Rudders, External Monitor .. Connected
+
+# COCKPIT INSPECTION
+- LDG Gear .. DOWN & Synced to Hardware
+- THR LVR .. IDLE & Synced to Hardware
+
+# COCKPIT PREPARATION
+- Parking Brake .. Set
+- Ground Spoilers .. Retracted & Disarmed
+- Flaps .. 0
+- ENG MASTER SW 1-4 .. OFF
+- L & R WIPER .. OFF
+- ENG Mode Selector .. NORM
+- ELECTRICAL POWER UP
++ BAT 1, ESS BAT, BAT 2, APU BAT .. On
++ EXT 2, EXT 3 (EXT 1, EXT, 4) .. On
+- OVHD Panel .. All White Lights Out
++ Lower Left to Upper Right
+- ADIRS 1, 2, 3 .. NAV
+- Lights .. Set
++ NAV .. ON
++ STROBE .. AUTO
+- EMER EXIT LT .. ARM
+- NO SMOKING .. AUTO
+- SEAT BELTS .. ON
+- Fuel Pumps .. ON, MAIN before STBY pumps
+- FIRE TEST .. Push
+- APU MASTER SW & START SW .. ON
+- CCD & KBD Left and Right Side .. ON
+- System Panel .. Check Systems
++ ENG FADEC GND PWR (Overhead Panel) .. ON
++ ENG Page .. Check OIL QT
++ ENG FADEC GND PWR .. OFF & Guarded
++ DOOR Page .. Check OXYGEN QT
++ FUEL Page .. Check FOB & Balanced
++ HYD Page .. Check GREEN and YELLOW Hydraulic Reservoir
++ STS (Status) Page .. Check no warnings / errors
++ RCL LAST .. Check no suppressed warnings
+- FCU .. Check / Set
++ QNH .. Set
++ EFIS .. Set CSTR, ARPT, VOR2, VOR1
++ VV (Vertical Velocity Vector) .. ON
++ FD .. ON
+- PFD / ND .. Check for flags, warnings, other indications
++ Indicators .. CLB, NAV, 1FD2
+
+# MCDU Setup
+- ACFT STATUS Page
++ A/C and Engine Type .. Check Correct
++ NAV DATABASE .. Up to Date
+- ACTIVE > INIT Page
++ CPNY F-PLN REQUEST .. Push
++ RECEIVED CPNY F-PLN > INSERT .. Push
++ CPNY WIND REQUEST .. Push (INOP)
++ TRIP WIND .. Enter average wind component
++ Follow suggested menus at bottom
+- IRS Page .. Check IRS 1, 2, 3 green NAV
+- DEPARTURE Page .. Enter Departure Route
++ In F-PLN Page .. Enter Arrival Route
+- NAVAIDS Page .. Check / Set Required Nav Aids
+- FUEL & LOAD Page
++ ZFW & ZFWCG .. Enter
++ BLOCK Fuel .. Enter FOB
++ TAXI Fuel .. 1.0T
++ ALTN .. Enter Alternate Fuel
++ FINAL .. Check 00:30
+- T.O. PERF Page
++ Use Simbrief tool to calculate performance values
++ THS FOR .. From Loadsheet, ZFWCG click blue arrows
++ THS FOR .. Blue Diamond Percent value from envelop
+- SEC Flight Plan .. INOP
+
+# BEFORE START
+- APU BLEED .. ON
+- EXT PWR .. OFF
+- COCKPIT PREPARATION CHECKLIST .. Completed
+- START and ENROUTE Clearance .. Obtained
+- SQUAWK .. Set
+- INITIAL CLIMB .. Set / Check
+- SURV Page .. Click DEFAULT SETTINGS
+- BEACON Light .. ON
+- BEFORE START CHECKLIST .. Completed
+
+# PUSH BACK AND START-UP
+- Follow pushback instructions
+- ENG MODE SELECTOR .. IGN START
+- ENG 1 MASTER .. ON
+= --- ONCE ENG 1 N2 at 10% ---
+- ENG 2 MASTER .. ON
+= --- ONCE START VALVE ENG 1 CLOSED ---
+- ENG 3 MASTER .. ON
+= --- ONCE START VALVE ENG 2 CLOSED AND ENG 3 N2 at 10% ---
+- ENG 4 MASTER .. ON
+= --- ONCE ALL ENGINES STARTED ---
+- ENG MODE SELECTOR .. NORM
+- APU BLEED .. OFF
+- APU MASTER SW .. OFF
+- Spoilers .. Armed
+- RUDDER TRIM .. RESET
+- FLAPS .. Set
+- Status Flags .. Check None
+- Pitch Trim .. Set according to magenta value in PFD
+- Flight Controls .. Check
+- AFTER START CHECKLIST .. Completed
+
+# TAXI
+- AUTO BRK .. TO to RTO ARM
+- EFIS .. TERR & TRAF
+- TAXI CHECKLIST .. Completed
+- NOSE Light .. TAXI
+- RWY TURN OFF .. ON
+- Brakes .. Check
+
+# BEFORE TAKEOFF
+- XPDR .. TA/RA
+- Lights .. TO
++ Strobe Light .. ON
+- LINE-UP CHECKLIST .. Completed
+- T/O Clearance .. Obtained
+
+# TAKEOFF
+- Thrust .. 30%
+= --- ONCE STABILIZED ---
+- Thrust .. TO
+
+# CLIMB
+- Gear .. Up at positive climb
+- Flaps .. Up according to speed
+- Spoilers .. OFF
+= --- AT PASSING FL 100 ---
+- Lights .. OFF
+= --- ONCE PITCH BELOW 7.5 DEGREES ---
+- SEAT BELTS .. OFF
+
+# CRUISE
+- TCAS .. BELOW
+= --- BEFORE DESCEND ---
+- Approach Briefing .. Perform
+- QNH .. Preselect
+- Arrival Routing .. Check
+- MCDU > PERF > APPR .. Set Weather and Minimum
+- BTV .. Setup
++ ND .. PLAN Mode
++ Range .. ZOOM
++ ND .. Select Landing Runway
++ ND .. Select BTV EXIT
++ AUTO BRK .. BTV
+
+# DESCEND
+- Managed Profile .. Verify
+= --- 30 MINUTES BEFORE LANDING ---
+- SEAT BELTS .. ON
+= --- ONCE PASSING FL 100 ---
+- Lights .. ON
+= --- ON PASSING TRL ---
+- Baro .. Set Local QNH
+= --- ONCE CLEARED TO ALTITUDE AND BELOW FL 100 ---
+- APPROACH CHECKLIST .. Completed
+
+# APPROACH
+- APPR PHASE .. Activate
++ When on heading and selected speed, shortly before approach
+- ILS .. Confirm Identifier
+= --- BEFORE FINAL DESCEND ---
+- Speed .. Managed or Reduce manually
+- Flaps .. Down according to speed
+= --- ON FINAL DESCEND ---
+- Spoilers .. Armed
+- GEAR .. DOWN
+- LANDING CHECKLIST .. Completed
+
+# AFTER LANDING
+- Landing Lights .. OFF
+- NOSE Light .. TAXI
+- STROBE Light .. AUTO
+- Spoilers .. OFF
+- Flaps .. 0
+- APU MASTER SW & APU START SW .. ON
+= --- ONCE CLOSE TO PARKING POSITION ---
+- NOSE Lights .. OFF
+- RWY TURNOFF Lights .. OFF
+
+# PARKING
+- PARK BRK .. ON
+= --- ONCE APU AVAILABLE ---
+- ENG MASTER 1, 2, 3, 4 .. OFF
+- BEACON Light .. OFF
+- APU BLEED .. ON
+- EXT PWR 2 & 3 .. ON
+- FUEL Pumps .. OFF, right to left
+- SEAT BELTS .. OFF
+- XPDR & TCAS .. STBY
+- PARKING CHECKLIST .. Completed
