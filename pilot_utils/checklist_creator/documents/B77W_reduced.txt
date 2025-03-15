@@ -1,6 +1,6 @@
-// Aircraft Type = Boeing 777-300ER
+// Aircraft Type = Boeing 777-300ER / 777F
 // Checklist Type = Reduced Procedures
-// Checklist Version = 1.0.0
+// Checklist Version = 1.0.1
 // Real World Clearance = False
 // Background Coloring = True
 
@@ -10,7 +10,6 @@
 + A/C Position .. Free of other traffic
 + IVAO Pilot Client .. Connect
 - EFB > Home > Flight Details .. Import Simbrief Flight Plan
-- EFB > Ground Operations .. Initiate Boarding
 - Sidestick, Throttle, Rudders, External Monitor .. Connected
 - MSFS Pop-Out Panel Manager .. As Desired, Start Pop-Out
 
@@ -19,9 +18,7 @@
 - Battery .. On
 - C1 & C2 ELEC Hydraulic Pumps .. Verify OFF
 - Hydraulic Demand Pumps .. Verify OFF
-- Wipers .. OFF
 - LDG Gear .. DOWN & Synchronized
-- ALTN Flaps .. OFF
 = Establish Electrical Power
 - L & R BUS TIE .. AUTO
 ** --- IF EXT PWR AVAIL ---
@@ -65,7 +62,6 @@
 - SELECT RTE .. Wait for Uplink
 + ROUTE UPLINK .. Load (Takes some time)
 + ACTIVATE > EXEC
-- FS Actions .. Set Desired PAX and CARGO
 - DEP ARR .. Enter Departure and Arrival
 + Trans .. LEGS > PREV PAGE until DISCONTINUITY, Last WP of route
 - LEGS .. Verify DEP, Route, and ARR correct
@@ -99,7 +95,6 @@
 - VOICE RECORDER .. ON
 - EMER LIGHTS .. Armed & Guarded
 - WINDOW HEAT .. ON
-- RAM AUR Turbine SW .. Guarded
 - HYD ENG PUMPS L & R .. ON
 + Remaining Pumps .. OFF
 - NO SMOKING / NO ELECTRONICS .. AUTO
@@ -107,14 +102,10 @@
 - SEAT BELTS .. ON
 - Flight Deck lights .. As Needed
 - LANDING Lights .. OFF
-- CARGO FIRE SW .. Not Armed
-+ DISC SW .. Guarded
 - ENGINE EEC MODE .. Norm & Guarded
 - START PANEL .. Norm for both engines
 + AUTOSTART SW .. ON
 - FUEL JETTISON NOZZLES .. OFF & Guarded
-+ FUEL TO REMAIN .. Pushed In
-+ ARM SW .. Disarm
 - Fuel Pumps .. OFF
 + CROSSFEED .. OFF
 + L FWD pump feeds APU
@@ -132,44 +123,23 @@
 - BLEED AIR ISOL VALVES .. AUTO
 - L & R ENG BLEED .. ON
 - APU BLEED .. AUTO
-- PRESS OUTFLOW VALVES .. AUTO
-- LANDING ALT SELECTOR .. Pushed In
 - QNH .. Set Local
-- ND .. 10 NM
-- TFC .. Press
-- VOR / ADF .. Displayed as needed
-- ARPT .. Press
 - F/D .. Both ON
 - A/T ARM .. Both UP
 = DO NOT YET SET SPD, HDG, ALT
-- BANK ANGLE SEL .. AUTO
-- A/P DISENGAGE Bar .. Up
-- ALT SELECTOR .. AUTO
-- SOURCE SELECT PANELS .. all OFF
-- INBOARD DSPL .. MFD
-- HDG REF .. NORM
 - STBY Instrument .. Set QNH
-- GND PROX .. OFF & Guarded
-- ALT GEAR EXT .. Guarded
-- GEAR LVR .. DN
 - AUTOBRAKE .. RTO
-- FMC Selector .. AUTO
-- F/O INBOARD DSPL .. MFD
-- DSPL CTRL SW .. OFF
 - PARKING BREAK .. Set
 - SPEED BRAKE .. DOWN Detent
 - ALTN PITCH TRIM SW .. Middle Position
-- STAB CUTOUT SW .. Guarded
 - L & R FUEL CONTROL .. CUTOFF
 - FLAP Selector .. Matches FLAP Position
-- ALTN FLAPS .. OFF & Guarded
 - Frequencies .. As Required
 + L & R VHF .. Turn On
 + L VHF .. MIC
 WX + T .. Both
 + GAIN SW .. 12 o'clock position
 - Center Radio .. Verify DATA active
-- ENG FIRE DISC SW .. Both Pushed In
 - AILERON & RUDDER Trim .. Neutral
 - Transponder .. ABV on both sides
 + Source Selector .. NORM
@@ -354,9 +324,6 @@ WX + T .. Both
 - FMC Approach .. Compare to Charts
 = IN VICINITY OF AIRPORT
 - NAV Aids .. Identify
-= 12 NM PRIOR TO RWY
-+ Altitude .. 3000 ft
-+ Speed .. 200 kt
 = BEFORE INTERCEPTING GS
 - Flaps .. 5
 - MCP Speed .. Flaps 5 Speed
