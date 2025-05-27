@@ -1,0 +1,132 @@
+// Aircraft Type = BAE Systems Hawk T1/A
+// Checklist Type = Normal Procedures
+// Checklist Version = 0.0.1
+// Real World Clearance = False
+// Background Coloring = True
+
+# AIRCRAFT AND SIMULATOR SETUP
+- Time / Weather / A/C Position .. As Chosen
+** --- IF FLYING ON IVAO ---
++ A/C Position .. Free of other traffic
++ IVAO Pilot Client .. Connect
+- A/C Fuel & Weights .. Set
+
+# Cockpit Preparation
+- Rear Pilot Seat
++ ENG START SW .. On
++ TAILPLANE TRIM STANDBY COVER .. Confirm Down
++ Anti Skid SW .. On
++ STBY UHF SW .. MAIN
++ Landing Gear Transfer Button .. Pushed In
++ Flap Selector .. Pupil
++ Lights .. Off
++ Oxygen Selector .. On
+- Front Pilot Seat
++ Landing Gear Selector .. DOWN
++ Batt 1 & 2 .. OFF
++ Oxygen Selector .. On
+
+# Strapping-In
+- Canopy .. Closed & Latched
+- Rudder Pedal Lock .. Off
+- Batt 1 & 2 .. Check Voltage >= 23V
+- Batt 1 & 2 .. ON
+- Nav Light .. On
+- Anti-Collision Lights .. Both Red
+- AMP Selector .. NORM
+- Parking Brake .. Confirm ON
+
+# Internal
+- LP Fuel Cock .. ON (Level Pointing Down)
+- ENG START SW .. Confirm Off
+- Fuel Pump .. On
+- Pitot ht .. Off
+- Tailplane Trim Standby Cover .. Confirm Down
+- ENG Ignition SW .. Normal
+- Throttle .. Check full & free movement
+- Throttle .. Set Idle Stop Lever
+- Anti Skid .. Off
+- Standby UHF SW .. Main
+- Brake Pressure .. Confirm Normal
+- Flap & Undercarriage Standby Handles .. Confirm NOT pulled
+- Landing Gear Indicator .. 3 Green
+- Flaps .. Up
+- UHF Radio .. Both
+- Flight Instruments .. Check
+- G-Meter .. Reset
+- AHRS Control Unit .. SLV
+- ILS Marker Light .. Test
+- UHF Power .. Normal
+- Standby Instrument Power SW .. Normal
+- Oxygen Light .. Confirm Out
+- Oxygen Qty .. Confirm Sufficient
+- Oxygen Flow .. Confirm
+- Fuel Qty .. Confirm Sufficient
+- Rotation & GTS Indicators .. Confirm Black
+- CWP .. Test
+- Internal Lighting .. As Required
+- VHF Radio .. TR+G
+- VHF Freq Mode Selector .. MAN
+- Air Conditioning .. Normal
+- Temperature Control SW .. AUTO
+- IFF XPDR .. STBY
+- TACAN .. TX/RX
+- ILS Receiver .. Set as Required
+
+# Pre-Start
+- ENG START SW .. On
+
+# Engine Start
+- Throttle Relight Button .. Press
+= Once GTS Indicator Green
+- ENG START SW .. Start
++ Rotation Indicator Shows Green
+= Once RPM between 15 and 20
+- Throttle Lever .. Idle
++ Monitor RPM and TGT
+= At 45 RPM
+- Rotation & GTS Lights .. Confirm Black
+= Once RPM Stabilizes at 50 to 55
+- CWP .. Confirm only HYD.2 and SKID Lights On
+- Flight Controls .. Full & Free Movement
+- Hyd 2 Reset Button .. Push
+
+# After Start
+- Trims .. Confirm Neutral
+- Airbrake .. Test
++ Airbrake Test SW .. On
++ Airbrake SW .. On
++ Airbrake Indicator .. Confirm White
++ Airbrake SW .. Off
++ Airbrake Indicator .. Confirm Black
++ Airbrake Test SW .. Off
+- Pitot ht .. On
+- Flaps .. Mid position
+- Ground Equipment .. Remove
+- Hyd. & Brake Pressure .. Confirm within Limits
+- Altimeter Test .. Perform
+- Flight Instruments .. Check
+- AHRS .. Confirm Synced
+- IFF XPDR .. NORM
+
+# Taxi
+- Land Taxi Light .. On
+- GPS Unit .. On
+- Parking Brake .. Release
+- Brake Test .. Perform
+
+# Before Takeoff
+- Trims .. Confirm Neutral
+- Pitot ht .. Confirm On
+- Anti Skid .. On
+- CWP .. Confirm no lights
+- Flaps .. Confirm Mid
+- Anti-Collision Lights .. Both White (Strobe)
+- Landing Light .. On
+- IFF XPDR .. As Required
+- Altimeters .. Set as Required
+
+# Takeoff
+- Gear and Flaps .. Up (before 200 kt)
+
+
