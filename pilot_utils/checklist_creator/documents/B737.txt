@@ -1,0 +1,330 @@
+// Aircraft Type = Boeing B737
+// Checklist Type = Normal Procedures
+// Checklist Version = 1.0.0
+// Real World Clearance = False
+// Background Coloring = True
+
+# Sim Setup
+- Time / Weather / A/C Position .. As Chosen
+** --- IF FLYING ON IVAO ---
++ A/C Position .. Free of other traffic
++ IVAO Pilot Client .. Connect
+- A/C Fuel & Weights .. Set
+
+# Electrical Power-Up
+- BAT SW .. Guarded & ON
+- EMER EXIT SW .. Guarded
+- Ground Power Cart .. Connected
+- Ground Power .. ON
+
+# Cockpit Check
+- Gear .. DOWN & 3 Green
+- Flaps .. Up & Matching Indicators
+- Fire Test SW .. L & R, then Middle
+- Fire Squib Test Lights .. L & R, then Middle
+- EMER GEAR EXTEND .. Check Closed
+- Circuit Breakers .. Check in
+- Flight Recorder .. Test, then Guarded
+- Mach Airspeed Warning Test .. 1 & 2
+- Stall Warning Test .. 1 & 2
+- IRS L & R .. NAV
+- Lights .. Test, then BRT
+- Oxygen .. Test
+
+# FMC Setup
+- POS INIT .. Set IRS Position
++ Use Pos Init > Next Page > GPS L coordinates
+- ROUTE Page .. Enter Route
+- DEP ARR Page .. Enter Departure and Arrival Route
++ DEP Page .. Select RWY & SID
++ ROUTE Page .. Activate
++ NEXT Page .. Enter Route
++ DEP ARR Page .. Enter Arrival
++ ROUTE Page .. Check for Discontinuities
+- EXEC .. Press
+- INIT REF Page .. Fill
++ Lower Left to Lower Right
++ Reserves .. Final Reserve + Alternate
++ CRZ WIND .. Enter Wind at TOC
++ TRANS ALT .. Enter TA + 1
++ EXEC .. Press
+- PERF INIT > N1 Limit Page .. Enter TO Performance
++ Select DERATE before entering Temperature
+- TAKEOFF REF Page .. Fill
++ Trim .. Set according to TAKEOFF REF Page
++ MCP .. Set V2 Speed
+
+# Final Flow
+- Yaw Damper .. ON
+- Navigation Panel .. Normal & Auto Selected
+- Fuel Pumps .. ON, if Fuel in Tank
+- Cross Feed .. Open, then Closed
+- Galley Power .. ON
+- EQUIP COOLING .. Norm
+- EMER EXIT Lights .. Armed
+- Seat Belt Lights .. ON
+- L & R Wipers .. Parked
+- WINDOW HEAT L & R .. ON
+- Anti-Ice .. OFF
+- HYD PUMPS .. ON
+- TRIM AIR .. ON
+- RECIRC FANS .. AUTO
+- PACKS .. AUTO
+- ISOL VALVE .. Open
+- ENG BLEEDS .. ON
+- APU BLEED .. OFF
+- FLT ALT .. Set CRZ ALT
+- LAND ALT .. Set Landing Altitude
+- PRESS MODE SELECTOR .. AUTO
+- EXT Lights .. As Required
+- APU .. START
+- MCP HDG .. Set RWY HDG
+- COURSE L & R .. Set As Required
++ If NAVAID used, set Frequency as STBY
+- BYPASS in LEGS page .. Verify Route on ND
++ Predicted path might not follow charts
+- ALT .. Set Initial Climb
+- FD .. L ON, then R ON
+- EFIS .. Setup as required
+- Autobrakes .. RTO
+- MFD SYS .. Check HYD QTY & PRESS, then MFD ENG
+- Parking Brake .. Set
+- Speed Brake .. Down
+- Throttle .. Full Forward, then Idle
+- ENG Start Levers .. CUTOFF
+- STAB TRIM SW .. Normal
+- Radio Panel .. Frequencies Set as Required (COMM / NAV)
+- XPDR .. Check Code and STBY
+- TRIMS .. Neutral
+
+# Before Pushback
+- APU Power .. ON
+- APU BLEED .. ON
+- GND PWR & Chocks .. Remove
+- Doors .. Confirm Closed
+- Pushback .. Request
+
+# Before Engine Start
+- PACKS L & R .. OFF
+- ANTI-COL Light .. ON
+- XPDR .. ALT OFF
+
+# Engine Start
+- R ENG START SW .. GND
+= Once N2 Above 25%
+- R ENG CUTOUT SW .. IDLE
+- Repeat for ENG 1
+
+# After Engine Start
+- GEN 1 & 2 SW .. ON
+= Once APU GEN OFF BUS illuminated
+- APU .. OFF
+
+# Before Taxi
+- ENG 1 & 2 START SW .. CONT
+- PROBE HEATS .. ON
+- ENG ANTI-ICE .. As Required
+- PACKS L & R .. Auto
+- APU Bleed .. OFF
+- ISOLATION VALVE .. AUTO
+- FLAPS .. TO
+- STAB TRIM .. As Required (TAKEOFF REF Page)
+- START LEVERS .. IDLE
+- Flight Controls .. Check
+- Recall .. Perform
+- ENG MFS .. Press (Blank lower DU)
+
+# Taxi
+- Taxi Lights .. ON
+- Parking Brake .. Release
+- Thrust .. Full, then Idle (check for any warnings, "Config" check)
+
+# Before Takeoff
+- Config .. Checked, no warnings
+- Flaps .. As Required
+- STAB TRIM .. As Required
+- Takeoff Briefing .. Performed
+- ATTEND .. Press
+- RETRACTABLE & FIXED Landing Lights .. ON
+- RWY TURNOFF Lights .. ON
+= Once Cleared For Takeoff
+- Position Lights .. STROBE & STEADY
+- Auto Throttle .. Arm
+- NAV Mode .. LNAV or HDG, as Required
+- XPDR .. Mode TA/RA
+
+
+# Takeoff
+- ENG N1 .. 40%
+= Once Engines Stabilized
+- TOGA .. Push
+- Initial Pitch .. 20 Degrees
+- At 400ft AGL .. Check LNAV engaged
+- A/P .. As Required
+- Speed .. Set to UP Position on Speed Tape
+- Flaps .. Up According to Speed
+
+# After Takeoff
+- ENG START SW .. OFF
+- GEAR LEVER .. OFF Position
+- AUTO BRAKE .. OFF
+
+
+# Climb
+- ALT INTV BTN to remove ALT CTRZ from FMC
+- Climb Modes .. VNAV / LVL CHG / VS
+= Once Passing Transition Altitude
+- BARO .. QNE
+= Once Passing FL100
+- Fuel .. Check balanced
+- Landing Lights .. Both RETRACTABLE and STATIC OFF
+- RWY TURNOFF Lights .. OFF
+- APU .. OFF
+- Pressurization .. Check
+- SEAT BELTS .. AUTO
+- Recall .. Perform
+- Bank Angle Selector .. Set to 10
+
+# Before Descent
+- Destination Weather .. Obtained
+- FMC > DES Page .. Set SPD REST 250 / 10000
+- FMC > DES > FORECAST Page
++ TRL .. Enter
++ ISA DEV / QNH .. Enter
++ DES WINDS .. Request
++ TAI (Thermal Anti-ICE) .. Enter FL Clouds enter / exit (optional)
++ EXEC
+- FIX Page .. Draw visual helpers
+- RTE Page .. Check Correct Approach Loaded
+- LEGS Page .. Check Information Correct
+- Approach Procedure .. Setup
++ NAV 1 & NAV 2 .. Tune ILS Frequency
++ COURSE L & R .. Set Approach Track
++ Landing Elevation .. Confirm Set
++ Minimums .. Set
+- FMC > INIT REF Page (APPROACH REF) .. Enter Information
++ GROSS WT .. Set Landing Weight
++ (Pred & CUR Fuel on FMC > PROG Page)
++ FLAP / SPD .. Set Landing Configuration from Performance Tool
+- Auto Brake .. Set as Required
+
+# Descent
+- ALT INTV Mode .. Descent with 1000 fpm until calculated VNAV profile
+= Once Passing FL300
+- Bank Angle Selector .. Set to 25
+= Once Passing FL100
+- Fuel .. Check Balanced
+- Fuel Pumps .. ON
+- RWY TURNOFF Lights .. ON
+- FIXED Landing Lights .. ON
+- Angular Bank .. Confirm 25 Degrees
+- Pressurization .. Check
+- Seat Belts .. ON
+- Recall .. Perform
+= Once Passing Transition Level
+- Baro .. Set Local QNH
+= Once Passing 10 DME RWY Threshold
+- Flaps .. 1 or 5, as Required
+= Once Passing 5 DME RWY Threshold
+- Gear .. Down
+- Flaps .. 15
+
+# Approach
+- Baro .. Local QNH
+- VSD .. Enable (Push Twice EFIS CTR Button)
+- APP Mode .. Arm
+= On Intercepting GS
+- Flaps .. 5
+- HDG .. RWY Heading
+= Once GS Captured
+- ALT .. Set Missed Approach Altitude
+= Once Cleared To Land
+- RETRACTABLE Landing Lights .. ON
+
+# RNAV Approach
+- GPA in FMC .. Confirm within 0.1 degrees of GPA in charts
+- MDA .. Set according to approach type
++ B737 needs 40ft to climb in TOGA mode
+- Baro .. Local QNH
++ VSD .. Check RWY symbol exactly on terrain
+- MCP .. Confirm LNAV & VNAV modes engaged
+= When 2 NM inbound FAF
+- MCP ALT .. Set down to minimum
+- VNAV PTH .. Verify Engaged
+- SPD INTV .. Press to open speed window
+= When Passing FAF
+- Altitude at FAF .. Check max deviation of 75 ft
+- FMC > PROG Page 4 .. Verify Lateral Deviations
++ RNP Approach .. 0.3 NM
++ XTK Error .. 0.15 NM
+** If no RW waypoint in FMC
++ FD .. OFF
+
+
+# Landing
+- ENG START SW .. CONT
+- Recall .. Check
+- Speed Brake .. ARMED & Green Lights
+- Landing Gear .. DOWN & Green Lights
+- Auto Brake .. Check As Required
+- Flaps .. Check as Required
+- Landing Lights .. ON
+- TAXI Lights .. ON
+
+# After Landing
+- Strobes .. STEADY
+- XPDR .. ALT OFF
+- Flaps .. UP
+- Speed Brake .. OFF
+- TRIM .. 5
+- Auto Brake .. OFF
+- MFD SW .. Push ENG (Lower DU shows ENG Page)
+- FD .. OFF
+- MCP SPD .. Set 100
+- MCP ALT .. Set 3100
+- ENG START SW .. OFF
+- PROBE HEAT SW .. AUTO
+- Landing Lights .. OFF
+- TAXI Lights .. Check ON
+- Weather Radar .. OFF
+- APU .. Start
+
+# Parking
+- Parking Brake .. Set
+- Lights .. OFF
+= Once APU Power Available
+- APU GEN .. ON
+- Engines .. Off
+= Once N2 Of Both Engines < 20%
+- Anti-Collision Light .. OFF
+
+# Shutdown
+- Fuel Pumps .. OFF
+- Seat Belts .. OFF
+- Window Heats .. OFF
+- Probe Heat .. AUTO / OFF
+- Anti-Ice .. OFF
+- HYD ELEC Pumps .. OFF
+- Voice Recorder .. OFF
+- PACKS .. AUTO
+- ENG Bleeds .. ON
+- APU Bleed .. OFF
+- ENG START SW .. OFF
+- Auto Brake .. OFF
+- Speed Brake .. DOWN
+- Flaps .. UP
+- ENG START LEVER .. CUTOFF
+- XPDR .. 2000 & STBY
+
+# Securing
+- APU .. OFF
+= Once 2 Minutes Passed
+- IRS Mode Selectors .. OFF
+- CAB / UTIL .. OFF
+- EMER EXIT Lights .. OFF
+- PACKS .. OFF
+- TRIM AIR .. AUTO / OFF
+- BAT .. OFF
+
+
+stopped @ 1:41:00 Descent planning
