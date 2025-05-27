@@ -1,0 +1,130 @@
+// Aircraft Type = Daher TBM 930
+// Checklist Type = Normal Procedures
+// Checklist Version = 0.0.1
+// Real World Clearance = False
+// Background Coloring = True
+
+# AIRCRAFT AND SIMULATOR SETUP
+- Time / Weather / A/C Position .. As Chosen
+** --- IF FLYING ON IVAO ---
++ A/C Position .. Free of other traffic
++ IVAO Pilot Client .. Connect
+- A/C Fuel & Weights .. Set
+
+# Cockpit Preparation
+- Cockpit and Cabin .. Locked & Secured
+- Forward Luggage Compartment .. Closed
+- PAX Oxygen SW .. STBY
+- Oxygen Master SW .. ON
+- Exterior Lights .. OFF
+- Interior Lights .. As Needed
+- Crash Bar .. Down
+- Starter .. OFF
+- Ignition .. AUTO
+- AUX BP .. OFF
+- FUEL SEL .. MAN
+- AP TRIM .. OFF
+- Air Conditioning .. OFF
+- Circuit Breaker Lights .. OFF
+- DE ICING .. OFF
+- INERT SEP .. OFF
+- PARK BREAK .. Reset (OFF, then ON)
+- LANDING GEAR .. DOWN
+- PRESS BLEED .. OFF
+- HOT AIR FLOW .. FEET
+- MAN OVRD .. OFF (Lowest Position)
+- FUEL TANK SELECTOR .. L or R
+- ALTERNATE STATIC SOURCE .. Pushed In
+- EMERGENCY RAM AIR .. Pushed In
+
+# ELECTRICAL POWER UP
+- Crash Bar .. Up
+- SOURCE .. BATT
+- GENERATOR .. MAIN
+- DE ICING LTS TEST .. Check
+- LANDING GEAR LIGHT TEST .. Check
+- Fuel Quantity .. Verify
+- Residual Inlet Temperature (ITT) .. Check < 150 Celsius
+- BATT VOLTS .. Check >= 24 V
+
+# ENGINE START
+- AUX BP .. ON
+- Timer .. Start
+- STARTER .. ON for 2 Seconds, then OFF
+= Once NG at 13 %
+- Throttle .. LOW IDLE
+= Once NG at 52 %
+- Throttle .. HIGH IDLE, then FLIGHT IDLE
+
+# AFTER ENGINE START
+- CAS Messages .. Verify
+- FUEL SEL .. AUTO
+- AUX BP .. AUTO
+- AP TRIM .. ON
+- Air Conditioning .. As Needed
+- PRESS DUMP .. NORM
+- PRESS BLEED .. AUTO
+
+# BEFORE TAXI
+- BARO .. Set QNH
+- DE ICING .. As Required
+- INERT SEP .. ON
+- FLAPS .. UP
+- Flight Controls .. Free and Correct
+- Autopilot Panel .. Set
++ Climb Speed .. Vy = 100 kt, Vx = 124 kt
++ FD .. ON
+- External Lights
++ TAXI Light .. ON
++ PULSE Light .. ON
++ NAV Light .. ON
+
+# BEFORE TAKEOFF
+- LANDING Light .. ON
+- NAV Light .. ON
+- STROBE Light .. ON
+- PITOT HTR L & R .. ON
+- FLAPS .. TO
+
+# TAKEOFF
+- TORQUE .. 100%
+- Vr = 90 kt
+- Initial Pitch .. 10 degrees
+= At 115 kt
+- FLAPS .. UP
+= Once clear of ice or other debris
+- INERT SEP .. OFF
+
+# BEFORE LANDING
+- Baro .. Set Local QNH
+- LANDING Light .. ON
+- INERT SEP .. ON
+- Vle and FLAPS TO .. Below 178 kt
+- Approach Speed .. 85 kt
+
+# LANDING
+- Flare Angle .. 4-7 degrees
+
+# AFTER LANDING
+- TAXI Light .. ON
+- STROBE Light .. OFF
+- DE ICING .. OFF
+
+# SHUTDOWN
+- PARK BRAKE .. Set
+- External & Internal Lights .. OFF
+- Oxygen Master SW .. OFF
+- FUEL SEL .. MAN
+- AP TRIM .. OFF
+- PRESS BLEED .. OFF
+- Throttle
++ IDLE for 2 minutes
++ LOW IDLE for 15 seconds
++ CUT OFF
+- INERT SEP .. OFF
+- AUX BP .. OFF
+- GENERATOR .. OFF
+- SOURCE .. OFF
+- Crash Bar .. Down
+
+
