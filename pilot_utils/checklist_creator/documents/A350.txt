@@ -1,0 +1,267 @@
+// Aircraft Type = Airbus A350
+// Checklist Type = Normal Procedures
+// Checklist Version = 0.1.0
+// Real World Clearance = False
+// Background Coloring = True
+
+# AIRCRAFT AND SIMULATOR SETUP
+- Time / Weather / A/C Position .. As Chosen
+** --- IF FLYING ON IVAO ---
++ A/C Position .. Free of other traffic
++ IVAO Pilot Client .. Connect
+- A/C Refueling / Boarding .. Initiate
+- Sidestick, Throttle, Rudders .. Connected
+
+# Cockpit Inspection
+- ENG MASTER SW 1 & 2 .. OFF
+- ENG START Selector .. NORM
+- Landing Gear Lever .. DOWN
+- Wipers .. OFF
+- BAT 1 & 2, BAT EMER 1 & 2 .. Check Voltage
+
+
+# Electrical Power-Up
+- BAT 1 & BAT EMER 1 .. ON
+- BAT EMER 2 & BAT 2 .. ON
+- EXT 2 & 1 .. AUTO
+- IRS 1, 2, 3 .. NAV
+
+# FMS Setup 1
+- EFB > FLT OPS > FLT OPS STS .. Simbrief Import
+- ACFT Status .. Check Information
+- INIT Page .. Enter Flight Plan Information
++ CPNY Flight Plan .. Request, then Insert
+
+# Aircraft Status Check
+- ECAM Control > RCL ALL .. Press, Check No Messages
+- ECAM Control > DISPATCH .. Press, Check No Messages
+- Radio Management Panels L & R .. Both On
+- Fire Test .. Perform
+- APU MASTER & START SW .. ON
+= Once APU Available
+- APU BLEED .. ON
+- EXT 1 & 2 .. OFF
+- Oxygen .. Check Quantity
+- ENG OIL QTY .. Check
++ ECAM .. Open ENG Page
++ ENG FADEC GND PWR 1 & 2 .. ON
++ Oil QTY .. Confirm Sufficient
++ ENG FADEC GND PWR 1 & 2 .. OFF
+- HYD QTY .. Check
++ ECAM .. Open HYD Page
++ HYD QTY .. Confirm in green box
+- FLAPS .. UP & matches indication
+- Speed Brake Lever .. Retract
+- Accumulator Pressure .. Check
++ Parking Brake .. Confirm Set
++ ECAM .. Open WHEEL Page
++ ACCU .. Confirm Pressure
+- Oxygen .. Test
+
+# Cockpit Setup
+- OXYGEN CREW SUPPLY .. ON
+- RCDR GND CTL .. ON
+- STROBE Light .. AUTO
+- NAV Lights .. 1
+- NO SMOKING .. ON
+- NO MOBILE .. AUTO
+- EMER EXIT Lights .. ARM
+= Once Fuel Loaded
++ SEAT BELTS .. ON
+- ANTI-ICE .. AUTO
+- PROBE WINDOW HEAT .. AUTO
+- Fuel Pumps .. ON
+- AIR DATA .. AUTO
+- FMS .. NORM
+- ANTI-SKID .. ON
+- BARO .. Set QNH
+- XPDR .. STBY
+
+# FMS Setup 2
+- IRS .. Confirm NAV & Aligned
+- DEPARTURE .. Enter SID Information
+- Route .. Enter / Verify Correct
+- NAVAIDs .. Set / Check
+- Fuel & Load .. Enter Required Information
++ Fuel QTY .. Verify Sufficient
+- T.O. PERF .. Enter Required Information
+- Cockpit Preparation CL .. Completed
+
+# Before Pushback
+- BARO .. Check Local QNH
+- ALT .. Set Initial Climb
+- WXR .. Confirm AUTO
+- XPDR .. Enter Squawk
+- XPDR Mode .. AUTO
+- TCAS .. STBY & ABV
+- Parking Brake .. Confirm Set
+- Windows & Doors .. Confirm Closed
+- External Equipment .. Remove
+- Before Start CL .. Completed
+= Once Cleared For Pushback
+- BEACON Light .. ON
+= Once Pushback Completed
+- Parking Brake .. ON
+
+# Engine Start
+- Thrust Levers .. Confirm Idle
+- ENG START Selector .. IGN START
+- ENG MASTER SW 1 .. ON
+= Once ENG 1 AVAIL
+- ENG MASTER SW 2 .. ON
+= Once ENG 2 AVAIL
+- ENG START Selector .. NORM
+
+# After Start
+- APU BLEED .. OFF
+- ANTI-ICE .. As Required
+- APU MASTER SW .. OFF
+- AUTO BRAKE RTO .. ARM
+- GND Spoilers .. Arm
+- Rudder Trim .. Reset
+- Flaps .. As Required for Takeoff
+- Trim .. Check Automatically Set
+- Flight Controls .. Check
+- After Start CL .. Completed
+
+# Taxi
+- Nose Light .. Taxi
+- Parking Brake .. Off
+- Brakes .. Test
+- Taxi CL .. Completed
+
+# Before Takeoff
+- FMA Modes .. Check CLB & NAV Armed
+- Speeds .. Check
+- Initial Climb .. Check
+- Flaps .. Check
+- TCAS .. TA/RA
+- TO Config .. Pushed, No Blue
+- Before Takeoff CL .. Completed
+= Once Cleared For Takeoff
+- Nose Light .. TO
+- LDG Lights .. ON
+- Strobe Lights .. ON
+- Lineup CL .. Completed
+
+# Takeoff
+- Pitch .. Down Halfway
+- ENG 1 & 2 .. Set to 25%
+= Once Engines Stabilized
+- Power .. As Required For TO
+- Brakes .. Release
+= Speed 80 - 100 kts
+- Pitch .. Neutral
+= At Vr
+- Pitch .. Around 15 Degrees
+
+# After Takeoff
+- Gear .. Up on positive climb
+- Flaps .. Up according to speed
+= Once Flaps UP
+- GND Spoilers .. Disarm
+- Nose Light .. OFF
+//- After Takeoff CL .. Completed
+
+# Climb
+- FMA Modes .. Monitor
+= Once Passing FL100
+- LDG Lights .. OFF
+- SEAT BELTS .. OFF
+
+# Cruise
+- TCAS .. BLW
+- Fuel Checks .. Perform at least every hour
+- Step Climbs
++ FMS > PERF > CRZ Page .. Open Step Alts Page
+
+# Before Descend
+- WX & Landing Information .. Obtain
++ A350 is landing category D
++ BARO .. Preselect local QNH
+- Perf > APPR Page .. Enter Information
+- Landing Performance .. Calculate
+- Arrival Routing .. Enter / Check
+** If flying ILS approach
++ FMS POSITION > NAVAIDS Page .. Check ILS Information
+- BTV .. Setup
++ EFIS .. PLAN & ZOOM
++ Landing RWY .. Confirm Green Arrow
++ RWY EXIT .. Select & Set As BTV Exit
++ AUTO BRAKE .. Enable
++ FMA .. Confirm BTV armed
+
+# Descend
+- Icing Conditions
++ Visible Moisture
++ SAT (static air temperature) .. > -40
++ TAT (total air temperature) .. < +10
++ With engines at idle .. TAT < -10
+= When Passing FL250
+- SEAT BELTS .. ON
+= When Passing FL100
+- Landing Lights .. ON
+** If flying ILS approach
++ LS .. ON
+
+# Approach
+- Approach Mode .. Activate
+- Configuration
++ Flaps 1 .. 12 DME THR / 4000 ft AGL
++ Flaps 2 .. 8 DME THR / 3000 ft AGL
++ Gear Down .. 6 DME THR / 2000 ft AGL
++ Below 200 kt .. 10 DME THR
+
+
+= On FAF / FAP
+- Flaps .. Down according to speed
+- Approach Checklist .. Completed
+= On Passing 2000 ft AGL
+- Gear .. Down
+- Speed Brakes .. ARM
+- Nose Light .. TO
+- Landing Checklist .. Completed
+
+# Landing
+- ECAM LDG Memo .. No Blue
+= On Passing 1000 ft AGL
+- Fully Stabilized
+= At 40 ft AGL
+- Flare .. Initiate
+- Thrust .. Idle
+= At 70 kts
+- Reverse Thrust .. Idle
+= Before Leaving RWY
+- Thrust Reversers .. Stowed
+
+# After Landing
+- Speed Brakes .. Disarm
+- Flaps .. UP
+- WXR .. OFF
+- LDG Lights .. OFF
+- Nose Light .. Taxi
+- Strobe Lights .. AUTO
+- APU .. Start
+- TCAS .. STBY
+= When Entering Apron
+- Nose Lights .. OFF
+
+# Parking
+- Parking Brake .. Set
+= Once APU Running
+- ENG MASTER SW 2 & 1 .. OFF
+= Once Engines Shutdown
+- BEACON Light .. OFF
+- Fuel Pumps .. OFF
+- Parking CL .. Completed
+
+# Shutdown
+- ADIRS .. OFF
+- Crew Oxygen .. OFF
+- Exterior Lights .. OFF
+- EXT PWR .. As Required
+- APU .. OFF
+- EMER EXIT Lights .. OFF
+- Signs .. OFF
+- Securing CL .. Completed
+
