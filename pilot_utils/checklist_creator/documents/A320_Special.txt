@@ -1,0 +1,58 @@
+// Aircraft Type = Airbus A319 / A320 / A321
+// Checklist Type = Special Procedures
+// Checklist Version = 1.0.0
+// Real World Clearance = False
+// Background Coloring = True
+
+# Circuit Pattern
+- Pattern Altitude .. 1500ft AGL
+- MCDU .. Prepared
++ Approach Page .. Filled
+= Once Airborn
+- FCU .. RWY HDG
+- Approach Phase .. Activate
+- FLAPS .. 1
+= Once Pattern Altitude reached
+- FCU .. Set Downwind HDG
+= Crosswind Leg
+- Flight Plan .. Sequence
+= Downwind Leg
+- Prepare for Arrival
++ Auto Brake .. Set
++ Approach Phase .. Confirm Activated
++ ND Mode .. ROS NAV and Range 10
+= Once RWY in Sight
+- AP .. OFF
+- FD .. OFF
+- Bird .. ON
+- Displacement to RWY .. Maintain 2.5 NM
+= Abeam Threshold
+- Timer .. Start and Monitor Downwind Extension Time
++ Downwind Extension Time .. (Pattern Altitude x 3) / 100
++ Headwind / Tailwind .. Add / Subtract 1 second per knot
+= 10 Seconds to Go
+- FLAPS .. 2
+- FCU .. Set RWY Track
+= Once Turn to Base Started
+- Bank .. 20 - 25 degree
+- Gear .. Down
+- Spoilers .. Arm
+- Flaps .. 3, then Full
+- Lights .. As Required
+- V/S .. Maintain 200-300 fpm until PAPI in sight
+
+# Touch and Go
+- If auto brakes or reverse thrust is used, a full stop landing has to be performed
+= Downwind Leg
+- Auto Brakes .. Off
+- Callout .. No reverse
+= Final
+- Auto Brakes .. Confirm Off
+- Callout .. No reverse
+= After Landing
+- Spoilers .. Disarm
+- FLAPS .. 2
+- Thrust Levers .. Stand Up (4-5 cm)
+= Once Spoilers Retracted
+- Thrust Levers .. TOGA
+- Rotate at V Approach

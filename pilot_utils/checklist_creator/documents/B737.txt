@@ -9,9 +9,11 @@
 ** --- IF FLYING ON IVAO ---
 + A/C Position .. Free of other traffic
 + IVAO Pilot Client .. Connect
-- A/C Fuel & Weights .. Set
+- EFB .. Request Nav Data from Simbrief
+- EFB .. Release Unnecessary Ground Equipment
 
 # Electrical Power-Up
+- XPDR .. STBY
 - BAT SW .. Guarded & ON
 - EMER EXIT SW .. Guarded
 - Ground Power Cart .. Connected
@@ -98,10 +100,12 @@
 - TRIMS .. Neutral
 
 # Before Pushback
-- APU Power .. ON
+- APU Power .. Check Available
+- APU GEN .. On BUS
 - APU BLEED .. ON
 - GND PWR & Chocks .. Remove
 - Doors .. Confirm Closed
+- XPDR .. Mode as Required
 - Pushback .. Request
 
 # Before Engine Start
@@ -149,6 +153,7 @@
 - RWY TURNOFF Lights .. ON
 = Once Cleared For Takeoff
 - Position Lights .. STROBE & STEADY
+- Taxi Lights .. OFF
 - Auto Throttle .. Arm
 - NAV Mode .. LNAV or HDG, as Required
 - XPDR .. Mode TA/RA
@@ -229,7 +234,7 @@
 - Gear .. Down
 - Flaps .. 15
 
-# Approach
+# ILS Approach
 - Baro .. Local QNH
 - VSD .. Enable (Push Twice EFIS CTR Button)
 - APP Mode .. Arm

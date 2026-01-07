@@ -1,5 +1,5 @@
 // Aircraft Type = Airbus A350
-// Checklist Type = Normal Procedures
+// Checklist Type = Reduced Normal Procedures
 // Checklist Version = 1.0.0
 // Real World Clearance = False
 // Background Coloring = True
@@ -46,59 +46,34 @@
 - APU MASTER & START SW .. ON
 - Oxygen .. Check Quantity
 - ENG OIL QTY .. Check
-+ ECAM .. Open ENG Page
-+ ENG FADEC GND PWR 1 & 2 .. ON
-+ Oil QTY .. Confirm Sufficient
-+ ENG FADEC GND PWR 1 & 2 .. OFF
-- HYD QTY .. Check
-+ ECAM .. Open HYD Page
-+ HYD QTY .. Confirm in green box
+- HYD QTY .. Confirm in green box
 - FLAPS .. UP & matches indication
 - Speed Brake Lever .. Retract
 - Accumulator Pressure .. Check
-+ Parking Brake .. Confirm Set
-+ ECAM .. Open WHEEL Page
-+ ACCU .. Confirm Pressure
 - Oxygen .. Test
 
 # Cockpit Setup
-- OXYGEN CREW SUPPLY .. ON
-- RCDR GND CTL .. ON
-- STROBE Light .. AUTO
-- NAV Lights .. 1
-- NO SMOKING .. ON
-- NO MOBILE .. AUTO
-- EMER EXIT Lights .. ARM
-= Once Fuel Loaded
-+ SEAT BELTS .. ON
-- ANTI-ICE .. AUTO
-- PROBE WINDOW HEAT .. AUTO
-- Fuel Pumps .. ON
-= Once APU Available
-- APU BLEED .. ON
-- EXT 1 & 2 .. OFF
+- Overhead Panel .. Set
++ RCDR GND CTL .. ON
++ SEAT BELTS .. On once fuel loaded
 - AIR DATA .. AUTO
 - FMS .. NORM
 - ANTI-SKID .. ON
 - BARO .. Set QNH
 - XPDR .. STBY
+= Once APU Available
+- APU BLEED .. ON
+- EXT 1 & 2 .. OFF
 
 # FMS Setup 2
-- IRS .. Confirm NAV & Aligned
-- DEPARTURE .. Enter SID Information
-- Route .. Enter / Verify Correct
-- NAVAIDs .. Set / Check
-- Fuel & Load .. Enter Required Information
-+ Fuel QTY .. Verify Sufficient
-- T.O. PERF .. Enter Required Information
+- FMS Init Page .. Follow Page Layout
 - Cockpit Preparation CL .. Completed
 
 # Before Pushback
 - BARO .. Check Local QNH
 - ALT .. Set Initial Climb
 - WXR .. Confirm AUTO
-- XPDR .. Enter Squawk
-- XPDR Mode .. AUTO
+- XPDR .. AUTO & Set Squawk
 - TCAS .. STBY & ABV
 - Parking Brake .. Confirm Set
 - Windows & Doors .. Confirm Closed
@@ -146,7 +121,6 @@
 - TO Config .. Pushed, No Blue
 - LDG Lights .. ON
 - ND .. Range as required
-//- Before Takeoff CL .. Completed
 = Once Cleared For Takeoff
 - Nose Light .. TO
 - Strobe Lights .. ON
@@ -170,12 +144,11 @@
 = Once Flaps UP
 - GND Spoilers .. Disarm
 - Nose Light .. OFF
-//- After Takeoff CL .. Completed
 
 # Climb
 - FMA Modes .. Monitor
 = Once Passing TA
-- Baro .. STD
+- BARO .. STD
 = Once Passing FL100
 - LDG Lights .. OFF
 - SEAT BELTS .. OFF
@@ -195,13 +168,7 @@
 - Arrival Routing .. Enter / Check
 ** --- If flying ILS approach ---
 + FMS POSITION > NAVAIDS Page .. Check ILS Information
-- BTV .. Setup
-+ EFIS .. PLAN & ZOOM
-+ Landing RWY .. Confirm Green Arrow
-+ RWY EXIT .. Select & Set As BTV Exit
-+ AUTO BRAKE .. Enable
-+ FMA .. Confirm BTV armed
-+ ND .. Return to normal view
+- BTV .. Programmed
 
 # Descend
 - Icing Conditions
@@ -217,7 +184,7 @@
 ** --- If flying ILS approach ---
 + LS .. ON
 = On Passing TRL
-- Baro .. Set local QNH
+- BARO .. Set local QNH
 
 
 # Approach

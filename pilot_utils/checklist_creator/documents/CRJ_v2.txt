@@ -1,0 +1,184 @@
+// Aircraft Type = CRJ 550/700/900/1000
+// Checklist Type = Normal Procedures
+// Checklist Version = 1.0.0
+// Real World Clearance = False
+// Background Coloring = True
+
+# Sim Setup
+- Time / Weather / A/C Position .. As Chosen
+** --- IF FLYING ON IVAO ---
++ A/C Position .. Free of other traffic
++ IVAO Pilot Client .. Connect
+
+# Electrical Power-Up
+- Gear Selector .. DOWN & Synced
+- Engine Levers .. SHUT OFF
+- Speedbrake .. UP & Synced
+- Flaps .. UP & Synced
+- Battery Master .. ON
+- Power .. EXT or APU, As Required
+** --- IF MCDU NOT SYNCED TO HARDWARE ---
++ Cockpit MCDU BRT .. Turn
+- IRS 1 & 2 .. NAV
+
+# APU Start Procedure
+- APU PWR FUEL .. Push
+- APU START / STOP .. START
+- APU GEN .. Confirm AUTO
+- BLEED SOURCE .. APU
+- L PACK .. ON
+- RECIRC FAN .. ON
+
+# Cockpit Setup
+- NAV & LOGO Lights .. ON
+- WSHLD Heats LH & RH .. LOW
+- EMER LTS .. ARM
+- NO SMKG & SEAT BLTS .. ON
+- N/W STRG .. OFF
+- HYDRAULIC .. AUTO & ON
+- ELT .. Confirm ARM
+- Baro .. Set Local QNH
+- Frequencies .. Set As Required
+- ANTI SKID .. Confirm ARMED
+- ENGINE SYNCH .. Confirm N1 SYNCH
+- SPOILERS .. AUTO
+- THRUST REVERSERS .. OFF
+- LIGHTING .. As Required
+- STAB & MACH TRIM .. ON
+- YAW DAMPERS .. ON
+
+# MDCU Setup
+- STATUS Page .. Check Information Correct
+- POS INIT Page .. Setup
++ Enter Airport
++ SET POS .. Use GNSS1
+- FPLN Page ( RTE ) .. Enter Information
++ Can also be send from EFB
++ EXEC
+- DEP ARR Page .. Enter Departure, Route, then Arrival
++ EXEC
+- PERF INIT Page .. Enter Information
++ EXEC
+- VNAV Setup Page .. Set TA
++ EXEC
+- EFB .. Calculate TO Performance
++ Flaps 8
++ V Speeds .. Set (EFB or manually knobs right of EFB)
++ TRIM .. Set
+- MFD MENU Page ( LONG MENU ) .. Show VNAV As Required
+
+# A/P Setup
+- Altitude .. Set
+- HDG .. Set RWY HDG
+- TFC .. Confirm Shown on ND
+- Landing Elevation .. Set
+
+# Before Start
+- APU .. ON
+- EXT PWR .. OFF
+- L & R PACKS .. ON
+- RECIRC FAN .. ON
+- Parking Brake .. SET
+- Chocks .. Removed
+- XPDR .. As Required
++ Squawk .. Set
+
+# Engine Start
+- BEACON .. ON
+- Pushback .. Perform
+- L & R FUEL BOOST PUMPS .. ON
+- ENG L START .. HOLD until START illuminates
+= ONCE N2 Above 20
+- L THRUST LEVER .. IDLE
+- Repeat for R Engine
+
+# Before Taxi
+- GENERATORS .. AUTO
+- APU .. OFF
+- BLEED SOURCE .. BOTH ENG
+- RECIRC FANS .. ON
+- Flaps .. Set for TO
+- NAV Source .. Select FMS1
+- TOGA Button .. Push
+- N/W STRG .. ARMED
+- Flight Controls .. Checked
+- TRIM .. Checked
+- WXR .. ON
+- TAXI Lights .. ON
+- ANTI-ICE .. As Required
+
+# Taxi
+- THRUST REVERSERS LH & RH .. ARM
+- APU .. DEPOWER
+- PROBES .. ON
+
+# Before Takeoff
+- XPDR .. ON
+- TCAS .. ON
+- STROBE Lights .. ON
+- LANDING LIGHTS .. ON
+
+# Takeoff
+- Thrust .. 50
+= ONCE ENGINES STABILIZED
+- Thrust .. TOGA
+
+# After Takeoff
+- NAV & SPEED Modes .. Activate
+- THRUST REVERSERS .. OFF
+- CAS .. Check for Warnings
+
+# Before Descend
+- Arrival Information .. Check
+- Destination Weather .. Obtained
+- VNAV TRL .. Set
+- Landing Performance .. Calculate
+- ND .. Confirm VNAV Shown (MFD Menu)
+
+# Descent
+- LDG ELEV .. Checked
+- Approach .. Loaded and Correct
+= ONCE PASSING FL100
+- LDG & TAXI LIGHTS .. ON
+- SEAT BLTS .. ON
+= AT TRANSITION LEVEL
+- Baro .. Set Local QNH
+- NAV Frequency .. Check
+= ONCE VECTORED ONTO ILS
+- NAV Source .. Switch to LOC1
+
+# Before Landing
+- THRUST REVERSERS .. ARMED
+- LDG GEAR .. Down
+- Slats / Flaps .. As Required / Full
+
+# After Landing
+- Flaps .. Up
+- WXR .. OFF
+- THRUST REVERSE .. OFF
+- APU .. Start
+- XPDR .. As Required
+- STROBE .. OFF
+- LDG LIGHTS .. OFF
+- PROBES .. OFF
+
+# Shutdown
+- Parking Brake .. Set
+- SEAT BLTS .. OFF
+- Thrust Levers .. Shut Off
+- ANTI-ICE .. OFF
+- Fuel Pumps .. OFF
+- BEACON .. OFF
+- N/W STRG .. OFF
+
+# Securing
+- Chocks .. ON
+- Brakes .. OFF
+- IRS .. OFF
+- EMER LTS .. OFF
+- ANTI-ICE .. OFF
+- HYDRAULIC PUMPS .. OFF
+- EXTERNAL LTS .. OFF
+- APU .. OFF
+- BATTERY MASTER .. OFF
+- Cockpit Lights . OFF
