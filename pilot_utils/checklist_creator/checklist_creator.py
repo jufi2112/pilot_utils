@@ -48,12 +48,16 @@ class PDFChecklistCreator:
                          perform_background_coloring=checklist.background_coloring)
 
         section_id: int = 0
+        is_first_page = True
         while (section_id < len(checklist.sections)):
             section: ChecklistSection = checklist.sections[section_id]
             # Check whether section fits onto current page
             if not pdf.section_fits_page(section):
-                # Create new page
-                pdf.add_page()
+                if not is_first_page:
+                    # Create new page
+                    pdf.add_page()
+                else:
+                    is_first_page = False
             if not pdf.section_fits_page(section):
                 # Splits current section and returns it, puts new section into checklist after current section
                 section = self._split_section_to_fit_on_page(checklist,
